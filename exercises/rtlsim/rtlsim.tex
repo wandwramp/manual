@@ -8,6 +8,12 @@
 
 \usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
 
+\usepackage{fancyhdr}
+\fancypagestyle{rcsfooters}{
+\fancyfoot[L]{\small $ $RCSfile: rtlsim.tex,v $ $}
+\fancyfoot[R]{\small $ $Revision: 1.2 $ $}
+}
+
 %INCLUDE OUR GLOBALS
 \usepackage{rex201}
 \usepackage{styles201}
@@ -124,9 +130,9 @@ extra information about the state of the simulator.
 memory of the simulator. To do this you will need to load the S-record
 for the sequence using the ``Load S-Record'' option found in the
 ``File'' menu. This should pop up an open file dialog. You should load
-the file \filename{ex5\_1.srec} from the \filename{/home/201/ex5}
+the file \filename{ex4\_1.srec} from the \filename{/home/201/ex4}
 directory. The source code for this file can be found in the
-\filename{ex5\_1.s} file in the same directory. You should see the first
+\filename{ex4\_1.s} file in the same directory. You should see the first
 two memory locations in the ``Memory'' window change to the assembled
 version of the above instructions.
 
@@ -153,7 +159,7 @@ need to set the \src{pc\_out}, \src{alu\_out},
 \src{alu\_func=inc} and \src{pc\_in} signals and click on the
 ``Cycle'' button. There should now be two lines of signals in the
 history window. One line of signals is added to the history each time
-you press the ``Cycle'' button. A line represents shows what signals
+you press the ``Cycle'' button. A line shows which signals
 were set when you pressed the ``Cycle'' button.
 
 \item The last stage is to execute the instruction itself. This
@@ -161,7 +167,7 @@ instruction is an add unsigned immediate instruction. The result of an
 \src{addui} is to add the value stored in the instruction, in this
 case 0x7d2, together with the contents of Rs (\reg{0}) and place
 the result into \regd (\reg{3}). For a full explanation of all ALU
-functions refer to the ALU operations in table~ref{table:alu}. The
+functions refer to the ALU operations in table~\ref{table:alu}. The
 instruction can be run by setting \src{a\_out},
 \src{sel\_a=\$0}, \src{imm\_16\_out}, \src{alu\_out},
 \src{alu\_func=addu}, \src{c\_in}, \src{sel\_c=\$3}. Click on
@@ -196,7 +202,7 @@ submit it to the marking system.
 
 \item Load the following Web page :
 
-\filename{http://lab1-1.cs.waikato.ac.nz/\~{}mpearson/ex5\_submit.html}
+\filename{http://warlock.cs.waikato.ac.nz/\~{}201/2003/rtlsim.php}
 
 First enter your username and select the sequence 1 check box and
 browse to find the history you just saved. Click the submit button to
@@ -222,7 +228,7 @@ original state in preparation for the next sequence.
 The second sequence contains five instructions that are mostly
 arithmetic and memory instructions as shown in Figure~\ref{fig:seq2}.
 The S-record file for this sequence can be found in
-\filename{/home/201/ex5/ex5\_2.srec}. You should load it into the
+\filename{/home/201/ex4/ex4\_2.srec}. You should load it into the
 simulated machines memory and execute the instructions (again with you
 acting as the machines controller). As before, once you have fetched
 the \src{syscall} instruction and incremented the PC you have
@@ -262,7 +268,7 @@ web based marking program.
 
 This third sequence contains a series of branch and jump instructions
 as shown in Figure~\ref{fig:seq2}. The S-record can be found in
-\filename{/home/201/ex5/ex5\_3.srec}. Once you have managed to
+\filename{/home/201/ex4/ex4\_3.srec}. Once you have managed to
 successfully execute this sequence of instructions you should submit
 the history file to the web based marking program.
 
