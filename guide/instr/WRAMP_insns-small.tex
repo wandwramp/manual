@@ -18,8 +18,9 @@
 
 %\begin{table}[h]
 \begin{center}
-Arithmetic Instructions\\*
+%Arithmetic Instructions\\*
 
+\begin{table}[!h]
 \begin{tabular}{|l|l|l|p{5.5cm}|}
   \hline
   \textbf{Assembler}  & \textbf{Machine code} & \textbf{Function} &  \textbf{Description} \\
@@ -278,14 +279,16 @@ Arithmetic Instructions\\*
   \hline
 
 \end{tabular}
+\caption{Arithmetic Instructions}
+\end{table}
 
 
 
 
 
+%Bitwise Instructions\\*
 
-Bitwise Instructions\\*
-
+\begin{table}[!h]
 \begin{tabular}{|l|l|l|p{5.5cm}|}
   \hline
 
@@ -433,11 +436,13 @@ Bitwise Instructions\\*
   \hline
 
 \end{tabular}
+\caption{Bitwise Instructions}
+\end{table}
 
 
+%Test Instructions\\*
 
-Test Instructions\\*
-
+\begin{table}[!h]
 \begin{tabular}{|l|l|l|p{5.5cm}|}
   \hline
 
@@ -723,18 +728,22 @@ Test Instructions\\*
   \hline
 
 \end{tabular}
+\caption{Test Instructions}
+\end{table}
 
 
-
-
-Branch Instructions\\*
-
+%Branch Instructions\\*
+\begin{table}[!h]
 \begin{tabular}{|l|l|l|p{5.5cm}|}
 
   \hline
+
+  \multicolumn{4}{|c|}{\footnotesize{\textbf{Branch Instructions}}}
+  \\
+  \hline
   % J
-  \scriptsize{ \texttt{j Address} }
-  \makebox[1.3cm]{}
+  \scriptsize{ \texttt{j address} }
+  %\makebox[1.3cm]{}
   &
   \jtype{0100}{0000}{0000}
   &
@@ -747,7 +756,8 @@ Branch Instructions\\*
   % JR
   \scriptsize{ \texttt{jr \regssm} }
   &
-  \jtype{0101}{0000}{ssss}
+  %\jtype{0101}{0000}{ssss}
+  \scriptsize{\texttt{0101 0000 ssss 0000 0000 0000 0000 0000\ }}
   &
   \jumpinsn{\regssm}
   &
@@ -757,7 +767,7 @@ Branch Instructions\\*
 
   
   % JAL
-  \scriptsize{ \texttt{jal Address} }
+  \scriptsize{ \texttt{jal address} }
   &
   \jtype{0110}{0000}{0000}
   &
@@ -771,31 +781,92 @@ Branch Instructions\\*
   % JALR
   \scriptsize{ \texttt{jalr \regssm} }
   &
-  \jtype{0100}{0000}{ssss}
+  %\jtype{0100}{0000}{ssss}
+  \scriptsize{\texttt{0111 0000 ssss 0000 0000 0000 0000 0000\ }}
   &
-  \jumpinsn{\regssm}
+  \jalinsn{\regssm}
   &
-  \scriptsize{ Does this exist? }
+  \scriptsize{ Jump and Link Register }
   \\
   \hline
 
-\end{tabular}
+
+
+  % BEQZ
+  \scriptsize{ \texttt{beqz \regssm, offset} }
+  &
+  \scriptsize{\texttt{1010 0000 ssss oooo oooo oooo oooo oooo\ }}
+  &
+  \branchinsn{==}
+  &
+  \scriptsize{ Branch on equal to 0  }
+  \\
+  \hline
+
+
+  % BNEZ
+  \scriptsize{ \texttt{bnez \regssm, offset} }
+  &
+  \scriptsize{\texttt{1011 0000 ssss oooo oooo oooo oooo oooo\ }}
+  &
+  \branchinsn{!=}
+  &
+  \scriptsize{ Branch on not equal to 0  }
+  \\
+  \hline
 
 
 
-Special Instructions\\*
+% Memory Instructions
+ \multicolumn{4}{|c|}{\footnotesize{\textbf{Memory Instructions}}}
 
-\begin{tabular}{|l|l|l|p{5.5cm}|}
+ \\
+ \hline
 
+ % LW
+  \scriptsize{ \texttt{lw \regdsm, offset(\regssm)} }
+  &
+  \scriptsize{\texttt{1000 dddd ssss oooo oooo oooo oooo oooo\ }}
+  &
+  \lwinsn
+  &
+  \scriptsize{ Load word }
+  \\
+  \hline
+
+
+  % SW
+  \scriptsize{ \texttt{sw \regdsm, offset(\regssm)} }
+  &
+  \scriptsize{\texttt{1001 dddd ssss oooo oooo oooo oooo oooo\ }}
+  &
+  \swinsn
+  &
+  \scriptsize{ Store word  }
+  \\
+  \hline
+
+%\end{tabular}
+%\caption{Jump Instructions}
+%\end{table}
+
+
+%Special Instructions\\*
+
+%\begin{table}[!h]
+%\begin{tabular}{|l|l|l|p{5.5cm}|}
+
+  \multicolumn{4}{|c|}{\footnotesize{\textbf{Special Instructions}}}
+  \\
   \hline
   %MOVGS
   \scriptsize{ \texttt{movgs \regdsm, \regssm} }
-  \makebox[0.95cm]{}
+  %\makebox[0.95cm]{}
   &
   \scriptsize{\texttt{0011 0000 0000 1100 0000 0000 0000 0000\ }}
   &
   \specialinsn{\regdsm \leftarrow \regssm}
-  \makebox[1.80cm]{}
+  %\makebox[1.80cm]{}
   &
   \scriptsize{ Move General to Special Register }
   \\
@@ -851,11 +922,19 @@ Special Instructions\\*
 
 
 \end{tabular}
+\caption{Other Instructions}
+\end{table}
 
 \end{center}
 %\end{table}
 
 %\end{landscape}
+
+
+\begin{footnotesize}
+Notation:
+
+\end{footnotesize}
 
 
 \end{document}

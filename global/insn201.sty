@@ -49,14 +49,17 @@
 \newcommand{\srainsnimm}
            { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ immed\ ) $ } }
 \newcommand{\jumpinsn}[1]
-           { \scriptsize{$ pc \leftarrow #1 $} }
+           { \scriptsize{$ PC \leftarrow #1 $} }
 \newcommand{\jalinsn}[1]
-           { \scriptsize{$ \$ra \leftarrow pc,\ pc \leftarrow #1 $} } 
+           { \scriptsize{$ \$ra \leftarrow PC,\ PC \leftarrow #1 $} } 
 \newcommand{\specialinsn}[1]
            { \scriptsize{ $ #1 $ } }
-
-
-
+\newcommand{\branchinsn}[1]
+           { \scriptsize{ $ if(\regssm\ #1\ 0)\ PC\ \leftarrow\ PC + offset $}}
+\newcommand{\lwinsn}
+           { \scriptsize{ $ \regdsm\ \leftarrow\ [\regssm + offset] $}}
+\newcommand{\swinsn}
+           { \scriptsize{ $ [\regssm + offset]\ \leftarrow\ \regdsm $}}
 %%%%%%%%%%%%%
 %
 % Actual stuff
