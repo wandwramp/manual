@@ -7,9 +7,9 @@ PDFIMG = $(patsubst global/graphics/src/%, global/graphics/%, \
 DVI = $(patsubst %.tex, %.dvi, $(patsubst guide/standalone/%, \
 		build/guides/%, $(wildcard guide/standalone/*_a.tex)))
 STANDALONE = $(patsubst %.tex, %.ps, $(patsubst guide/standalone/%, \
-		output/guides/ps/%, $(wildcard guide/standalone/*_a.tex))) \
+		output/guides/ps/%, $(wildcard guide/standalone/*a.tex))) \
 		$(patsubst %.tex, %.pdf, $(patsubst guide/standalone/%, \
-		output/guides/pdf/%, $(wildcard guide/standalone/*_a.tex)))
+		output/guides/pdf/%, $(wildcard guide/standalone/*a.tex)))
 
 GUIDESRC = $(wildcard guide/*.tex)
 BOOKSRC  = book/book.tex
