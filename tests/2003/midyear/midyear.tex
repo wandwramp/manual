@@ -1,0 +1,1681 @@
+\documentclass[a4paper,10pt]{article}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1.5ex}
+
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[a4paper, hmargin=15mm, vmargin=30mm, nohead]{geometry}
+
+\begin{document}
+\newcommand{\marks}[1]
+{\begin{flushright}{\bf (#1 marks)}\end{flushright}}
+
+{\centering \large \bf THE UNIVERSITY OF WAIKATO\\}
+{\centering \large \bf Department of Computer Science\\[0.5cm]}
+
+{\centering \large \bf COMP201Y Computer Systems 2003 \\}
+{\centering \large \bf Mid Year Test - Wednesday 4th June, 2003, 7pm L2/L3 \\[1cm]}
+
+\begin{itemize}
+  \item Please answer ALL questions.
+
+  \item Time allowed: 90 minutes
+
+  \item Marked out of: 90
+
+  \item Contribution toward final grade: 25\%
+  
+  \item Please answer questions on the answer sheet provided. 
+
+  \item Write your name and student ID on each page
+
+  \item This is a CLOSED book test, although calculators are permitted
+\end{itemize}
+
+\hrule
+\section{Multichoice (1 mark each)}
+\begin{enumerate}
+
+\item Which of the following is not a component of the central
+processing unit?
+\begin{enumerate}
+ \item primary storage 
+ \item arithmetic logic unit
+ \item registers
+ \item control unit
+\end{enumerate}
+
+\item Which of the following best describes the type of data stored in a
+PostScript file? 
+\begin{enumerate}
+  \item bitmap graphics data
+  \item vectorised graphics data
+  \item character data
+  \item audio data
+\end{enumerate}
+
+\item What are the two major components of any central processing unit
+(CPU) that are visible to the programmer? 
+\begin{enumerate}
+  \item arithmetic logic unit and control unit
+  \item registers and instruction set
+  \item instruction set and arithmetic logic unit 
+  \item registers and control unit
+\end{enumerate}
+
+\item Assembler directives are used in an assembly language program to...
+\begin{enumerate}
+  \item generate instructions
+  \item replace instructions
+  \item give commands to the assembler
+  \item comment the code
+\end{enumerate}
+
+\newpage
+\item The wave file format is used to store...
+\begin{enumerate}
+  \item bitmap graphics data
+  \item vectorised graphics data
+  \item character data
+  \item audio data
+\end{enumerate}
+
+\begin{figure}[h]
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|lp{4cm}|lp{4cm}|}
+\hline
+(a) &
+\begin{verbatim}
+       addi $2, $0, 1
+label: sgti $4, $2, 4
+       bnez $4, label2
+       ...
+       addi $2, $2, 1
+       j    label
+label2:
+       ...
+\end{verbatim}
+& (b) &
+\begin{verbatim}
+       slt   $13, $3, $4
+       beqz  $13, label
+       ...
+       j     label2
+label:
+       ...
+label2:
+       ...
+\end{verbatim}
+\\
+\hline
+(c) &
+\begin{verbatim}
+       sge   $13, $3, $4
+       beqz  $13, label
+       ...
+label: 
+       ...
+\end{verbatim}
+& (d) &
+\begin{verbatim}
+       addi $2, $0, 1
+label: sgei $4, $2, 4
+       bnez $4, label2
+       ...
+       addi $2, $2, 1
+       j    label
+label2:
+       ...     
+\end{verbatim}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\caption{Code for multichoice questions~\ref{ques:multicode}
+--~\ref{ques:multicodeend}}
+\label{fig:multicode}
+\end{figure}
+
+\item 
+\label{ques:multicode}
+Which of the WRAMP code segments in Figure~\ref{fig:multicode}
+would implement an if statement without an else clause?
+\begin{enumerate}
+  \item a
+  \item b
+  \item c
+  \item d
+\end{enumerate}
+
+\item 
+Which of the WRAMP code segments in Figure~\ref{fig:multicode} would
+implement a loop which iterates four (4) times?
+\begin{enumerate}
+  \item a
+  \item b
+  \item c
+  \item d
+\end{enumerate}
+
+\item 
+\label{ques:multicodeend}
+Which of the WRAMP code segments in Figure~\ref{fig:multicode}
+would implement an if statement with an else clause?
+\begin{enumerate}
+  \item a
+  \item b
+  \item c
+  \item d
+\end{enumerate}
+
+\newpage
+\item What is the hexadecimal number \texttt{0x9b64} in binary?
+\begin{enumerate}
+  \item 1001 1011 0100 0110
+  \item 1000 1010 0110 0010
+  \item 1001 1011 0110 0100
+  \item 1000 1001 0101 0100
+\end{enumerate}
+
+\item Which one of the following statements is true?
+\begin{enumerate}
+  \item the WRAMP processor is an example of a memory-register architecture.
+  \item instructions in a memory-register architecture are generally
+   shorter (require fewer bits to encode) than instructions in a
+   register-register architecture 
+  \item all WRAMP machine code instructions are of equal length
+  \item in modern CPUs' data transfers between registers within the
+  CPU are significantly slower than those between registers and main
+  memory. 
+\end{enumerate}
+
+\end{enumerate}
+
+\section{Short Answer}
+
+\begin{enumerate}
+
+\item What is the ASCII coding scheme used to represent? How many bits are used?
+\marks{2}
+
+\item Express the decimal number 2456 in ``Packed BCD'' format.
+\marks{2}
+
+\item Input and output ports differ in characteristics. What special characteristic
+of input ports allows several of them to share a common bus?
+\marks{2}
+
+\item Which WRAMP intruction is used to pass data to an output port?
+\marks{2}
+
+\item Explain the difference between the operation of the following two WRAMP instructions
+in the case where \texttt{\$4} = \texttt{0xfffffffe} and \texttt{\$5} = \texttt{0x00000003}.
+You must also indicate the result that each instruction will produce.
+
+\begin{enumerate}
+  \item \texttt{slt \$3, \$4, \$5}
+  \item \texttt{sltu \$3, \$4, \$5}
+\end{enumerate}
+\marks{4}
+
+\item Convert -20 decimal to 2's complement 32 bit format. Show your work.
+\marks{2}
+
+\item What value will \texttt{\$2} contain after the following two instructions have been executed? Show your work.
+\begin{verbatim}
+        addi     $2, $0, 19
+        andi     $2, $2, 0x0d
+\end{verbatim}
+\marks{2}
+\newpage
+\item Register \texttt{\$ra} serves a special function in WRAMP. Explain in detail which instruction(s)
+use it and how it is important.
+\marks{4}
+
+\item Convert the following 32 bit IEEE-754 format number to decimal.
+The IEEE-754 format is shown in Figure \ref{fig:ieee754}. Show your working.
+\begin{center}
+\texttt{01000000 11010100 00000000 00000000 (0x40d40000)}
+\end{center}
+\marks{4}
+
+\item Convert the decimal number -29.125 to the IEEE-754 format that is
+provided in Figure \ref{fig:ieee754}. Show your working.
+\marks{4}
+
+\begin{figure}[h]
+\begin{center}
+    \psfig{figure=float.eps, width=.5\linewidth}
+    \caption{IEEE-754 Format}
+    \label{fig:ieee754}
+  \end{center}
+\end{figure}
+
+\item If the instruction \texttt{bnez \$6, 0x1a} is located at the
+address \texttt{0xbd3}, if this instruction is executed and the branch is taken
+(i.e. \texttt{\$6} $\neq$ 0), then which memory location will the next
+instruction bee fetched from?
+\marks{4}
+
+\item Using the supplied WRAMP Instruction Set Architecture document,
+assemble the WRAMP instruction:\\
+\texttt{multui \$11, \$7, 0x1e5} to machine code.
+\marks{4}
+
+\item Using the supplied WRAMP Instruction Set Architecture document,
+disassemble the WRAMP machine code instruction:
+\begin{center}
+\texttt{0011 0101 1001 0110 0101 0100 0001 1010}
+\end{center}
+\marks{4}
+
+\item The header for a GIF image is shown in Figure
+\ref{fig:gifhex}. Determine in decimal the width and height of this
+image. You should show any working. The file format for GIF images is
+shown in Figure \ref{fig:gifheader}. Data is stored in GIF images in
+Little Endian format.
+\marks{4}
+
+\begin{figure}[h]
+{\small
+%This was taken from snow.gif and is 210x320 pixels
+\begin{verbatim}
+       00000000: 4749 4638 3961 d200 4001 f7ff 0001 0103  GIF89a..@.......
+       00000010: 0202 0b0b 0a0c 0806 0702 0312 0b0b 1207  ................
+       00000020: 0919 0c11 1811 0c09 110c 1515 160a 1616  ................
+       00000030: 170d 1208 080a 230c 1225 1516 260e 1335  ......#..%..&..5
+       00000040: 1c22 0d1a 2333 231a 1422 1d24 2628 1734  ."..#3#..".$&(.4
+\end{verbatim}}
+%$
+\caption{HEX dump of GIF file header}
+\label{fig:gifhex}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+  \psfig{figure=gif_defn.eps, width=.65\linewidth}
+  \caption{GIF file header format}
+  \label{fig:gifheader}
+  \end{center}
+\end{figure}
+
+\item
+\label{ques:swapend}
+
+Figure~\ref{fig:swapend} contains a WRAMP program. You are to trace
+the execution in order to determine what it does.  A break point has
+been set in the middle of the loop (at line 10) to achieve this.
+
+\begin{enumerate} 
+\item What would the contents of registers \texttt{\$2} to \texttt{\$5} be each time this
+break point was encountered when the program was run?
+\marks{6}
+\item What does this program do?
+\marks{2}
+\end{enumerate}
+
+\begin{figure}[h]
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|p{10cm}|}
+\hline
+\begin{verbatim}
+        1:   .global main
+        2:   main:
+        3:         lhi  $3, 0x8765
+        4:         addi $3, $3, 0x4321
+        5:         add  $5, $0, $0
+        6:         addi $4, $0, 4
+        7:   loop:    
+        8:         lhi  $2, 0xff00
+        9:         and  $2, $2, $3
+        10:        srli $5, $5, 8
+        11:        or   $5, $5, $2
+        12:        slli $3, $3, 8
+        13:        subi $4, $4, 1
+        14:        bnez $4, loop
+        15:        jr   $ra
+\end{verbatim}
+\\
+%$
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\caption{WRAMP program for Question~\ref{ques:swapend}}
+\label{fig:swapend}
+\end{figure}
+
+\newpage
+\item 
+\label{ques:cprog}
+Figures \ref{fig:cprog} and \ref{fig:wrampgen} show the "C" code and
+the WRAMP code generated by the \texttt{wcc} compiler for a non-leaf
+function \verb+max_absolute+ that finds the index of the maximum absolute
+value from an array. To do this, the function calls another function called
+\verb+absolute+, which calculates the absolute value of a given integer.
+
+\begin{enumerate}
+  \item For the C function indicate which lines of the WRAMP code were
+  generated for:
+  \begin{enumerate}
+   \item \verb+maximum = 0;+
+   \item \verb+item = absolute(array[i]);+
+   \item \verb+index = i;+
+  \end{enumerate}
+
+\marks{6}
+
+  \item Draw a diagram to show what the stack frame created when the
+  function \verb+max_absolute+ is called will look like. On your
+  diagram clearly indicate the purpose of each entry in the stack
+  frame. Your diagram should also clearly indicate where the two
+  parameters that are passed to the function are stored on the stack.
+  \marks{8} 
+\end{enumerate}
+
+\begin{figure}[h]
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|p{10cm}|}
+\hline
+\begin{verbatim}
+        1:   int absolute(int x);
+        2:   
+        3:   int max_absolute(int array[], int length)
+        4:   {
+        5:     int maximum;
+        6:     int index;
+        7:     int item;
+        8:     int i;
+        9:   
+        10:    maximum = 0;
+        11:   
+        12:    for (i = 0 ; i < length ; i++) {
+        13:      item = absolute(array[i]);
+        14:  
+        15:      if (item >= maximum) {
+        16:        index = i;
+        17:        maximum = item;
+        18:      }
+        19:    }
+        20:    return index;
+        21:  }
+\end{verbatim}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\caption{C code for Question~\ref{ques:cprog}}
+\label{fig:cprog}
+\end{figure}
+
+\newpage
+\begin{figure}[ht]
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|p{10cm}|}
+\hline
+\begin{verbatim}
+        1:   .global    max_absolute
+        2:   .text
+        3:   max_absolute:
+        4:      subui   $sp, $sp, 7
+        5:      sw      $4, 1($sp)
+        6:      sw      $5, 2($sp)
+        7:      sw      $6, 3($sp)
+        8:      sw      $7, 4($sp)
+        9:      sw      $13, 5($sp)
+        10:     sw      $ra, 6($sp)
+        11:     addu    $13, $0, $0
+        12:     addu    $5, $0, $13
+        13:     addu    $7, $0, $13
+        14:     j       L.5
+        15:  L.2:
+        16:     lw      $13, 7($sp)
+        17:     addu    $13, $7, $13
+        18:     lw      $13, 0($13)
+        19:     sw      $13, 0($sp)
+        20:     jal     absolute
+        21:     addu    $13, $0, $1
+        22:     addu    $6, $0, $13
+        23:     slt     $13, $6, $5
+        24:     bnez    $13, L.6
+        25:     addu    $4, $0, $7
+        26:     addu    $5, $0, $6
+        27:  L.6:
+        28:  L.3:
+        29:     addi    $7, $7, 1
+        30:  L.5:
+        31:     lw      $13, 8($sp)
+        32:     slt     $13, $7, $13
+        33:     bnez    $13, L.2
+        34:     addu    $1, $0, $4
+        35:  L.1:
+        36:     lw      $4, 1($sp)
+        37:     lw      $5, 2($sp)
+        38:     lw      $6, 3($sp)
+        39:     lw      $7, 4($sp)
+        40:     lw      $13, 5($sp)
+        41:     lw      $ra, 6($sp)
+        42:     addui   $sp, $sp, 7
+        43:     jr      $ra
+\end{verbatim}
+%$
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\caption{WRAMP code generated by \texttt{wcc} for C program in Figure
+\ref{fig:cprog}}
+\label{fig:wrampgen}
+\end{figure}
+
+\newpage
+\item 
+\label{ques:datapath}
+
+Figure \ref{fig:wrampblok} shows the architecture of the WRAMP
+CPU that contains three 32 bit internal buses. Although not shown on
+the diagram there are control lines between the control unit and each
+of the components, which are used to control the flow of data on the
+data-path. The control signals for each of the components and their
+functionality is defined in Tables \ref{table:signals} and \ref{table:alu}.
+
+\begin{figure}[h]
+\begin{center}
+    \psfig{figure=datapath.eps, width=.7\linewidth}
+    \caption{Datapath Architecture for WRAMP CPU}
+    \label{fig:wrampblok}
+  \end{center}
+\end{figure}
+
+\begin{enumerate}
+
+  \item If the registers contained the values shown in Figure
+  \ref{fig:wrampreg} what would the new values of the registers be
+  after executing the following three control steps:
+{\small
+\begin{verbatim}
+Step 1: pc_out, alu_out, alu_func = inc, temp_in
+Step 2: a_out, sel_a = 2, b_out, sel_b = 10, alu_func = sub, alu_out, sel_c = 11, c_in
+Step 3: temp_out, imm_20_out,  alu_out, alu_func = add, ir_in
+\end{verbatim}
+}
+\marks{4}
+
+\begin{figure}[h]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\verb+$0 = 0x0+ & \verb+$1 = 0x10+ & \verb+$2 = 0x15+ & \verb+$3 = 0xb+
+\\
+\hline
+\verb+$4 = 0x36+ & \verb+$5 = 0x12+ & \verb+$6 = 0x65+ & \verb+$7 = 0xab+
+\\
+\hline
+\verb+$8 = 0x6+ & \verb+$9 = 0x1e+ & \verb+$10 = 0x2a+ & \verb+$11 = 0xba+
+\\
+\hline
+\verb+$12 = 0xff+ & \verb+$13 = 0x19+ & \verb+$sp = 0x7f003+ & \verb+$ra = 0x14+
+\\
+\hline
+\verb+PC = 0x4b+ & \verb+IR = 0x05100007+ & \verb+TEMP = 0x12a76+ & \\
+\hline
+\end{tabular}
+\end{center}
+\caption{State of registers for Question~\ref{ques:datapath}}
+\label{fig:wrampreg}
+\end{figure}
+
+\item For the following question, list the control signals required to perform the specified operation.
+
+For each part, a table listing all control signals is on your answer sheet. You must indicate
+the signals required in each control step, by placing either an 'X' or a value as appropriate
+in the table. If the machine requires more than one step to complete the operation, then you should
+use multiple columns and label them 'step 1', 'step 2', etc. 
+
+\begin{enumerate}
+\item Load the next instruction into the Instruction Register, and increment the Program Counter.
+\marks{2}
+
+\item Execute the instruction \texttt{jal guesswhat}. You can assume the instruction has already been
+fetched and the Program Counter has been incremented.
+\marks{4}
+
+\item Execute the instruction \texttt{lw \$4, 25(\$5)}. You can assume the instruction has already been
+fetched and the Program Counter has been incremented.
+\marks{4}
+\end{enumerate}
+
+\end{enumerate}
+
+\end{enumerate}
+
+\newpage
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|p{8cm}|}
+\hline
+\textbf{Component} & \textbf{Signal Name} & \textbf{Description} \\
+\hline
+Register File & \texttt{a\_out} & Causes the contents of the
+register selected by \texttt{sel\_a} to be output onto the A bus. \\
+\cline{2-3}
+& \texttt{sel\_a} & Select which register will be output onto the A bus
+if \texttt{a\_out} is asserted. \\
+\cline{2-3}
+& \texttt{b\_out} & Causes the contents of the
+register selected by \texttt{sel\_b} to be output onto the B bus. \\
+\cline{2-3}
+& \texttt{sel\_b} & Select which register will be output onto the B bus
+if \texttt{b\_out} is asserted. \\
+\cline{2-3}
+& \texttt{c\_in} & Causes the value from the C bus to be written
+into the register selected by \texttt{sel\_c}.\\
+\cline{2-3}
+& \texttt{sel\_c} & Select which register to write the value from the C
+bus into when the \texttt{c\_in} signal is asserted. \\
+\hline
+ALU & \texttt{alu\_out} & Causes the result of the current ALU function 
+selected by \texttt{alu\_func} to be output to the C bus. \\
+\cline{2-3}
+& \texttt{alu\_func} & Defines the current operation that the ALU
+should perform. ALU functions are defined in table~\ref{table:alu}. \\
+\hline
+Memory Interface & \texttt{mem\_read} & Causes the contents of the
+memory address specified on the A bus to be read and output onto the C
+bus. \\
+\cline{2-3}
+& \texttt{mem\_write} & Causes the value on the B bus to be written
+into the memory address specified on the A bus. \\
+\hline
+Program Counter & \texttt{pc\_out} & Causes the contents of the PC
+register to be output onto the A bus. \\
+\cline{2-3}
+& \texttt{pc\_in} & Causes the value on the C bus to be written into
+the PC. \\
+\hline
+Instruction Register & \texttt{imm\_16\_out} & Causes the least
+significant 16 bits of the IR to be output onto the B bus. \\
+\cline{2-3}
+& \texttt{imm\_20\_out} & Causes the least
+significant 20 bits of the IR to be output onto the B bus. \\
+\cline{2-3}
+& \texttt{sign\_extend} & Causes the output from the IR to be sign
+extended to 32bits. \\
+\cline{2-3}
+& \texttt{ir\_in} & Causes the value on the C bus to be written into
+the IR. \\
+\hline
+Temporary Register & \texttt{temp\_out} & Causes the contents of the
+temporary register to be output onto the A bus. \\
+\cline{2-3}
+& \texttt{temp\_in} & Causes the value on the C bus to be written into
+the temporary register. \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Descriptions of each of the control signals}
+\label{table:signals}
+\end{table}
+\newpage
+\begin{table}[h]
+All arithmetic and test/set operations have both signed and unsigned
+variants. The unsigned variant is indicated by an operation with a
+'u' suffix. A signed variant treats all inputs as signed integers while
+the unsigned variant treats inputs as unsigned integers.
+
+\begin{center}
+\begin{tabular}{|l|l|l|p{75mm}|}
+\hline
+\textbf{Type} & \textbf{Name} & \textbf{Function} 
+& \textbf{Description} \\
+\hline
+Arithmetic & \texttt{add, addu} & A + B & Perform an integer
+addition between A and B. \\
+\cline{2-4}
+& \texttt{sub, subu} & A - B & Perform an integer
+subtraction between A and B. \\
+\cline{2-4}
+& \texttt{mult, multu} & A * B & Perform an
+integer multiplication between A and B. \\
+\cline{2-4}
+& \texttt{div, divu} & A / B & Perform an integer
+division between A and B. \\
+\cline{2-4} 
+& \texttt{rem, remu} & A $\bmod$ B & Obtain the remainder from an
+integer division between A and B. \\
+\hline
+Bitwise & \texttt{sll} & A $<<$ B & Shift the value on A left by the number of
+places specified by B. Fill with zeros. \\
+\cline{2-4}
+& \texttt{and} & A AND B & Perform a bitwise AND between A and B. \\
+\cline{2-4}
+& \texttt{srl} & A $>>$ B & Shift the value on A right by the number of places
+specified by B. Fill with zeros. \\
+\cline{2-4}
+& \texttt{or} & A OR B & Perform a bitwise OR between A and B.\\
+\cline{2-4}
+& \texttt{sra} & A $>>$ B & Shift the value on A right by the number of places
+specified by B. Fill with MSB.\\
+\cline{2-4}
+& \texttt{xor} & A XOR B & Perform a bitwise XOR between A and B. \\
+\hline
+Test/set & \texttt{slt, sltu} & out = 1 if ( A $<$ B) & Set out if A
+is less than B\\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{sgt, sgtu} & out = 1 if ( A $>$ B) & Set out if A
+is greater than B \\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{sle, sleu} & out = 1 if ( A $\le$ B) & Set out if A
+is less than or equal to B\\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{sge, sgeu} & out = 1 if ( A $\ge$ B) & Set out if A
+is greater than or equal to B\\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{seq, sequ} & out = 1 if ( A $=$ B) & Set out if A
+is equal to B \\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{sne, sneu} & out = 1 if ( A $\neq$ B) & Set out if A
+is not equal to B \\
+& & else out = 0 & \\
+\hline
+Misc & \texttt{lhi} & out\tiny$_{[31...16]}$\normalsize~= B\tiny$_{[15...0]}$ &
+Set the upper 16 bits of out to be the lower 16 \\
+& & out\tiny$_{[15...0]}$\normalsize~= 0 & bits of B. Lower 16 bits of out set to zero. \\ 
+\cline{2-4}
+& \texttt{inc} & out = A + 1 & Increment A\\
+\hline
+\end{tabular}
+\end{center}
+\caption{ALU Operations}
+\label{table:alu}
+\end{table}
+
+\appendix
+
+%%%%%%%%
+% Formatting
+%%%%%%%%
+
+% New register definitions for small font size
+\newcommand{\subscrsm}[1]{\raisebox{-0.5ex}{\tiny #1}}  %Subscript
+\newcommand{\regdsm}{R\subscrsm{d}}
+\newcommand{\regssm}{R\subscrsm{s}}
+\newcommand{\regtsm}{R\subscrsm{t}}
+
+
+% Characters and Stuff
+\newcommand{\mem}[1]{[ #1 ]}
+\newcommand{\signextend}{\int}
+
+% Instruction types
+\newcommand{\rtype}[2]
+	   { \scriptsize{\texttt{#1 dddd ssss #2 0000 0000 0000 tttt}} } 
+\newcommand{\itype}[2]
+	   { \scriptsize{\texttt{#1 dddd ssss #2 iiii iiii iiii iiii} } }
+%\newcommand{\jtype}[1]
+%	   { \scriptsize{\texttt{#1 dddd ssss aaaa aaaa aaaa aaaa aaaa} } }
+\newcommand{\jtype}[3]
+	   { \scriptsize{\texttt{#1 #2 #3 aaaa aaaa aaaa aaaa aaaa} } }
+
+%Instructions
+\newcommand{\arithmeticinsn}[1]
+	   { \scriptsize{$ \regdsm \leftarrow \regssm #1 \regtsm $ } }
+\newcommand{\arithmeticinsni}[1]
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 \signextend(immed) $ }
+	   }
+\newcommand{\arithmeticinsnu}[1]
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 \regtsm $ } }
+\newcommand{\arithmeticinsnui}[1]
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 immed $ } }
+\newcommand{\lhiinsn}
+           { \scriptsize{$ \regdsm \leftarrow immed \ll 16 $} }
+\newcommand{\lainsn}
+           { \scriptsize{$ \regdsm \leftarrow address $} }
+\newcommand{\srainsn}
+           { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ \regtsm\ ) $ } }
+\newcommand{\srainsnimm}
+           { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ immed\ ) $ } }
+\newcommand{\jumpinsn}[1]
+           { \scriptsize{$ PC \leftarrow #1 $} }
+\newcommand{\jalinsn}[1]
+           { \scriptsize{$ \texttt{\$ra} \leftarrow PC,\ PC \leftarrow #1 $} } 
+\newcommand{\specialinsn}[1]
+           { \scriptsize{ $ #1 $ } }
+\newcommand{\branchinsn}[1]
+           { \scriptsize{ $ if(\regssm\ #1\ 0)\ PC\ \leftarrow\ PC + offset $}}
+\newcommand{\lwinsn}
+           { \scriptsize{ $ \regdsm\ \leftarrow\ MEM[\regssm + offset] $}}
+\newcommand{\swinsn}
+           { \scriptsize{ $ MEM[\regssm + offset]\ \leftarrow\ \regdsm $}}
+
+\newpage
+
+\section{WRAMP Instruction Set Summary}
+
+\small{
+\begin{itemize}
+\item $\int$ denotes a signed operation. For immediate values this implies sign extension. For bitwise shift right this implies an arithmetic shift.
+
+\item MEM[\regssm\ + offset] denotes the contents of the memory location addressed by the sum of register \regssm\ and the 20 bit offset.
+
+\item On instruction fetch the Program Counter is incremented. This means that branch instructions operate relative to
+the address of the following instruction, and \texttt{jal} and \texttt{jalr} instructions save the address of the following instruction.
+\end{itemize}
+}
+%\begin{table}[h]
+\begin{center}
+%Arithmetic Instructions\\*
+\begin{table}[!h]
+\begin{tabular}{|l|l|l|p{5.5cm}|}
+  \hline
+  \textbf{Assembler}  & \textbf{Machine code} & \textbf{Function} &  \textbf{Description} \\
+  \hline
+
+  % ADD
+  \scriptsize{ \texttt{add \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{0000}
+  &
+  \arithmeticinsn{+}
+  &
+  \scriptsize{ Add }
+  \\
+  \hline
+
+
+  % ADDI
+  \scriptsize{ \texttt{addi \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{0000}
+  &
+  \arithmeticinsni{+}
+  &
+  \scriptsize{ Add Immediate }
+  \\
+  \hline
+
+  % ADDU
+  \scriptsize{ \texttt{addu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{0001}
+  &
+  \arithmeticinsnu{+}
+  &
+  \scriptsize{ Add Unsigned }
+  \\
+  \hline
+
+
+  % ADDUI
+  \scriptsize{ \texttt{addui \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{0001}
+  &
+  \arithmeticinsnui{+}
+  &
+  \scriptsize{ Add Unsigned Immediate }
+  \\
+  \hline
+
+
+  % SUB
+  \scriptsize{ \texttt{sub \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{0010}
+  &
+  \arithmeticinsn{-}
+  &
+  \scriptsize{ Subtract }
+  \\
+  \hline
+
+  % SUBI
+  \scriptsize{ \texttt{subi \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{0010}
+  &
+  \arithmeticinsni{-}
+  &
+  \scriptsize{ Subtract Immediate }
+  \\
+  \hline
+
+  % SUBU
+  \scriptsize{ \texttt{subu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{0011}
+  &
+  \arithmeticinsnu{-}
+  &
+  \scriptsize{ Subtract Unsigned }
+  \\
+  \hline
+
+  % SUBUI
+  \scriptsize{ \texttt{subui \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{0011}
+  &
+  \arithmeticinsnui{-}
+  &
+  \scriptsize{ Subtract Unsigned Immediate }
+  \\
+  \hline
+
+
+  
+
+  % MULT
+  \scriptsize{ \texttt{mult \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{0100}
+  &
+  \arithmeticinsn{\times}
+  &
+  \scriptsize{ Multiply }
+  \\
+  \hline
+
+  % MULTI
+  \scriptsize{ \texttt{multi \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{0100}
+  &
+  \arithmeticinsni{\times}
+  &
+  \scriptsize{ Multiply Immediate }
+  \\
+  \hline
+
+  % MULTU
+  \scriptsize{ \texttt{multu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{0101}
+  &
+  \arithmeticinsnu{\times}
+  &
+  \scriptsize{ Multiply Unsigned }
+  \\
+  \hline
+
+  % MULTUI
+  \scriptsize{ \texttt{multui \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{0101}
+  &
+  \arithmeticinsnui{\times}
+  &
+  \scriptsize{ Multiply Unsigned Immediate }
+  \\
+  \hline
+
+
+  % DIV
+  \scriptsize{ \texttt{div \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{0110}
+  &
+  \arithmeticinsn{\div}
+  &
+  \scriptsize{ Divide }
+  \\
+  \hline
+
+  % DIVI
+  \scriptsize{ \texttt{divi \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{0110}
+  &
+  \arithmeticinsni{\div}
+  &
+  \scriptsize{ Divide Immediate }
+  \\
+  \hline
+
+  % DIVU
+  \scriptsize{ \texttt{divu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{0111}
+  &
+  \arithmeticinsnu{\div}
+  &
+  \scriptsize{ Divide Unsigned }
+  \\
+  \hline
+
+  % DIVUI
+  \scriptsize{ \texttt{divui \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{0111}
+  &
+  \arithmeticinsnui{\div}
+  &
+  \scriptsize{ Divide Unsigned Immediate }
+  \\
+  \hline
+
+  
+  % REM
+  \scriptsize{ \texttt{rem \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1000}
+  &
+  \arithmeticinsn{\ \%\ }
+  &
+  \scriptsize{ Remainder }
+  \\
+  \hline
+
+  % REMI
+  \scriptsize{ \texttt{remi \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1000}
+  &
+  \arithmeticinsni{\ \%\ }
+  &
+  \scriptsize{ Remainder Immediate }
+  \\
+  \hline
+
+  % REMU
+  \scriptsize{ \texttt{remu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1001}
+  &
+  \arithmeticinsnu{\ \%\ }
+  &
+  \scriptsize{ Remainder Unsigned }
+  \\
+  \hline
+
+  % REMUI
+  \scriptsize{ \texttt{remui \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1001}
+  &
+  \arithmeticinsnui{\ \%\ }
+  &
+  \scriptsize{ Remainder Unsigned Immediate }
+  \\
+  \hline
+
+
+  % LHI
+  \scriptsize{ \texttt{lhi \regdsm, immed} }
+  &
+  \itype{0011}{1110}
+  &
+  \lhiinsn
+  &
+  \scriptsize{ Load High Immediate }
+  \\
+  \hline
+
+  % LA
+  \scriptsize{ \texttt{la \regdsm, address} }
+  &
+  \jtype{1100}{dddd}{0000}
+  &
+  \lainsn
+  &
+  \scriptsize{ Load Address }
+  \\
+  \hline
+
+\end{tabular}
+\caption{Arithmetic Instructions}
+\end{table}
+
+%Bitwise Instructions\\*
+
+
+
+\begin{table}[!h]
+\begin{tabular}{|l|l|l|p{5.5cm}|}
+  \hline
+
+  % AND
+  \scriptsize{ \texttt{and \regdsm, \regssm, \regtsm} }
+  \makebox[.65cm]{}
+  &
+  \rtype{0000}{1011}
+  &
+  \arithmeticinsnu{\ AND\ }
+  &
+  \scriptsize{ Bitwise AND }
+  \\
+  \hline
+
+
+  % ANDI
+  \scriptsize{ \texttt{andi \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1011}
+  &
+  \arithmeticinsnui{\ AND\ }
+  &
+  \scriptsize{ Bitwise AND Immediate }
+  \\
+  \hline
+
+  % OR
+  %\fullarith{add}{0000}{0001}{+}
+  \scriptsize{ \texttt{or \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1101}
+  &
+  \arithmeticinsnu{\ OR\ }
+  &
+  \scriptsize{ Bitwise OR }
+  \\
+  \hline
+
+
+  % ORI
+  \scriptsize{ \texttt{ori \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1101}
+  &
+  \arithmeticinsnui{\ OR\ }
+  &
+  \scriptsize{ Bitwise OR Immediate }
+  \\
+  \hline
+  
+  % XOR
+  \scriptsize{ \texttt{xor \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1111}
+  &
+  \arithmeticinsnu{\ XOR\ }
+  &
+  \scriptsize{ Bitwise XOR }
+  \\
+  \hline
+
+
+  % XORI
+  \scriptsize{ \texttt{xori \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1111}
+  &
+  \arithmeticinsnui{\ XOR\ }
+  &
+  \scriptsize{ Bitwise XOR Immediate }
+  \\
+  \hline
+
+
+  % SLL
+  \scriptsize{ \texttt{sll \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1010}
+  &
+  \arithmeticinsnu{\ \ll\ }
+  &
+  \scriptsize{ Shift Left Logical }
+  \\
+  \hline
+
+
+  % SLLI
+  \scriptsize{ \texttt{slli \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1010}
+  &
+  \arithmeticinsnui{\ \ll\ }
+  &
+  \scriptsize{ Shift Left Logical Immediate }
+  \\
+  \hline  
+  
+ 
+  % SRL
+  \scriptsize{ \texttt{srl \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1100}
+  &
+  \arithmeticinsnu{\ \gg\ }
+  &
+  \scriptsize{ Shift Right Logical }
+  \\
+  \hline
+
+
+  % SRLI
+  \scriptsize{ \texttt{srli \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1100}
+  &
+  \arithmeticinsnui{\ \gg\ }
+  &
+  \scriptsize{ Shift Right Logical Immediate }
+  \\
+  \hline
+
+
+  % SRA
+  \scriptsize{ \texttt{sra \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1110}
+  &
+  \srainsn
+  &
+  \scriptsize{ Shift Right Arithmetic }
+  \\
+  \hline
+
+
+  % SRLAI
+  \scriptsize{ \texttt{srai \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1110}
+  &
+  \srainsnimm
+  &
+  \scriptsize{ Shift Right Arithmetic Immediate }
+  \\
+  \hline
+
+\end{tabular}
+\caption{Bitwise Instructions}
+\end{table}
+
+%Test Instructions\\*
+
+
+
+\begin{table}[!h]
+\begin{tabular}{|l|l|l|p{5.5cm}|}
+  \hline
+
+  % SLT
+  \scriptsize{ \texttt{slt \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0000}
+  &
+  \arithmeticinsn{\ <\ }
+  &
+  \scriptsize{ Set on Less than }
+  \\
+  \hline
+
+
+  % SLTI
+  \scriptsize{ \texttt{slti \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0000}
+  &
+  \arithmeticinsni{\ <\ }
+  &
+  \scriptsize{ Set on Less than Immediate  }
+  \\
+  \hline
+
+  % SLTU
+  \scriptsize{ \texttt{sltu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0001}
+  &
+  \arithmeticinsnu{\ <\ }
+  &
+  \scriptsize{ Set on Less than Unsigned }
+  \\
+  \hline
+
+
+  % SLTUI
+  \scriptsize{ \texttt{sltui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0001}
+  &
+  \arithmeticinsnui{\ <\ }
+  &
+  \scriptsize{ Set on Less than Unsigned Immediate  }
+  \\
+  \hline
+
+
+  % SGT
+  \scriptsize{ \texttt{sgt \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0010}
+  &
+  \arithmeticinsn{\ >\ }
+  &
+  \scriptsize{ Set on Greater than }
+  \\
+  \hline
+
+
+  % SGTI
+  \scriptsize{ \texttt{sgti \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0010}
+  &
+  \arithmeticinsni{\ >\ }
+  &
+  \scriptsize{ Set on Greater than Immediate  }
+  \\
+  \hline
+
+  % SGTU
+  \scriptsize{ \texttt{sgtu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0011}
+  &
+  \arithmeticinsnu{\ >\ }
+  &
+  \scriptsize{ Set on Greater than Unsigned }
+  \\
+  \hline
+
+
+  % SGTUI
+  \scriptsize{ \texttt{sgtui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0011}
+  &
+  \arithmeticinsnui{\ >\ }
+  &
+  \scriptsize{ Set on Greater than Unsigned Immediate  }
+  \\
+  \hline
+
+
+  % SLE
+  \scriptsize{ \texttt{sle \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0100}
+  &
+  \arithmeticinsn{\ \le\ }
+  &
+  \scriptsize{ Set on Less than or Equal}
+  \\
+  \hline
+
+
+  % SLEI
+  \scriptsize{ \texttt{slei \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0100}
+  &
+  \arithmeticinsni{\ \le\ }
+  &
+  \scriptsize{ Set on Less or Equal Immediate  }
+  \\
+  \hline
+
+  % SLEU
+  \scriptsize{ \texttt{sleu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0101}
+  &
+  \arithmeticinsnu{\ \le\ }
+  &
+  \scriptsize{ Set on Less or Equal Unsigned }
+  \\
+  \hline
+
+
+  % SLEUI
+  \scriptsize{ \texttt{sleui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0101}
+  &
+  \arithmeticinsnui{\ \le\ }
+  &
+  \scriptsize{ Set on Less   or Equal  Unsigned Imm  }
+  \\
+  \hline
+
+
+   % SGE
+  \scriptsize{ \texttt{sge \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0110}
+  &
+  \arithmeticinsn{\ \ge\ }
+  &
+  \scriptsize{ Set on Greater than or Equal}
+  \\
+  \hline
+
+
+  % SGEI
+  \scriptsize{ \texttt{sgei \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0110}
+  &
+  \arithmeticinsni{\ \ge\ }
+  &
+  \scriptsize{ Set on Greater or Equal Immediate  }
+  \\
+  \hline
+
+  % SGEU
+  \scriptsize{ \texttt{sgeu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0111}
+  &
+  \arithmeticinsnu{\ \ge\ }
+  &
+  \scriptsize{ Set on Greater or Equal Unsigned }
+  \\
+  \hline
+
+
+  % SGEUI
+  \scriptsize{ \texttt{sgeui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0111}
+  &
+  \arithmeticinsnui{\ \ge\ }
+  &
+  \scriptsize{ Set on Greater or Equal Unsigned Imm  }
+  \\
+  \hline
+
+
+   % SEQ
+  \scriptsize{ \texttt{seq \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{1000}
+  &
+  \arithmeticinsn{\ =\ }
+  &
+  \scriptsize{ Set on Equal}
+  \\
+  \hline
+
+
+  % SEQI
+  \scriptsize{ \texttt{seqi \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{1000}
+  &
+  \arithmeticinsni{\ =\ }
+  &
+  \scriptsize{ Set on Equal Immediate  }
+  \\
+  \hline
+
+  % SEQU
+  \scriptsize{ \texttt{sequ \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{1001}
+  &
+  \arithmeticinsnu{\ =\ }
+  &
+  \scriptsize{ Set on Equal Unsigned }
+  \\
+  \hline
+
+
+  % SEQUI
+  \scriptsize{ \texttt{sequi \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{1001}
+  &
+  \arithmeticinsnui{\ =\ }
+  &
+  \scriptsize{ Set on Equal Unsigned Immediate  }
+  \\
+  \hline
+
+
+  % SNE
+  \scriptsize{ \texttt{sne \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{1010}
+  &
+  \arithmeticinsn{\ \neq\ }
+  &
+  \scriptsize{ Set on Not Equal}
+  \\
+  \hline
+
+
+  % SNEI
+  \scriptsize{ \texttt{snei \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{1010}
+  &
+  \arithmeticinsni{\ \neq\ }
+  &
+  \scriptsize{ Set on Not Equal Immediate  }
+  \\
+  \hline
+
+  % SNEU
+  \scriptsize{ \texttt{sneu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{1011}
+  &
+  \arithmeticinsnu{\ \neq\ }
+  &
+  \scriptsize{ Set on Not Equal Unsigned }
+  \\
+  \hline
+
+
+  % SNEUI
+  \scriptsize{ \texttt{sneui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{1011}
+  &
+  \arithmeticinsnui{\ \ne\ }
+  &
+  \scriptsize{ Set on Not Equal Unsigned Immediate  }
+  \\
+  \hline
+
+\end{tabular}
+\caption{Test Instructions}
+\end{table}
+
+%Branch Instructions\\*
+\begin{table}[!h]
+\begin{tabular}{|l|l|l|p{4.5cm}|}
+
+  \hline
+
+  \multicolumn{4}{|c|}{\footnotesize{\textbf{Branch Instructions}}}
+  \\
+  \hline
+  % J
+  \scriptsize{ \texttt{j address} }
+  %\makebox[1.3cm]{}
+  &
+  \jtype{0100}{0000}{0000}
+  &
+  \jumpinsn{Address}
+  &
+  \scriptsize{ Jump }
+  \\
+  \hline
+
+  % JR
+  \scriptsize{ \texttt{jr \regssm} }
+  &
+  %\jtype{0101}{0000}{ssss}
+  \scriptsize{\texttt{0101 0000 ssss 0000 0000 0000 0000 0000\ }}
+  &
+  \jumpinsn{\regssm}
+  &
+  \scriptsize{ Jump to Register }
+  \\
+  \hline
+
+  
+  % JAL
+  \scriptsize{ \texttt{jal address} }
+  &
+  \jtype{0110}{0000}{0000}
+  &
+  \jalinsn{Address}
+  &
+  \scriptsize{ Jump and Link  }
+  \\
+  \hline
+
+
+  % JALR
+  \scriptsize{ \texttt{jalr \regssm} }
+  &
+  %\jtype{0100}{0000}{ssss}
+  \scriptsize{\texttt{0111 0000 ssss 0000 0000 0000 0000 0000\ }}
+  &
+  \jalinsn{\regssm}
+  &
+  \scriptsize{ Jump and Link Register }
+  \\
+  \hline
+
+
+
+  % BEQZ
+  \scriptsize{ \texttt{beqz \regssm, offset} }
+  &
+  \scriptsize{\texttt{1010 0000 ssss oooo oooo oooo oooo oooo\ }}
+  &
+  \branchinsn{=}
+  &
+  \scriptsize{ Branch on equal to 0  }
+  \\
+  \hline
+
+
+  % BNEZ
+  \scriptsize{ \texttt{bnez \regssm, offset} }
+  &
+  \scriptsize{\texttt{1011 0000 ssss oooo oooo oooo oooo oooo\ }}
+  &
+  \branchinsn{\neq}
+  &
+  \scriptsize{ Branch on not equal to 0  }
+  \\
+  \hline
+
+
+
+% Memory Instructions
+ \multicolumn{4}{|c|}{\footnotesize{\textbf{Memory Instructions}}}
+
+ \\
+ \hline
+
+ % LW
+  \scriptsize{ \texttt{lw \regdsm, offset(\regssm)} }
+  &
+  \scriptsize{\texttt{1000 dddd ssss oooo oooo oooo oooo oooo\ }}
+  &
+  \lwinsn
+  &
+  \scriptsize{ Load word }
+  \\
+  \hline
+
+
+  % SW
+  \scriptsize{ \texttt{sw \regdsm, offset(\regssm)} }
+  &
+  \scriptsize{\texttt{1001 dddd ssss oooo oooo oooo oooo oooo\ }}
+  &
+  \swinsn
+  &
+  \scriptsize{ Store word  }
+  \\
+  \hline
+
+%\end{tabular}
+%\caption{Jump Instructions}
+%\end{table}
+%Special Instructions\\*
+
+%\begin{table}[!h]
+%\begin{tabular}{|l|l|l|p{5.5cm}|}
+
+  \multicolumn{4}{|c|}{\footnotesize{\textbf{Special Instructions}}}
+  \\
+  \hline
+  %MOVGS
+  \scriptsize{ \texttt{movgs \regdsm, \regssm} }
+  %\makebox[0.95cm]{}
+  &
+  \scriptsize{\texttt{0011 0000 0000 1100 0000 0000 0000 0000\ }}
+  &
+  \specialinsn{\regdsm \leftarrow \regssm}
+  %\makebox[1.80cm]{}
+  &
+  \scriptsize{ Move General to Special Register}
+  \\
+  \hline
+
+
+  %MOVSG
+  \scriptsize{ \texttt{movsg \regdsm, \regssm} }
+  &
+  \scriptsize{\texttt{0011 0000 0000 1101 0000 0000 0000 0000}}
+  &
+  \specialinsn{\regdsm \leftarrow \regssm}
+  &
+  \scriptsize{ Move Special to General Register}
+  \\
+  \hline
+
+
+  %BREAK
+  \scriptsize{ \texttt{break} }
+  &
+  \scriptsize{\texttt{0010 0000 0000 1100 0000 0000 0000 0000}}
+  &
+  %\specialinsn{break}
+  &
+  \scriptsize{ Generate Break Point Exception}
+  \\
+  \hline
+
+
+  %SYSCALL
+  \scriptsize{ \texttt{syscall} }
+  &
+  \scriptsize{\texttt{0010 0000 0000 1101 0000 0000 0000 0000}}
+  &
+  %\specialinsn{break}
+  &
+  \scriptsize{ Generate Syscall Exception}
+  \\
+  \hline
+
+
+  %RFE
+  \scriptsize{ \texttt{rfe} }
+  &
+  \scriptsize{\texttt{0010 0000 0000 1110 0000 0000 0000 0000}}
+  &
+  \specialinsn{PC\ \leftarrow\ \texttt{\$ear} }
+  &
+  \scriptsize{ Return from Exception }
+  \\
+  \hline
+\end{tabular}
+\caption{Other Instructions}
+\end{table}
+\end{center}
+
+
+\end{document}
