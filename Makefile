@@ -50,7 +50,7 @@ export TEXINPUTS=:$(BASEPATH)/global:$(BASEPATH)/global/graphics:$(BASEPATH)/gui
 
 # Make all
 .PHONY : all
-all :	eps dvi standalone allex  instr
+all :	eps dvi standalone allex  instr book
 
 # ----------------------------------------------------------
 #                    EPS files
@@ -70,10 +70,20 @@ global/graphics/%.eps : global/graphics/src/%.fig
 #STANDALONE.dvi - 'make dvi' makes all dvis using the 2nd/3rd rules
 .PHONY : dvi
 dvi :   $(DVI)
-build/guides/%.dvi : guide/standalone/%.tex \
+
+build/guides/%.dvi : build/guides/%.aux \
+		$(GLOBALSTY)
+	cd build/guides && latex $(patsubst build/guides/%, \
+			  ../../guide/standalone/%, \
+			  $(patsubst %.aux, %.tex, $< ) )
+
+
+build/guides/%.aux : guide/standalone/%.tex \
 #	      $(subst _a., ., guide/%.tex)\
 	      $(GLOBALSTY)
 	cd build/guides && latex ../../$<
+
+
 
 #GUIDES STANDALONE.ps .pdf - 'make standalone'
 .PHONY : standalone
@@ -88,20 +98,24 @@ output/guides/pdf/%.pdf output/guides/ps/%.ps : build/guides/%.dvi
 #                     Instructions
 .PHONY : instr
 instr: $(INSTR)
-output/instr/%.ps output/instr/%.pdf :  build/%.dvi
+output/instr/%.ps output/instr/%.pdf :  build/instr/%.dvi
 	dvips -o $@ $<
 	dvipdf $< $@
-build/%.dvi : guide/instr/%.tex $(GLOBALSTY)
-	cd build && latex ../$<
+build/instr/%.dvi : build/instr/%.aux $(GLOBALSTY)
+	cd build/instr && latex $(patsubst build%, ../../guide%, \
+			  $(patsubst %.aux, %.tex, $< ) )
 
+build/instr/%.aux : guide/instr/%.tex $(GLOBALSTY)
+	cd build/instr && latex ../../$<
 
 # ----------------------------------------------------------
 #                     Book
 .PHONY : book
 book: $(GUIDESRC) $(BOOKSRC)
 	cd build && latex ../book/book.tex
+	cd build && latex ../book/book.tex # Rererun to get cross references right
 	dvips -o output/book/ps/book.ps build/book.dvi
-	dvipdf  build/book.dvi  output/book/ps/book.pdf
+	dvipdf  build/book.dvi  output/book/pdf/book.pdf
 
 
 # ----------------------------------------------------------
@@ -117,24 +131,46 @@ output/exercises/ps/%.ps output/exercises/pdf/%.pdf : build/ex/%.dvi
 exdvi :  $(EXDVI)
 
 #------ Have to do them individually
-build/ex/intro.dvi : exercises/intro/intro.tex
+
+# TEX->AUX
+build/ex/intro.aux : exercises/intro/intro.tex
 	cd build/ex && latex ../../$<
-build/ex/data.dvi : exercises/data/data.tex
+build/ex/data.aux : exercises/data/data.tex
 	cd build/ex && latex ../../$<
-build/ex/cwramp.dvi : exercises/cwramp/cwramp.tex
+build/ex/cwramp.aux : exercises/cwramp/cwramp.tex
 	cd build/ex && latex ../../$<
-build/ex/rtlsim.dvi : exercises/rtlsim/rtlsim.tex
+build/ex/rtlsim.aux : exercises/rtlsim/rtlsim.tex
 	cd build/ex && latex ../../$<
-build/ex/io.dvi : exercises/io/io.tex
+build/ex/io.aux : exercises/io/io.tex
 	cd build/ex && latex ../../$<
-build/ex/inter.dvi : exercises/inter/inter.tex
+build/ex/inter.aux : exercises/inter/inter.tex
 	cd build/ex && latex ../../$<
-build/ex/mtk-sim.dvi : exercises/mtk-sim/mtk-sim.tex
+build/ex/mtk-sim.aux : exercises/mtk-sim/mtk-sim.tex
 	cd build/ex && latex ../../$<
-build/ex/kernel.dvi : exercises/kernel/kernel.tex
+build/ex/kernel.aux : exercises/kernel/kernel.tex
 	cd build/ex && latex ../../$<
-build/ex/comms.dvi : exercises/comms/comms.tex
+build/ex/comms.aux : exercises/comms/comms.tex
 	cd build/ex && latex ../../$<
+
+# AUX->DVI
+build/ex/intro.dvi : build/ex/intro.aux 
+	cd build/ex && latex ../../exercises/intro/intro.tex
+build/ex/data.dvi : build/ex/data.aux
+	cd build/ex && latex ../../exercises/data/data.tex
+build/ex/cwramp.dvi : build/ex/cwramp.aux 
+	cd build/ex && latex ../../exercises/cwramp/cwramp.tex
+build/ex/rtlsim.dvi : build/ex/rtlsim.aux 
+	cd build/ex && latex ../../exercises/rtlsim/rtlsim.tex
+build/ex/io.dvi : build/ex/io.aux 
+	cd build/ex && latex ../../exercises/io/io.tex
+build/ex/inter.dvi : build/ex/inter.aux 
+	cd build/ex && latex ../../exercises/inter/inter.tex
+build/ex/mtk-sim.dvi : build/ex/mtk-sim.aux
+	cd build/ex && latex ../../exercises/mtk-sim/mtk-sim.tex
+build/ex/kernel.dvi : build/ex/kernel.aux
+	cd build/ex && latex ../../exercises/kernel/kernel.tex
+build/ex/comms.dvi : build/ex/comms.aux
+	cd build/ex && latex ../../exercises/comms/comms.tex
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -158,6 +194,7 @@ clean:
 	-rm $(wildcard build/* )
 	-rm $(wildcard build/ex/* )
 	-rm $(wildcard build/guides/* )
+	-rm $(wildcard build/instr/* )
 	-rm $(wildcard output/guides/ps/* )
 	-rm $(wildcard output/guides/pdf/* )
 	-rm $(wildcard output/exercises/ps/* )
