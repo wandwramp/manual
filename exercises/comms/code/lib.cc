@@ -430,7 +430,7 @@ switch ( sample[sample_no].err )
  case 10:mycopy[0] = '\0';
          break;
 
- default:  printf("Unknown error type.  Please tell the course tutors about this error\n");
+ default:  printf("Unknown error type.  Please email contact-cs201@cs.waikato.ac.nz about this error\n");
    }
 
    {
@@ -621,7 +621,7 @@ if ( res == parity[sample_no] ) {
      printf("Correct parity implementation\n");
 
      
-     if ( NULL == (verified = fopen("/home/jpc2/comms-verified", "r+")) )
+     if ( NULL == (verified = fopen("/home/201/ex9/logs/comms-verified", "r+")) )
         {
 	printf("WARNING: Could not record verification.\n");
 	perror("Error message");
@@ -641,7 +641,7 @@ if ( res == parity[sample_no] ) {
         fprintf(verified, "%15s %s", pw_ent->pw_name, ctime(&sec));
 	fclose(verified);
 
-	sprintf(command, "mail -s 'Ass 10 verification' %s@waikato.ac.nz contact-cs201@cs.waikato.ac.nz\n", pw_ent->pw_name);
+	sprintf(command, "mail -s 'COMP201 Exercise 9 Verification' %s@waikato.ac.nz contact-cs201@cs.waikato.ac.nz\n", pw_ent->pw_name);
 	mail_fd = popen(command, "w");
      
 	fprintf(mail_fd, "You made it.  Your program has sucessfully added\n");
@@ -699,7 +699,7 @@ FILE    *usage_log;
 
 pw_ent = getpwuid(getuid());
 sec = (time((time_t *)0));
-if ( NULL == (usage_log = fopen("/home/jpc2/comms-log", "a")) )
+if ( NULL == (usage_log = fopen("/home/201/ex9/logs/comms-log", "a")) )
    {
    printf("Could not configure xml\n");
    perror("Error message");
