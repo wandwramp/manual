@@ -36,7 +36,7 @@ EXDVI = build/ex/comms.dvi \
 	build/ex/mtk-sim.dvi \
 	build/ex/rtlsim.dvi
 
-BASEPATH=$(HOME)/comp201
+BASEPATH=`pwd`
 TEXINPUTS=:$(BASEPATH)/global/:$(BASEPATH)/global/graphics/:$(BASEPATH)/guide/
 
 #cancel implicit .tex rule
