@@ -15,9 +15,9 @@ GUIDESRC = $(wildcard guide/*.tex)
 BOOKSRC  = book/book.tex
 
 INSTR = $(patsubst %.tex, %.ps, $(patsubst guide/instr/%, \
-	output/instr/%, $(wildcard guide/instr/*.tex))) \
+	output/instr/ps/%, $(wildcard guide/instr/*.tex))) \
 	$(patsubst %.tex, %.pdf, $(patsubst guide/instr/%, \
-	output/instr/%, $(wildcard guide/instr/*.tex))) 
+	output/instr/pdf/%, $(wildcard guide/instr/*.tex))) 
 BOOK = output/book/book.ps output/book/book.pdf
 EXERCISES = output/exercises/ps/comms.ps output/exercises/pdf/comms.pdf \
 	output/exercises/ps/cwramp.ps output/exercises/pdf/cwramp.pdf \
@@ -91,19 +91,33 @@ build/guides/%.aux : guide/standalone/%.tex \
 #GUIDES STANDALONE.ps .pdf - 'make standalone'
 .PHONY : standalone
 standalone: $(STANDALONE)
-output/guides/pdf/%.pdf output/guides/ps/%.ps : build/guides/%.dvi 
+output/guides/ps/%.ps : build/guides/%.dvi 
 	dvips  -o $@ $<
-	dvipdf $< $@
 
+output/guides/pdf/%.pdf : build/guides/%.dvi 
+	dvips -Ppdf -G0 $< -o $(patsubst %.pdf, %.ps, $@)
+	cd output/guides/pdf && \
+	ps2pdf  -sPAPERSIZE=a4 -dMaxSubsetPct=100 -dCompatibilityLevel=1.2 \
+		-dSubsetFonts=true -dEmbedAllFonts=true  \
+		$(patsubst %.pdf, %.ps, ../../../$@)
+	rm $(patsubst %.pdf, %.ps, $@)
 
 
 # ----------------------------------------------------------
 #                     Instructions
 .PHONY : instr
 instr: $(INSTR)
-output/instr/%.ps output/instr/%.pdf :  build/instr/%.dvi
+output/instr/ps/%.ps :  build/instr/%.dvi
 	dvips -o $@ $<
-	dvipdf $< $@
+
+output/instr/pdf/%.pdf :  build/instr/%.dvi
+	dvips -Ppdf -G0 $< -o $(patsubst %.pdf, %.ps, $@)
+	cd output/instr/pdf && \
+	ps2pdf  -sPAPERSIZE=a4 -dMaxSubsetPct=100 -dCompatibilityLevel=1.2 \
+		-dSubsetFonts=true -dEmbedAllFonts=true  \
+		$(patsubst %.pdf, %.ps, ../../../$@)
+	rm $(patsubst %.pdf, %.ps, $@)
+
 build/instr/%.dvi : build/instr/%.aux $(GLOBALSTY)
 	cd build/instr && latex $(patsubst build%, ../../guide%, \
 			  $(patsubst %.aux, %.tex, $< ) )
@@ -131,7 +145,12 @@ output/exercises/ps/%.ps : build/ex/%.dvi
 	dvips -o $@ $<	
 
 output/exercises/pdf/%.pdf : build/ex/%.dvi
-	dvipdf $< $@
+	dvips -Ppdf -G0 $< -o $(patsubst %.pdf, %.ps, $@)
+	cd output/exercises/pdf && \
+	ps2pdf  -sPAPERSIZE=a4 -dMaxSubsetPct=100 -dCompatibilityLevel=1.2 \
+		-dSubsetFonts=true -dEmbedAllFonts=true  \
+		$(patsubst %.pdf, %.ps, ../../../$@)
+	rm $(patsubst %.pdf, %.ps, $@)
 
 
 .PHONY : exdvi
@@ -203,6 +222,8 @@ clean:
 	-rm $(wildcard output/guides/pdf/* )
 	-rm $(wildcard output/exercises/ps/* )
 	-rm $(wildcard output/exercises/pdf/* )
+	-rm $(wildcard output/instr/ps/* )
+	-rm $(wildcard output/instr/pdf/* )
 	-rm $(wildcard global/graphics/*.eps)
 
 
