@@ -1,0 +1,658 @@
+\documentclass[a4paper,10pt]{article}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1.5ex}
+\usepackage{Defn201}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
+
+
+
+\begin{document}
+\newcommand{\marks}[1]
+{\begin{flushright}{\bf (#1 marks)}\end{flushright}}
+
+{\centering \large \bf THE UNIVERSITY OF WAIKATO\\}
+{\centering \large \bf Department of Computer Science\\[0.5cm]}
+
+{\centering \large \bf 0657.201Y Computer Systems~\CORYEAR \\}
+{\centering \large \bf Mid Year Test~\MIDTESTDATE \\[1cm]}
+
+\begin{itemize}
+  \item Please answer ALL questions.
+
+  \item Time allowed: 90 minutes
+
+  \item Marked out of: 90
+
+  \item Contribution toward final grade: \MIDTESTWORTH
+  
+  \item Please answer questions on the answer sheet provided. 
+
+  \item Write your name and student ID on each page
+
+  \item This is a CLOSED book test, although calculators are permitted
+\end{itemize}
+
+\hrule
+\section{Multichoice}
+\begin{enumerate}
+
+\item The wave file format is used to store
+\begin{enumerate}
+  \item audio data
+  \item vectorised graphics data
+  \item bitmap graphics data
+  \item character data
+\end{enumerate}
+
+\item Which of the following best describes the type of data stored in a
+PostScript file ? 
+\begin{enumerate}
+  \item audio data
+  \item vectorised graphics data
+  \item bitmap graphics data
+  \item character data
+\end{enumerate}
+
+\item What are the two major components of any central processing unit
+(CPU) that are visible to the programmer? 
+\begin{enumerate}
+  \item instruction set and arithmetic logic unit 
+  \item registers and instruction set
+  \item arithmetic logic unit and control unit
+  \item registers and control unit
+\end{enumerate}
+
+\item What is the hexadecimal number 0x123a in binary?
+\begin{enumerate}
+  \item 0100 0010 1100 0101
+  \item 1010 0011 0001 0010
+  \item 0001 0010 0011 1010
+  \item 0001 0010 0011 1011
+\end{enumerate}
+
+\newpage
+\item Which of the following is not a component of the central
+processing unit
+
+\begin{enumerate}
+ \item arithmetic logic unit
+ \item primary storage 
+ \item control unit
+ \item registers
+\end{enumerate}
+
+\begin{figure}[h]
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|lp{4cm}|lp{4cm}|}
+\hline
+(a) &
+\begin{verbatim}
+       slt   $13, $3, $4
+       beqz  $13, label
+       ...
+label: 
+       ...
+\end{verbatim}
+& (b) &
+\begin{verbatim}
+       add  $2, $0, $0
+label: slei $4, $2, 3
+       beqz $4, label2
+       ...
+       addi $2, $2, 1
+       j    label
+label2:
+       ...     
+\end{verbatim}
+\\
+\hline
+(c) &
+\begin{verbatim}
+       add  $2, $0, $0
+label: slti $4, $2, 3
+       beqz $4, label2
+       ...
+       addi $2, $2, 1
+       j    label
+label2:
+       ...
+\end{verbatim}
+& (d) &
+\begin{verbatim}
+       slt   $13, $3, $4
+       beqz  $13, label
+       ...
+       j     label2
+label:
+       ...
+label2:
+       ...
+\end{verbatim}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\caption{Code for multichoice questions~\ref{ques:multicode}
+--~\ref{ques:multicodeend}}
+\label{fig:multicode}
+\end{figure}
+
+\item 
+\label{ques:multicode}
+Which of the WRAMP code segments in Figure~\ref{fig:multicode}
+would implement an if statement without an else clause?
+\begin{enumerate}
+  \item a
+  \item b
+  \item c
+  \item d
+\end{enumerate}
+
+\item Which of the WRAMP code segments in Figure~\ref{fig:multicode}
+would implement an if statement with an else clause?
+\begin{enumerate}
+  \item a
+  \item b
+  \item c
+  \item d
+\end{enumerate}
+
+\item 
+\label{ques:multicodeend}
+Which of the WRAMP code segments in Figure~\ref{fig:multicode} would
+implement a loop which iterates three (3) times.  
+\begin{enumerate}
+  \item a
+  \item b
+  \item c
+  \item d
+\end{enumerate}
+
+
+
+\item Which one of the following statements is true?
+\begin{enumerate}
+  \item all WRAMP machine code instructions are of equal length
+  \item instructions in a memory-register architecture are generally
+   shorter (require fewer bits to encode) than instructions in a
+   register-register architecture 
+  \item in modern CPUs' data transfers between registers within the
+  CPU are significantly slower than those between registers and main
+  memory. 
+  \item the WRAMP processor is an example of a memory-register architecture.
+\end{enumerate}
+
+\item Assembler directives are used in an assembly language program to
+\begin{enumerate}
+  \item give commands to the assembler
+  \item replace instructions
+  \item generate instructions
+  \item comment the code
+\end{enumerate}
+
+\end{enumerate}
+
+\newpage
+\section{Short Answer}
+
+\begin{enumerate}
+
+\item What is the uni-code coding scheme used to represent? Why was it
+developed?  
+\marks{4}
+
+\item What number does 1011001 represent? Is it possible to tell? If
+not, what extra information is needed? 
+\marks{4}
+
+\item What are the four major building blocks used to construct a
+datapath in a CPU?
+\marks{4}
+
+\item Explain the difference between the following two WRAMP instructions:
+\begin{enumerate}
+    \item \texttt{lw  \$8, label(\$0)}
+    \item \texttt{la  \$8, label}
+\end{enumerate}
+\marks{4}
+
+\item In a computer system what is the purpose of the single
+bit signal called the clock? What determines how fast the clock can be
+driven? 
+\marks{4}
+
+\item Convert the following 32 bit IEEE-754 format number to decimal.
+The IEEE-754 format is shown in Figure \ref{fig:ieee754}.
+\begin{center}
+\texttt{01000001 11011010 00000000 00000000 (0x41da0000)}
+\end{center}
+\marks{4}
+
+\item Convert the decimal number 11.125 to the IEEE-754 format that is
+provided in Figure \ref{fig:ieee754}.  \marks{4}
+
+\begin{figure}[h]
+\begin{center}
+    \psfig{figure=float.eps, width=.5\linewidth}
+    \caption{IEEE-754 Format}
+    \label{fig:ieee754}
+  \end{center}
+\end{figure}
+
+\item If the instruction \texttt{bnez \$3, 0x15} is located at the
+address 0x100,  what memory location will the next instruction be
+fetched from, if this instruction is executed and the branch is taken
+(i.e. \$3 $\neq$ 0)? 
+\marks{4}
+
+\item Using the supplied WRAMP Instruction Set Architecture document,
+assemble the WRAMP instruction \texttt{subui \$5, \$12, 0x123} to
+machine code 
+\marks{4}
+
+\item Using the supplied WRAMP Instruction Set Architecture document,
+disassemble the WRAMP machine code instruction:
+\begin{center}
+\texttt{1000 0101 1001 0000 0000 0000 0001 1010}
+\end{center}
+\marks{4}
+
+\item The header for a GIF image is shown in Figure
+\ref{fig:gifhex}. Determine in decimal the width and height of this
+image. You should show any working. The file format for GIF images is
+shown in Figure \ref{fig:gifheader}.  \marks{8}
+
+\begin{figure}[h]
+{\small
+%This was taken from gifquest and is 96x72 pixels
+\begin{verbatim}
+       00000000: 4749 4638 3961 6000 4800 f700 0029 2f1c  GIF89a`.H....)/.
+       00000010: 8098 783b 5e21 5360 644b 7b2b 547a 6c31  ..x;^!S`dK{+Tzl1
+       00000020: 384c 4c5f 47c7 cfda 3142 2375 7d8c 929d  8LL_G...1B#u}...
+       00000030: ac39 4539 5f7c 4473 8c64 5970 4460 6d7c  .9E9_|Ds.dYpD`m|
+       00000040: 4271 2a53 706c 4354 3763 8b44 637c 7c42  Bq*SplCT7c.Dc||B
+\end{verbatim}}
+\caption{HEX dump of GIF file header}
+\label{fig:gifhex}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+  \psfig{figure=gif_defn.eps, width=.8\linewidth}
+  \caption{GIF file header format}
+  \label{fig:gifheader}
+  \end{center}
+\end{figure}
+
+\newpage    
+
+\item
+\label{ques:swapend}
+
+Figure~\ref{fig:swapend} contains a WRAMP program. You are to trace
+the execution in order to determine what it does.  A break point has
+been set at the start of the loop (line 9) to achieve this.
+
+\begin{enumerate} 
+\item What would the contents of registers 2 to 5 be each time this
+break point was encountered when the program was run?
+
+\item What does this program do?
+\end{enumerate}
+
+\begin{figure}[h]
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|p{10cm}|}
+\hline
+\begin{verbatim}
+        1:   .global main
+        2:   main:
+        3:         lhi  $2, 0x1234
+        4:         ori  $2, $2, 0x5678
+        5:         addi $3, $0, 0
+        6:         addi $4, $0, 0
+        7:         addi $5, $0, 4
+        8:   loop:    
+        9:         beqz $5, endloop
+        10:        slli $4, $4, 0x8
+        11:        andi $3, $2, 0xff
+        12:        or   $4, $4, $3
+        13:        srli $2, $2, 0x8
+        14:        subi $5, $5, 1
+        15:        j    loop
+        16:  endloop: 
+        17:        jr   $ra
+\end{verbatim}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\caption{WRAMP program for Question~\ref{ques:swapend}}
+\label{fig:swapend}
+\end{figure}
+
+\item 
+\label{ques:cprog}
+
+Figures \ref{fig:cprog} and \ref{fig:wrampgen} show the "C" code and
+the WRAMP code generated by the \texttt{wcc} compiler for a non-leaf
+function \verb+volume_cylinder+ that calculates the volume of a
+cylinder given its diameter and height. To calculate the area of the
+circle the function calls a function called \verb+area_circle+.
+
+\begin{enumerate}
+  \item For the C function indicate which lines of the WRAMP code were
+  generated for:
+  \begin{enumerate}
+   \item \verb+radius = diameter >> 1;+
+   \item \verb+area = area_circle(radius);+
+   \item \verb+volume = area * height;+
+  \end{enumerate}
+
+\marks{6}
+
+  \item Draw a diagram to show what the stack frame created when the
+  function \verb+volume_cylinder+ is called will look like. On your
+  diagram clearly indicate the purpose of each entry in the stack
+  frame. Your diagram should also clearly indicate where the two
+  parameters that are passed to the function are stored on the stack.
+  \marks{8} 
+\end{enumerate}
+
+\newpage
+\begin{figure}[t]
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|p{10cm}|}
+\hline
+\begin{verbatim}
+        1:   int area_circle(int radius);
+        2:
+        3:   int volume_cylinder(int diameter, int height)
+        4:   {
+        5:     int radius;
+        6:     int area;
+        7:     int volume;
+        8:     int i;
+        9: 
+        10:    radius = diameter >> 1;
+        11:    area = area_circle(radius);
+        12:    volume = area * height;
+        13:    return volume;
+        14:  }
+\end{verbatim}
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\caption{C code for Question~\ref{ques:cprog}}
+\label{fig:cprog}
+\end{figure}
+
+\begin{figure}[h]
+\begin{footnotesize}
+\begin{center}
+\begin{tabular}{|p{10cm}|}
+\hline
+\begin{verbatim}
+        1:   .global volume_cylinder
+        2:   .text
+        3:   volume_cylinder:
+        4:         subui $sp,  $sp, 7
+        5:         sw    $12,  1($sp)
+        6:         sw    $13,  2($sp)
+        7:         sw    $ra,  3($sp)
+        8:         lw    $13,  7($sp)
+        9:         srai  $13,  $13, 1
+        10:        sw    $13,  6($sp)
+        11:        lw    $13,  6($sp)
+        12:        sw    $13,  0($sp)
+        13:        jal   area_circle
+        14:        addu  $13,  $0, $1
+        15:        sw    $13,  5($sp)
+        16:        lw    $13,  5($sp)
+        17:        lw    $12,  8($sp)
+        18:        mult   $13,  $13, $12
+        19:        sw    $13,  4($sp)
+        20:        lw    $1,   4($sp)
+        21:        lw    $12,  1($sp)
+        22:        lw    $13,  2($sp)
+        23:        lw    $ra,  3($sp)
+        24:        addui $sp,  $sp, 7
+        25:        jr    $ra
+\end{verbatim}
+%$
+\\
+\hline
+\end{tabular}
+\end{center}
+\end{footnotesize}
+\caption{WRAMP code generated by \texttt{wcc} for C program in Figure
+\ref{fig:cprog}}
+\label{fig:wrampgen}
+\end{figure}
+
+\newpage
+
+\item 
+\label{ques:datapath}
+
+Figure \ref{fig:wrampblok} shows the architecture of the WRAMP
+CPU that contains three 32 bit internal buses. Although not shown on
+the diagram there are control lines between the control unit and each
+of the components, which are used to control the flow of data on the
+data-path. The control signals for each of the components and their
+functionality is defined in Tables \ref{table:signals} and
+\ref{table:alu}.
+
+\begin{enumerate}
+ \item Explain how a value can be copied from register (e.g. \$10) in
+   the register file to another register (e.g. \$11) in the register
+   file on the architecture given in Figure \ref{fig:wrampblok}.
+   \marks{2}
+
+  \item If the registers contained the values shown in Figure
+  \ref{fig:wrampreg} what would the new values of the registers be
+  after executing the following three control steps:
+{\small
+\begin{verbatim}
+Step 1: pc_out, alu_out, alu_func = inc, temp_in
+Step 2: a_out, sel_a = 3, b_out, sel_b = 8, alu_func = sub, alu_out, sel_c = 8, c_in
+Step 3: temp_out, imm_16_out,  alu_out, Func = add, pc_in
+\end{verbatim}
+}
+	You need only fill in the values for the registers that have changed. 
+\marks{6}
+
+\end{enumerate}
+
+\begin{figure}[h]
+\begin{center}
+    \psfig{figure=datapath.eps, width=.8\linewidth}
+    \caption{Datapath Architecture for WRAMP CPU}
+    \label{fig:wrampblok}
+  \end{center}
+\end{figure}
+
+\begin{figure}[h]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\verb+$0 = 0x0+ & \verb+$1 = 0x10+ & \verb+$2 = 0x15+ & \verb+$3 = 0xb+
+\\
+\hline
+\verb+$4 = 0x36+ & \verb+$5 = 0x12+ & \verb+$6 = 0x65+ & \verb+$7 = 0xab+
+\\
+\hline
+\verb+$8 = 0x6+ & \verb+$9 = 0x1e+ & \verb+$10 = 0x2a+ & \verb+$11 = 0xba+
+\\
+\hline
+\verb+$12 = 0xff+ & \verb+$13 = 0x19+ & \verb+$sp = 0x51+ & \verb+$ra = 0x23+
+\\
+\hline
+\verb+PC = 0x50+ & \verb+IR = 0x1230004+ & \verb+TEMP = 0x15+ & \\
+\hline
+\end{tabular}
+\end{center}
+\caption{State of registers for Question~\ref{ques:datapath}}
+\label{fig:wrampreg}
+\end{figure}
+
+\end{enumerate}
+
+\newpage
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|p{8cm}|}
+\hline
+\textbf{Component} & \textbf{Signal Name} & \textbf{Description} \\
+\hline
+Register File & \texttt{a\_out} & Causes the contents of the
+register selected by \texttt{sel\_a} to be output onto the A bus. \\
+\cline{2-3}
+& \texttt{sel\_a} & Select which register will be output onto the A bus
+if \texttt{a\_out} is asserted. \\
+\cline{2-3}
+& \texttt{b\_out} & Causes the contents of the
+register selected by \texttt{sel\_b} to be output onto the B bus. \\
+\cline{2-3}
+& \texttt{sel\_b} & Select which register will be output onto the B bus
+if \texttt{b\_out} is asserted. \\
+\cline{2-3}
+& \texttt{c\_in} & Causes the value from the C bus to be written
+into the register selected by \texttt{sel\_c}.\\
+\cline{2-3}
+& \texttt{sel\_c} & Select which register to write the value from the C
+bus into when the \texttt{c\_in} signal is asserted. \\
+\hline
+ALU & \texttt{alu\_out} & Causes the result of the current ALU function 
+selected by \texttt{alu\_func} to be output to the C bus. \\
+\cline{2-3}
+& \texttt{alu\_func} & Defines the current operation that the ALU
+should perform. ALU functions are defined in table~\ref{table:alu}. \\
+\hline
+Memory Interface & \texttt{mem\_read} & Causes the contents of the
+memory address specified on the A bus to be read and output onto the C
+bus. \\
+\cline{2-3}
+& \texttt{mem\_write} & Causes the value on the B bus to be written
+into the memory address specified on the A bus. \\
+\hline
+Program Counter & \texttt{pc\_out} & Causes the contents of the PC
+register to be output onto the A bus. \\
+\cline{2-3}
+& \texttt{pc\_in} & Causes the value on the C bus to be written into
+the PC. \\
+\hline
+Instruction Register & \texttt{imm\_16\_out} & Causes the least
+significant 16 bits of the IR to be output onto the B bus. \\
+\cline{2-3}
+& \texttt{imm\_20\_out} & Causes the least
+significant 20 bits of the IR to be output onto the B bus. \\
+\cline{2-3}
+& \texttt{sign\_extend} & Causes the output from the IR to be sign
+extended to 32bits. \\
+\cline{2-3}
+& \texttt{ir\_in} & Causes the value on the C bus to be written into
+the IR. \\
+\hline
+Temporary Register & \texttt{temp\_out} & Causes the contents of the
+temporary register to be output onto the A bus. \\
+\cline{2-3}
+& \texttt{temp\_in} & Causes the value on the C bus to be written into
+the temporary register. \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Descriptions of each of the control signals}
+\label{table:signals}
+\end{table}
+\newpage
+\begin{table}[h]
+All arithmetic and test/set operations have both signed and unsigned
+variants. The unsigned variant is indicated by an operation with a
+'u' suffix. A signed variant treats all inputs as signed integers while
+the unsigned variant treats inputs as unsigned integers.
+
+\begin{center}
+\begin{tabular}{|l|l|l|p{75mm}|}
+\hline
+\textbf{Type} & \textbf{Name} & \textbf{Function} 
+& \textbf{Description} \\
+\hline
+Arithmetic & \texttt{add, addu} & A + B & Perform an integer
+addition between A and B. \\
+\cline{2-4}
+& \texttt{sub, subu} & A - B & Perform an integer
+subtraction between A and B. \\
+\cline{2-4}
+& \texttt{mult, multu} & A * B & Perform an
+integer multiplication between A and B. \\
+\cline{2-4}
+& \texttt{div, divu} & A / B & Perform an integer
+division between A and B. \\
+\cline{2-4} 
+& \texttt{rem, remu} & A $\bmod$ B & Obtain the remainder from an
+integer division between A and B. \\
+\hline
+Bitwise & \texttt{sll} & A $<<$ B & Shift the value on A left by the number of
+places specified by B. Fill with zeros. \\
+\cline{2-4}
+& \texttt{and} & A AND B & Perform a bitwise AND between A and B. \\
+\cline{2-4}
+& \texttt{srl} & A $>>$ B & Shift the value on A right by the number of places
+specified by B. Fill with zeros. \\
+\cline{2-4}
+& \texttt{or} & A OR B & Perform a bitwise OR between A and B.\\
+\cline{2-4}
+& \texttt{sra} & A $>>$ B & Shift the value on A right by the number of places
+specified by B. Fill with MSB.\\
+\cline{2-4}
+& \texttt{xor} & A XOR B & Perform a bitwise XOR between A and B. \\
+\hline
+Test/set & \texttt{slt, sltu} & out = 1 if ( A $<$ B) & Set out if A
+is less than B\\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{sgt, sgtu} & out = 1 if ( A $>$ B) & Set out if A
+is greater than B \\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{sle, sleu} & out = 1 if ( A $\le$ B) & Set out if A
+is less than or equal to B\\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{sge, sgeu} & out = 1 if ( A $\ge$ B) & Set out if A
+is greater than or equal to B\\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{seq, sequ} & out = 1 if ( A $=$ B) & Set out if A
+is equal to B \\
+& & else out = 0 & \\
+\cline{2-4}
+& \texttt{sne, sneu} & out = 1 if ( A $\neq$ B) & Set out if A
+is not equal to B \\
+& & else out = 0 & \\
+\hline
+Misc & \texttt{lhi} & out\tiny$_{[31...16]}$\normalsize~= B\tiny$_{[15...0]}$ &
+Set the upper 16 bits of out to be the lower 16 \\
+& & out\tiny$_{[15...0]}$\normalsize~= 0 & bits of B. Lower 16 bits of out set to zero. \\ 
+\cline{2-4}
+& \texttt{inc} & out = A + 1 & Increment A\\
+\hline
+\end{tabular}
+\end{center}
+\caption{ALU Operations}
+\label{table:alu}
+\end{table}
+
+
+\end{document}
