@@ -8,7 +8,7 @@
 \usepackage{fancyhdr}
 \fancypagestyle{rcsfooters}{
 \fancyfoot[L]{\small $ $RCSfile: intro.tex,v $ $}
-\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+\fancyfoot[R]{\small $ $Revision: 1.2 $ $}
 }
 
 \renewcommand{\headrulewidth}{0pt}
@@ -71,26 +71,39 @@ chapter `Introduction....' in your course manual.
 
 \section{Questions}
 \begin{enumerate}
-\item\label{ques:first} Write a program which continually (i.e. is in an 
-infinite loop) reads the values on the switches and
-outputs the value read to the two seven segment displays.
-For example if the switches are set to the
-pattern shown in Figure ... the two seven segment displays should show \src{92}.
+\item\label{ques:first} Write a program which continually (i.e. is in
+an infinite loop) reads the values on the switches and outputs the
+value read to the two seven segment displays.  For example if the
+switches are set to the pattern shown in Figure \ref{fig:switches} the
+two seven segment displays should show \src{92}.
 
-\item\label{ques:two} Modify your program in question 
-\ref{ques:first} to continually 
-output the number of switches currently set (in the
-down position or one) to the seven segment display. For 
-example if the switches are set to the pattern
-shown in Figure ...  then the seven segment display should display \src{03}.
-\item\label{ques:final} Modify the program written in question \ref{ques:two} to encrypt
-the count of set switches before outputting it to
-the seven-segment display. The encryption algorithm 
-to be applied is the very simple mapping function
-defined in Table \ref{table:encode}. For example, the value \src{4} 
-encrypted would be displayed as \src{05}, and the value
-\src{8} encrypted would be displayed as \src{07}.
+\item\label{ques:two} Modify your program in Question \ref{ques:first}
+to continually output the number of switches currently set (in the
+down position or one) to the seven segment display. For example if the
+switches are set to the pattern shown in Figure \ref{fig:switches}
+then the seven segment display should display \src{03}.
+
+\item\label{ques:final} Modify the program written in Question
+\ref{ques:two} to encrypt the count of set switches before outputting
+it to the seven-segment display. The encryption algorithm to be
+applied is the very simple mapping function defined in Table
+\ref{table:encode}. For example, the value \src{4} encrypted would be
+displayed as \src{05}, and the value \src{8} encrypted would be
+displayed as \src{07}.
 \end{enumerate}
+
+\begin{figure}[!hb]
+\begin{center}
+%\begin{tabular}{|c|}
+%\hline
+\includegraphics[width=15cm]{switches.eps}
+%\\
+%\hline
+%\end{tabular}
+\caption{Example}
+\label{fig:switches}
+\end{center}
+\end{figure}
 
 
 \begin{table}
@@ -112,6 +125,10 @@ encrypted would be displayed as \src{05}, and the value
 \label{table:encode}
 \caption{Mapping Function for Encryption Process}
 \end{table}
+
+
+
+
 
 
 \thispagestyle{rcsfooters}
