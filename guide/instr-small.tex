@@ -544,7 +544,7 @@
   &
   \arithmeticinsni{\ \le\ }
   &
-  \scriptsize{ Set on Less than or Equal Immediate  }
+  \scriptsize{ Set on Less or Equal Immediate  }
   \\
   \hline
 
@@ -555,7 +555,7 @@
   &
   \arithmeticinsnu{\ \le\ }
   &
-  \scriptsize{ Set on Less than or Equal Unsigned }
+  \scriptsize{ Set on Less or Equal Unsigned }
   \\
   \hline
 
@@ -567,7 +567,7 @@
   &
   \arithmeticinsnui{\ \le\ }
   &
-  \scriptsize{ Set on Less than or Equal  Unsigned Immediate  }
+  \scriptsize{ Set on Less   or Equal  Unsigned Imm  }
   \\
   \hline
 
@@ -591,7 +591,7 @@
   &
   \arithmeticinsni{\ \ge\ }
   &
-  \scriptsize{ Set on Greater than or Equal Immediate  }
+  \scriptsize{ Set on Greater or Equal Immediate  }
   \\
   \hline
 
@@ -602,7 +602,7 @@
   &
   \arithmeticinsnu{\ \ge\ }
   &
-  \scriptsize{ Set on Greater than or Equal Unsigned }
+  \scriptsize{ Set on Greater or Equal Unsigned }
   \\
   \hline
 
@@ -614,7 +614,7 @@
   &
   \arithmeticinsnui{\ \ge\ }
   &
-  \scriptsize{ Set on Greater than or Equal Unsigned Immediate  }
+  \scriptsize{ Set on Greater or Equal Unsigned Imm  }
   \\
   \hline
 
@@ -719,7 +719,7 @@
 
 %Branch Instructions\\*
 \begin{table}[!h]
-\begin{tabular}{|l|l|l|p{4cm}|}
+\begin{tabular}{|l|l|l|p{4.5cm}|}
 
   \hline
 
@@ -853,7 +853,7 @@
   \specialinsn{\regdsm \leftarrow \regssm}
   %\makebox[1.80cm]{}
   &
-  \scriptsize{ Move General to Special Register }
+  \scriptsize{ Move General to Special Register}
   \\
   \hline
 
@@ -865,7 +865,7 @@
   &
   \specialinsn{\regdsm \leftarrow \regssm}
   &
-  \scriptsize{ Move Special to General Register }
+  \scriptsize{ Move Special to General Register}
   \\
   \hline
 
@@ -877,7 +877,7 @@
   &
   %\specialinsn{break}
   &
-  \scriptsize{ Generate a Break Point Exception }
+  \scriptsize{ Generate Break Point Exception}
   \\
   \hline
 
@@ -889,17 +889,17 @@
   &
   %\specialinsn{break}
   &
-  \scriptsize{ Generate a Syscall Exception }
+  \scriptsize{ Generate Syscall Exception}
   \\
   \hline
 
 
-  %BREAK
+  %RFE
   \scriptsize{ \texttt{rfe} }
   &
   \scriptsize{\texttt{0010 0000 0000 1110 0000 0000 0000 0000}}
   &
-  %\specialinsn{break}
+  \specialinsn{PC\ \leftarrow\ \texttt{\$ear} }
   &
   \scriptsize{ Return from Exception }
   \\
