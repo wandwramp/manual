@@ -38,11 +38,12 @@ EXDVI = build/ex/comms.dvi \
 	build/ex/mtk-sim.dvi \
 	build/ex/rtlsim.dvi
 
-BASEPATH=$(HOME)/comp201
+BASEPATH:=$(shell pwd)
 export TEXINPUTS=:$(BASEPATH)/global:$(BASEPATH)/global/graphics:$(BASEPATH)/guide
 
 #cancel implicit .tex rule
 %.dvi : %.tex
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 #               BUILDing everything
@@ -51,6 +52,8 @@ export TEXINPUTS=:$(BASEPATH)/global:$(BASEPATH)/global/graphics:$(BASEPATH)/gui
 # Make all
 .PHONY : all
 all :	eps dvi standalone allex  instr book
+
+
 
 # ----------------------------------------------------------
 #                    EPS files
