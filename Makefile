@@ -42,7 +42,7 @@ EXDVI = build/ex/comms.dvi \
 	build/ex/rtlsim.dvi
 
 BASEPATH:=$(shell pwd)
-export TEXINPUTS=:$(BASEPATH)/global:$(BASEPATH)/global/graphics:$(BASEPATH)/guide
+export TEXINPUTS=:$(BASEPATH)/global:$(BASEPATH)/global/graphics:$(BASEPATH)/guide:${BASEPATH}/book
 
 #cancel implicit .tex rule
 %.dvi : %.tex
