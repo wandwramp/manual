@@ -169,7 +169,7 @@ pass information to the assembler.
 operations such as reading from the serial port.  For example the
 lines \src{jal putstr} and \src{jal readnum} are subroutine calls.
 %
-\item[WRAMP instructions] such as \src{add \$4, \$0, \$0}  get 
+\item[WRAMP instructions] such as \src{add \reg{4}, \reg{0}, \reg{0}}  get 
 converted to machine code by the assembler.  They can then be executed by the 
 WRAMP CPU.
 %

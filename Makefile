@@ -2,6 +2,8 @@ GLOBALSTY =  $(wildcard globals/*.sty)
 FIG = global/graphics/src/*.fig
 EPS = $(patsubst global/graphics/src/%, global/graphics/%, \
 	$(patsubst %.fig, %.eps, $(wildcard global/graphics/src/*.fig)))
+PDFIMG = $(patsubst global/graphics/src/%, global/graphics/%, \
+	$(patsubst %.fig, %.pdf, $(wildcard global/graphics/src/*.fig)))
 DVI = $(patsubst %.tex, %.dvi, $(patsubst guide/standalone/%, \
 		build/guides/%, $(wildcard guide/standalone/*_a.tex)))
 STANDALONE = $(patsubst %.tex, %.ps, $(patsubst guide/standalone/%, \
@@ -36,8 +38,8 @@ EXDVI = build/ex/comms.dvi \
 	build/ex/mtk-sim.dvi \
 	build/ex/rtlsim.dvi
 
-BASEPATH=`pwd`
-TEXINPUTS=:$(BASEPATH)/global/:$(BASEPATH)/global/graphics/:$(BASEPATH)/guide/
+BASEPATH=$(HOME)/comp201
+export TEXINPUTS=:$(BASEPATH)/global:$(BASEPATH)/global/graphics:$(BASEPATH)/guide
 
 #cancel implicit .tex rule
 %.dvi : %.tex
@@ -155,7 +157,7 @@ clean:
 	echo ALLCLEAN
 	-rm $(wildcard build/* )
 	-rm $(wildcard build/ex/* )
-	-rm $(wildcard build/guide/* )
+	-rm $(wildcard build/guides/* )
 	-rm $(wildcard output/guides/ps/* )
 	-rm $(wildcard output/guides/pdf/* )
 	-rm $(wildcard output/exercises/ps/* )
