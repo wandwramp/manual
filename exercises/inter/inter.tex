@@ -1,6 +1,7 @@
 \documentclass[a4paper,10pt]{article}
 \setlength{\parindent}{0ex}
 \setlength{\parskip}{1.5ex}
+
 \usepackage[dvips]{graphicx}
 \usepackage{epsfig}
 \usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
@@ -8,7 +9,7 @@
 \usepackage{fancyhdr}
 \fancypagestyle{rcsfooters}{
 \fancyfoot[L]{\small $ $RCSfile: inter.tex,v $ $}
-\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+\fancyfoot[R]{\small $ $Revision: 1.2 $ $}
 }
 
 %INCLUDE OUR GLOBALS
@@ -16,6 +17,7 @@
 \usepackage{styles201}
 \usepackage{ex201}
 
+\renewcommand{\headrulewidth}{0pt}
 
 \begin{document}
 
@@ -76,8 +78,8 @@ early; make sure you understand what you're doing before you begin, if
 not ask at a tutorial; work in small steps; save your last working
 version before changing it.
 
-This exercise assumes that you have read and will use the provided
-exception and I/O device guides handed out in lectures. These guides
+This exercise assumes that you have read and understand the sections
+of your manual on I/O Devices and Exceptions. These sections
 provide, amongst other things, a step by step approach to writing your
 exception handler and configuring the timer.
 
@@ -97,7 +99,7 @@ functionality to preserve all registers.
 
 Students are welcome to attempt to obtain a fully compliant exception
 routine in this exercise as an extension. All the technical details of
-how to do this are discussed in fully in the exception guide.
+how to do this are discussed in fully in the manual.
 
 \section{Questions}
 
@@ -105,7 +107,7 @@ how to do this are discussed in fully in the exception guide.
 \begin{enumerate}
 \item
 
-Take a copy of the code you wrote for question 1 of exercise 6. This
+Take a copy of the code you wrote for question 1 of exercise 5. This
 program should continually read the value of the switches and output
 this value to the seven segment displays. Following the steps outlined
 in the exception guide add code to this program to handle the user
