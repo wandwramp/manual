@@ -9,6 +9,13 @@
 % Formatting
 %%%%%%%%
 
+% New register definitions for small font size
+\newcommand{\subscrsm}[1]{\raisebox{-0.5ex}{\tiny #1}}  %Subscript
+\newcommand{\regdsm}{R\subscrsm{d}}
+\newcommand{\regssm}{R\subscrsm{s}}
+\newcommand{\regtsm}{R\subscrsm{t}}
+
+
 % Characters and Stuff
 \newcommand{\mem}[1]{[ #1 ]}
 \newcommand{\signextend}{\int}
@@ -23,18 +30,18 @@
 
 %Instructions
 \newcommand{\arithmeticinsn}[1]
-	   { \scriptsize{$ \regd \leftarrow \regs #1 \regt $ } }
+	   { \scriptsize{$ \regdsm \leftarrow \regssm #1 \regtsm $ } }
 \newcommand{\arithmeticinsni}[1]
-           { \scriptsize{$ \regd \leftarrow \regs #1 \signextend(immed) $ }
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 \signextend(immed) $ }
 	   }
 \newcommand{\arithmeticinsnu}[1]
-           { \scriptsize{$ \regd \leftarrow \regs #1 \regt $ } }
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 \regtsm $ } }
 \newcommand{\arithmeticinsnui}[1]
-           { \scriptsize{$ \regd \leftarrow \regs #1 immed $ } }
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 immed $ } }
 \newcommand{\lhiinsn}
-           { \scriptsize{$ \regd \leftarrow immed \ll 16 $} }
+           { \scriptsize{$ \regdsm \leftarrow immed \ll 16 $} }
 \newcommand{\lainsn}
-           { \scriptsize{$ \regd \leftarrow address $} }
+           { \scriptsize{$ \regdsm \leftarrow address $} }
 
 %%%%%%%%%%%%%
 %
