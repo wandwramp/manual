@@ -7,13 +7,14 @@
 \usepackage{epsfig}
 \usepackage{verbatim}
 
-\usepackage[a4paper, hmargin=15mm, vmargin=30mm]{geometry}
+\usepackage[a4paper, hmargin=25mm, vmargin=30mm]{geometry}
 \usepackage{syntonly}
 
 \usepackage{ex201}
 \usepackage{rex201}
 \usepackage{styles201}
 \usepackage{insn201}
+%\usepackage{margins}
 %\syntaxonly
 
 \title{COMP201 Reference}
@@ -56,7 +57,11 @@
 \input{instruction}
 \chapter{Small Instruction Set}
 \label{appendix:instrsm}
+\addtolength{\hoffset}{-1cm}
+\addtolength{\textwidth}{1cm}
 \input{instr-small}
+%\addtolength{\hoffset}{2cm}
+%\addtolength{\textwidth}{-2cm}
 \chapter{WRAMPmon Commands}
 \label{appendix:wrampmon}
 \input{wrampmon}
