@@ -13,7 +13,7 @@
 \usepackage{ex201}
 \usepackage{rex201}
 \usepackage{styles201}
-
+\usepackage{insn201}
 %\syntaxonly
 
 \title{COMP201 Reference}
@@ -22,6 +22,9 @@
 
 \maketitle
 \tableofcontents
+
+
+\input{preface}
 
 \chapter{Introduction}
 \label{chapter:intro}
@@ -40,7 +43,9 @@
 \label{appendix:instr}
 %\include{instruction}
 \input{instruction}
-Instruction Set Appendix 
+\chapter{Small Instruction Set}
+\input{instr-small}
+
 \chapter{WRAMPmon Commands}
 \label{appendix:wrampmon}
 \input{wrampmon}
