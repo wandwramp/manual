@@ -57,9 +57,9 @@
 \newcommand{\branchinsn}[1]
            { \scriptsize{ $ if(\regssm\ #1\ 0)\ PC\ \leftarrow\ PC + offset $}}
 \newcommand{\lwinsn}
-           { \scriptsize{ $ \regdsm\ \leftarrow\ [\regssm + offset] $}}
+           { \scriptsize{ $ \regdsm\ \leftarrow\ MEM[\regssm + offset] $}}
 \newcommand{\swinsn}
-           { \scriptsize{ $ [\regssm + offset]\ \leftarrow\ \regdsm $}}
+           { \scriptsize{ $ MEM[\regssm + offset]\ \leftarrow\ \regdsm $}}
 %%%%%%%%%%%%%
 %
 % Actual stuff
