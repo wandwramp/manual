@@ -22,13 +22,13 @@ Arithmetic Instructions\\
 
 \begin{tabular}{|l|l|l|l|}
   \hline
-  \textbf{asm}  & \textbf{machine code} & \textbf{function} &  \\
+  \textbf{Assembler}  & \textbf{Machine code} & \textbf{Function} &  \textbf{Description} \\
   \hline
 
   
   % ADD
   %\fullarith{add}{0000}{0001}{+}
-  \scriptsize{ add \regd, \regs, \regt }
+  \scriptsize{ \texttt{add \regd, \regs, \regt} }
   &
   \rtype{0000}{0000}
   &
@@ -40,7 +40,7 @@ Arithmetic Instructions\\
 
 
   % ADDI
-  \scriptsize{ addi \regd, \regs, Imm }
+  \scriptsize{ \texttt{addi \regd, \regs, immed} }
   &
   \itype{0001}{0000}
   &
@@ -50,9 +50,33 @@ Arithmetic Instructions\\
   \\
   \hline
 
+  % ADDU
+  %\fullarith{add}{0000}{0001}{+}
+  \scriptsize{ \texttt{addu \regd, \regs, \regt} }
+  &
+  \rtype{0000}{0001}
+  &
+  \arithmeticinsnu{+}
+  &
+  \scriptsize{ Add Unsigned }
+  \\
+  \hline
+
+
+  % ADDUI
+  \scriptsize{ \texttt{addui \regd, \regs, immed} }
+  &
+  \itype{0001}{0001}
+  &
+  \arithmeticinsnui{+}
+  &
+  \scriptsize{ Add Unsigned Immediate }
+  \\
+  \hline
+
 
   % SUB
-  \scriptsize{ sub \regd, \regs, \regt }
+  \scriptsize{ \texttt{sub \regd, \regs, \regt} }
   &
   \rtype{0000}{0010}
   &
@@ -63,7 +87,7 @@ Arithmetic Instructions\\
   \hline
 
   % SUBI
-  \scriptsize{ subi \regd, \regs, Imm }
+  \scriptsize{ \texttt{subi \regd, \regs, immed} }
   &
   \itype{0001}{0010}
   &
@@ -73,11 +97,33 @@ Arithmetic Instructions\\
   \\
   \hline
 
+  % SUBU
+  \scriptsize{ \texttt{subu \regd, \regs, \regt} }
+  &
+  \rtype{0000}{0011}
+  &
+  \arithmeticinsnu{-}
+  &
+  \scriptsize{ Subtract Unsigned }
+  \\
+  \hline
+
+  % SUBUI
+  \scriptsize{ \texttt{subui \regd, \regs, immed} }
+  &
+  \itype{0001}{0011}
+  &
+  \arithmeticinsnui{-}
+  &
+  \scriptsize{ Subtract Unsigned Immediate }
+  \\
+  \hline
+
 
   
 
   % MULT
-  \scriptsize{ mult \regd, \regs, \regt }
+  \scriptsize{ \texttt{mult \regd, \regs, \regt} }
   &
   \rtype{0000}{0100}
   &
@@ -88,7 +134,7 @@ Arithmetic Instructions\\
   \hline
 
   % MULTI
-  \scriptsize{ multi \regd, \regs, Imm }
+  \scriptsize{ \texttt{multi \regd, \regs, immed} }
   &
   \itype{0001}{0100}
   &
@@ -98,9 +144,31 @@ Arithmetic Instructions\\
   \\
   \hline
 
+  % MULTU
+  \scriptsize{ \texttt{multu \regd, \regs, \regt} }
+  &
+  \rtype{0000}{0101}
+  &
+  \arithmeticinsnu{\times}
+  &
+  \scriptsize{ Multiply Unsigned }
+  \\
+  \hline
+
+  % MULTUI
+  \scriptsize{ \texttt{multui \regd, \regs, immed} }
+  &
+  \itype{0001}{0101}
+  &
+  \arithmeticinsnui{\times}
+  &
+  \scriptsize{ Multiply Unsigned Immediate }
+  \\
+  \hline
+
 
   % DIV
-  \scriptsize{ div \regd, \regs, \regt }
+  \scriptsize{ \texttt{div \regd, \regs, \regt} }
   &
   \rtype{0000}{0110}
   &
@@ -111,7 +179,7 @@ Arithmetic Instructions\\
   \hline
 
   % DIVI
-  \scriptsize{ multi \regd, \regs, Imm }
+  \scriptsize{ \texttt{divi \regd, \regs, immed} }
   &
   \itype{0001}{0110}
   &
@@ -121,9 +189,31 @@ Arithmetic Instructions\\
   \\
   \hline
 
+  % DIVU
+  \scriptsize{ \texttt{divu \regd, \regs, \regt} }
+  &
+  \rtype{0000}{0111}
+  &
+  \arithmeticinsnu{\div}
+  &
+  \scriptsize{ Divide Unsigned }
+  \\
+  \hline
+
+  % DIVUI
+  \scriptsize{ \texttt{divui \regd, \regs, immed} }
+  &
+  \itype{0001}{0111}
+  &
+  \arithmeticinsnui{\div}
+  &
+  \scriptsize{ Divide Unsigned Immediate }
+  \\
+  \hline
+
   
   % REM
-  \scriptsize{ rem \regd, \regs, \regt }
+  \scriptsize{ \texttt{rem \regd, \regs, \regt} }
   &
   \rtype{0000}{1000}
   &
@@ -134,7 +224,7 @@ Arithmetic Instructions\\
   \hline
 
   % REMI
-  \scriptsize{ remi \regd, \regs, Imm }
+  \scriptsize{ \texttt{remi \regd, \regs, immed} }
   &
   \itype{0001}{1000}
   &
@@ -144,9 +234,31 @@ Arithmetic Instructions\\
   \\
   \hline
 
+  % REMU
+  \scriptsize{ \texttt{remu \regd, \regs, \regt} }
+  &
+  \rtype{0000}{1001}
+  &
+  \arithmeticinsnu{\ \%\ }
+  &
+  \scriptsize{ Remainder Unsigned }
+  \\
+  \hline
+
+  % REMUI
+  \scriptsize{ \texttt{remui \regd, \regs, immed} }
+  &
+  \itype{0001}{1001}
+  &
+  \arithmeticinsnui{\ \%\ }
+  &
+  \scriptsize{ Remainder Unsigned Immediate }
+  \\
+  \hline
+
 
   % LHI
-  \scriptsize{ lhi \regd, Immediate }
+  \scriptsize{ \texttt{lhi \regd, immed} }
   &
   \itype{0011}{1110}
   &
@@ -157,7 +269,7 @@ Arithmetic Instructions\\
   \hline
 
   % LA
-  \scriptsize{ la \regd, Address }
+  \scriptsize{ \texttt{la \regd, address} }
   &
   \jtype{1100}
   &
@@ -167,6 +279,78 @@ Arithmetic Instructions\\
   \\
   \hline
 
+  % AND
+  %\fullarith{add}{0000}{0001}{+}
+  \scriptsize{ \texttt{and \regd, \regs, \regt} }
+  &
+  \rtype{0000}{1011}
+  &
+  \arithmeticinsnu{\ AND\ }
+  &
+  \scriptsize{ Bitwise AND }
+  \\
+  \hline
+
+
+  % ANDI
+  \scriptsize{ \texttt{andi \regd, \regs, immed} }
+  &
+  \itype{0001}{1011}
+  &
+  \arithmeticinsnui{\ AND\ }
+  &
+  \scriptsize{ Bitwise AND Immediate }
+  \\
+  \hline
+
+  % OR
+  %\fullarith{add}{0000}{0001}{+}
+  \scriptsize{ \texttt{or \regd, \regs, \regt} }
+  &
+  \rtype{0000}{1101}
+  &
+  \arithmeticinsnu{\ OR\ }
+  &
+  \scriptsize{ Bitwise OR }
+  \\
+  \hline
+
+
+  % ORI
+  \scriptsize{ \texttt{ori \regd, \regs, immed} }
+  &
+  \itype{0001}{1101}
+  &
+  \arithmeticinsnui{\ OR\ }
+  &
+  \scriptsize{ Bitwise OR Immediate }
+  \\
+  \hline
+  
+  % XOR
+  %\fullarith{add}{0000}{0001}{+}
+  \scriptsize{ \texttt{xor \regd, \regs, \regt} }
+  &
+  \rtype{0000}{1111}
+  &
+  \arithmeticinsnu{\ XOR\ }
+  &
+  \scriptsize{ Bitwise XOR }
+  \\
+  \hline
+
+
+  % XORI
+  \scriptsize{ \texttt{xori \regd, \regs, immed} }
+  &
+  \itype{0001}{1111}
+  &
+  \arithmeticinsnui{\ XOR\ }
+  &
+  \scriptsize{ Bitwise XOR Immediate }
+  \\
+  \hline
+  
   
  
 \end{tabular}
