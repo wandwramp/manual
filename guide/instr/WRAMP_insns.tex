@@ -7,6 +7,12 @@
 \usepackage{styles201}
 \usepackage{rex201}
 
+
+\begin{document}
+\input{instruction}
+\end{document}
+
+
 \begin{comment}
 \newcommand\jtypeinsn[4]{
 	\vspace{-4ex}
@@ -107,7 +113,7 @@
 	\end{tabular}
 	\end{center}
 	}
-\end{comment}
+
 
 \begin{document}
 
@@ -855,5 +861,5 @@ Generate a system call exception, transferring control to the exception handler.
 Restore the saved interrupt enable and kernel/user mode bits and jump to
 the instruction at the address specified in the special register \texttt{\$ear}.
 \vspace{3ex}
-
-\end{document}
+\end{comment}
+%\end{document}
