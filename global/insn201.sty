@@ -25,8 +25,10 @@
 	   { \scriptsize{\texttt{#1 dddd ssss #2 0000 0000 0000 tttt}} } 
 \newcommand{\itype}[2]
 	   { \scriptsize{\texttt{#1 dddd ssss #2 iiii iiii iiii iiii} } }
-\newcommand{\jtype}[1]
-	   { \scriptsize{\texttt{#1 dddd ssss aaaa aaaa aaaa aaaa aaaa} } }
+%\newcommand{\jtype}[1]
+%	   { \scriptsize{\texttt{#1 dddd ssss aaaa aaaa aaaa aaaa aaaa} } }
+\newcommand{\jtype}[3]
+	   { \scriptsize{\texttt{#1 #2 #3 aaaa aaaa aaaa aaaa aaaa} } }
 
 %Instructions
 \newcommand{\arithmeticinsn}[1]
@@ -45,7 +47,14 @@
 \newcommand{\srainsn}
            { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ \regtsm\ ) $ } }
 \newcommand{\srainsnimm}
-           { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ immed ) $ } }
+           { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ immed\ ) $ } }
+\newcommand{\jumpinsn}[1]
+           { \scriptsize{$ pc \leftarrow #1 $} }
+\newcommand{\jalinsn}[1]
+           { \scriptsize{$ \$ra \leftarrow pc,\ pc \leftarrow #1 $} } 
+\newcommand{\specialinsn}[1]
+           { \scriptsize{ $ #1 $ } }
+
 
 
 %%%%%%%%%%%%%

@@ -16,11 +16,11 @@
 %\begin{landscape}
 \section{WRAMP Instruction Set Summary}
 
-\begin{table}[h]
+%\begin{table}[h]
 \begin{center}
-Arithmetic Instructions\\
+Arithmetic Instructions\\*
 
-\begin{tabular}{|l|l|l|l|}
+\begin{tabular}{|l|l|l|p{5.5cm}|}
   \hline
   \textbf{Assembler}  & \textbf{Machine code} & \textbf{Function} &  \textbf{Description} \\
   \hline
@@ -269,7 +269,7 @@ Arithmetic Instructions\\
   % LA
   \scriptsize{ \texttt{la \regdsm, address} }
   &
-  \jtype{1100}
+  \jtype{1100}{dddd}{0000}
   &
   \lainsn
   &
@@ -277,8 +277,21 @@ Arithmetic Instructions\\
   \\
   \hline
 
+\end{tabular}
+
+
+
+
+
+
+Bitwise Instructions\\*
+
+\begin{tabular}{|l|l|l|p{5.5cm}|}
+  \hline
+
   % AND
   \scriptsize{ \texttt{and \regdsm, \regssm, \regtsm} }
+  \makebox[.65cm]{}
   &
   \rtype{0000}{1011}
   &
@@ -419,12 +432,428 @@ Arithmetic Instructions\\
   \\
   \hline
 
+\end{tabular}
 
+
+
+Test Instructions\\*
+
+\begin{tabular}{|l|l|l|p{5.5cm}|}
+  \hline
+
+  % SLT
+  \scriptsize{ \texttt{slt \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0000}
+  &
+  \arithmeticinsn{\ <\ }
+  &
+  \scriptsize{ Set on Less than }
+  \\
+  \hline
+
+
+  % SLTI
+  \scriptsize{ \texttt{slti \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0000}
+  &
+  \arithmeticinsni{\ <\ }
+  &
+  \scriptsize{ Set on Less than Immediate  }
+  \\
+  \hline
+
+  % SLTU
+  \scriptsize{ \texttt{sltu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0001}
+  &
+  \arithmeticinsnu{\ <\ }
+  &
+  \scriptsize{ Set on Less than Unsigned }
+  \\
+  \hline
+
+
+  % SLTUI
+  \scriptsize{ \texttt{sltui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0001}
+  &
+  \arithmeticinsnui{\ <\ }
+  &
+  \scriptsize{ Set on Less than Unsigned Immediate  }
+  \\
+  \hline
+
+
+  % SGT
+  \scriptsize{ \texttt{sgt \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0010}
+  &
+  \arithmeticinsn{\ >\ }
+  &
+  \scriptsize{ Set on Greater than }
+  \\
+  \hline
+
+
+  % SGTI
+  \scriptsize{ \texttt{sgti \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0010}
+  &
+  \arithmeticinsni{\ >\ }
+  &
+  \scriptsize{ Set on Greater than Immediate  }
+  \\
+  \hline
+
+  % SGTU
+  \scriptsize{ \texttt{sgtu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0011}
+  &
+  \arithmeticinsnu{\ >\ }
+  &
+  \scriptsize{ Set on Greater than Unsigned }
+  \\
+  \hline
+
+
+  % SGTUI
+  \scriptsize{ \texttt{sgtui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0011}
+  &
+  \arithmeticinsnui{\ >\ }
+  &
+  \scriptsize{ Set on Greater than Unsigned Immediate  }
+  \\
+  \hline
+
+
+  % SLE
+  \scriptsize{ \texttt{sle \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0100}
+  &
+  \arithmeticinsn{\ \le\ }
+  &
+  \scriptsize{ Set on Less than or Equal}
+  \\
+  \hline
+
+
+  % SLEI
+  \scriptsize{ \texttt{slei \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0100}
+  &
+  \arithmeticinsni{\ \le\ }
+  &
+  \scriptsize{ Set on Less than or Equal Immediate  }
+  \\
+  \hline
+
+  % SLEU
+  \scriptsize{ \texttt{sleu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0101}
+  &
+  \arithmeticinsnu{\ \le\ }
+  &
+  \scriptsize{ Set on Less than or Equal Unsigned }
+  \\
+  \hline
+
+
+  % SLEUI
+  \scriptsize{ \texttt{sleui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0101}
+  &
+  \arithmeticinsnui{\ \le\ }
+  &
+  \scriptsize{ Set on Less than or Equal  Unsigned Immediate  }
+  \\
+  \hline
+
+
+   % SGE
+  \scriptsize{ \texttt{sge \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0110}
+  &
+  \arithmeticinsn{\ \ge\ }
+  &
+  \scriptsize{ Set on Greater than or Equal}
+  \\
+  \hline
+
+
+  % SGEI
+  \scriptsize{ \texttt{sgei \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0110}
+  &
+  \arithmeticinsni{\ \ge\ }
+  &
+  \scriptsize{ Set on Greater than or Equal Immediate  }
+  \\
+  \hline
+
+  % SGEU
+  \scriptsize{ \texttt{sgeu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{0111}
+  &
+  \arithmeticinsnu{\ \ge\ }
+  &
+  \scriptsize{ Set on Greater than or Equal Unsigned }
+  \\
+  \hline
+
+
+  % SGEUI
+  \scriptsize{ \texttt{sgeui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{0111}
+  &
+  \arithmeticinsnui{\ \ge\ }
+  &
+  \scriptsize{ Set on Greater than or Equal Unsigned Immediate  }
+  \\
+  \hline
+
+
+   % SEQ
+  \scriptsize{ \texttt{seq \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{1000}
+  &
+  \arithmeticinsn{\ =\ }
+  &
+  \scriptsize{ Set on Equal}
+  \\
+  \hline
+
+
+  % SEQI
+  \scriptsize{ \texttt{seqi \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{1000}
+  &
+  \arithmeticinsni{\ =\ }
+  &
+  \scriptsize{ Set on Equal Immediate  }
+  \\
+  \hline
+
+  % SEQU
+  \scriptsize{ \texttt{sequ \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{1001}
+  &
+  \arithmeticinsnu{\ =\ }
+  &
+  \scriptsize{ Set on Equal Unsigned }
+  \\
+  \hline
+
+
+  % SEQUI
+  \scriptsize{ \texttt{sequi \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{1001}
+  &
+  \arithmeticinsnui{\ =\ }
+  &
+  \scriptsize{ Set on Equal Unsigned Immediate  }
+  \\
+  \hline
+
+
+  % SNE
+  \scriptsize{ \texttt{sne \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{1010}
+  &
+  \arithmeticinsn{\ \neq\ }
+  &
+  \scriptsize{ Set on Not Equal}
+  \\
+  \hline
+
+
+  % SNEI
+  \scriptsize{ \texttt{snei \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{1010}
+  &
+  \arithmeticinsni{\ \neq\ }
+  &
+  \scriptsize{ Set on Not Equal Immediate  }
+  \\
+  \hline
+
+  % SNEU
+  \scriptsize{ \texttt{sneu \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0010}{1011}
+  &
+  \arithmeticinsnu{\ \neq\ }
+  &
+  \scriptsize{ Set on Not Equal Unsigned }
+  \\
+  \hline
+
+
+  % SNEUI
+  \scriptsize{ \texttt{sneui \regdsm, \regssm, immed} }
+  &
+  \itype{0011}{1011}
+  &
+  \arithmeticinsnui{\ \ne\ }
+  &
+  \scriptsize{ Set on Not Equal Unsigned Immediate  }
+  \\
+  \hline
+
+\end{tabular}
+
+
+
+
+Branch Instructions\\*
+
+\begin{tabular}{|l|l|l|p{5.5cm}|}
+
+  \hline
+  % J
+  \scriptsize{ \texttt{j Address} }
+  \makebox[1.3cm]{}
+  &
+  \jtype{0100}{0000}{0000}
+  &
+  \jumpinsn{Address}
+  &
+  \scriptsize{ Jump }
+  \\
+  \hline
+
+  % JR
+  \scriptsize{ \texttt{jr \regssm} }
+  &
+  \jtype{0101}{0000}{ssss}
+  &
+  \jumpinsn{\regssm}
+  &
+  \scriptsize{ Jump to Register }
+  \\
+  \hline
+
+  
+  % JAL
+  \scriptsize{ \texttt{jal Address} }
+  &
+  \jtype{0110}{0000}{0000}
+  &
+  \jalinsn{Address}
+  &
+  \scriptsize{ Jump and Link  }
+  \\
+  \hline
+
+
+  % JALR
+  \scriptsize{ \texttt{jalr \regssm} }
+  &
+  \jtype{0100}{0000}{ssss}
+  &
+  \jumpinsn{\regssm}
+  &
+  \scriptsize{ Does this exist? }
+  \\
+  \hline
+
+\end{tabular}
+
+
+
+Special Instructions\\*
+
+\begin{tabular}{|l|l|l|p{5.5cm}|}
+
+  \hline
+  %MOVGS
+  \scriptsize{ \texttt{movgs \regdsm, \regssm} }
+  \makebox[0.95cm]{}
+  &
+  \scriptsize{\texttt{0011 0000 0000 1100 0000 0000 0000 0000\ }}
+  &
+  \specialinsn{\regdsm \leftarrow \regssm}
+  \makebox[1.80cm]{}
+  &
+  \scriptsize{ Move General to Special Register }
+  \\
+  \hline
+
+
+  %MOVSG
+  \scriptsize{ \texttt{movsg \regdsm, \regssm} }
+  &
+  \scriptsize{\texttt{0011 0000 0000 1101 0000 0000 0000 0000}}
+  &
+  \specialinsn{\regdsm \leftarrow \regssm}
+  &
+  \scriptsize{ Move Special to General Register }
+  \\
+  \hline
+
+
+  %BREAK
+  \scriptsize{ \texttt{break} }
+  &
+  \scriptsize{\texttt{0010 0000 0000 1100 0000 0000 0000 0000}}
+  &
+  %\specialinsn{break}
+  &
+  \scriptsize{ Generate a Break Point Exception }
+  \\
+  \hline
+
+
+  %SYSCALL
+  \scriptsize{ \texttt{syscall} }
+  &
+  \scriptsize{\texttt{0010 0000 0000 1101 0000 0000 0000 0000}}
+  &
+  %\specialinsn{break}
+  &
+  \scriptsize{ Generate a Syscall Exception }
+  \\
+  \hline
+
+
+  %BREAK
+  \scriptsize{ \texttt{rfe} }
+  &
+  \scriptsize{\texttt{0010 0000 0000 1110 0000 0000 0000 0000}}
+  &
+  %\specialinsn{break}
+  &
+  \scriptsize{ Return from Exception }
+  \\
+  \hline
 
 
 \end{tabular}
+
 \end{center}
-\end{table}
+%\end{table}
 
 %\end{landscape}
 
