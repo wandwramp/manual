@@ -8,7 +8,7 @@
 \usepackage{fancyhdr}
 \fancypagestyle{rcsfooters}{
 \fancyfoot[L]{\small $ $RCSfile: intro.tex,v $ $}
-\fancyfoot[R]{\small $ $Revision: 1.5 $ $}
+\fancyfoot[R]{\small $ $Revision: 1.6 $ $}
 }
 
 \renewcommand{\headrulewidth}{0pt}
@@ -68,6 +68,10 @@ debugging assembly code for the WRAMP processor and the REX board.
 Before attempting this excercise you should have read the 
 chapter `Introduction to Rex and WRAMP' in your course manual.  The material covered in this chapter of the manual \textbf{is examinable}.
 
+The I/O routines you should use in this exercise are contained in the
+file \LIBEXTWOP. These routines are outlined in Appendix
+\ref{app:ioroutines}.
+
 \section{Questions}
 \begin{enumerate}
 \item\label{ques:first} Write a program which continually (i.e. is in
@@ -125,32 +129,34 @@ displayed as \src{07}.
 \caption{Mapping Function for Encryption Process}
 \end{table}
 
-
+\newpage
+\appendix
 \section{I/O Routines}
-\begin{footnotesize}
-\begin{itemize}
-\item putch 
+\label{app:ioroutines}
+
+\begin{description}
+\item \textbf{putch} 
 The subroutine outputs a single ASCII character to the
 terminal. The character to be output is passed in register \reg{2}.
 
-\item putstr 
+\item \textbf{putstr} 
 The subroutine outputs a null terminated string to the
 terminal. The address in memory of the first character in the string
 is passed to the subroutine in register \reg{2}. Uses printf so any
 percentage signs may cause unexpected side-effects.
 
-\item readnum 
+\item \textbf{readnum} 
 Subroutine to read a decimal integer number from the keyboard
 and convert it to 32 bit 2's compliment number. Number is echoed to
 terminal. The subroutine exits when a non-digit character is entered
 and returns the number read in register \reg{1}.
 
-\item writenum 
+\item \textbf{writenum} 
 Subroutine to write a 32 bit 2's compliment number to the
 terminal as a decimal integer number. The number to output is passed
 in register \reg{2}.
 
-\item readswitches 
+\item \textbf{readswitches} 
 When called this subroutine returns, in register
 \reg{1}, the current value on the switches in the low order bits (0 to
 7). Bits 8 through 31 of \reg{1} are cleared (set to zero) by this
@@ -158,18 +164,18 @@ subroutine. For example if the subroutine is called with the switches
 set in the pattern shown in Figure 3 then \reg{1} will contain 0x00000092
 when the subroutine returns.
 
-\item writessd 
+\item \textbf{writessd}
 When called this subroutine will display the lowest
 order byte (bits 0-7) of register \reg{2} as a pair of hexadecimal digits
 to the seven segment displays. For example if \reg{2} contains 0x0000005a
-when the subroutine is called then "5a" will be displayed on the
+when the subroutine is called then ``5a'' will be displayed on the
 seven-segment displays.
 
-\item exit 
+\item \textbf{exit}
 This is a non-returning subroutine that when called returns
 control back to the monitor.
-\end{itemize}
-\end{footnotesize}
+\end{description}
+
 
 
 \thispagestyle{rcsfooters}
