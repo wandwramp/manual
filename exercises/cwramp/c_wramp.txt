@@ -1,0 +1,24 @@
+1. Which instructions set up the stack frame ?
+
+2. Which instructions tear down the stack frame ?
+
+3. Show me the code that gets your argument passed to you by main.
+
+4. Show me the code that puts the arguments on the stack for 
+   counter().
+
+5. How much do you grow and shrink the stack by ?
+
+6. Which location in the stack do you save the RA in ?
+
+7. Which registers do you save upon entry ?
+
+8. Which registers do you restore upon exit ?
+
+You should look over the save and restore code for all people and make sure 
+that you believe that they are correctly saving and restoring all the registers
+they use.
+
+If it appears that they are not, ask them why, and tell them that they must 
+save *all* registers besides $1 that they use. If they don't fix it they only
+get an "Attempted"

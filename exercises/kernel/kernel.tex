@@ -1,0 +1,211 @@
+\documentclass[a4paper,10pt]{article}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1.5ex}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
+
+\usepackage{fancyhdr}
+\fancypagestyle{rcsfooters}{
+\fancyfoot[L]{\small $ $RCSfile: kernel.tex,v $ $}
+\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+}
+
+%INCLUDE OUR GLOBALS
+\usepackage{rex201}
+\usepackage{styles201}
+\usepackage{ex201}
+
+\renewcommand{\headrulewidth}{0pt}
+
+\begin{document}
+
+\EXHEADING{\KERNNO}{\KERNTITLE}{%
+Intermediate Verification Date:~\KERNADUE \\
+Final Verification Date:~\KERNDUE~(9am -- 12noon and 4 -- 6pm) \\
+Exercise Test Date:~\KERNTEST \\
+}
+
+\section{Assessment}
+
+To show that you have completed this exercise to a satisfactory
+standard you will be required to demonstrate at a verification session
+that the program you wrote in \textbf{Question~\ref{ques:final}} of
+this exercise runs correctly. In addition the marker may ask one or
+two questions so they establish that you understand what you have
+done.  These verification sessions will be held in Lab 1 during the
+following two times:
+
+\begin{itemize}
+\item \KERNDUE~9am -- 12noon in Lab 1
+\item \KERNDUE~4 -- 6pm in Lab 1
+\end{itemize}
+
+In an attempt to ensure that the verification process runs smoothly
+six machines in Lab 1 will be booked for this purpose during the two
+sessions. When it is your turn to have your program verified you
+should log onto one of these machines and get your program ready to
+run on the REX board. A marker will then verify your program. Once
+your program has been verified you should log off immediately to allow
+the next person to prepare to have their program verified.
+
+Due to the size of this exercise an intermediate electronic
+verification must be completed by~\textbf{\KERNADUE}. You should
+complete this verification as soon as you have completed
+\textbf{Question~\ref{ques:parta}}. If you do not submit this form by
+the due date then you will not be credited for this exercise, even if
+you complete the final verification.
+
+To complete this verification complete the form on the following web
+page:
+\begin{center}
+\verb+http://lab1-1.cs.waikato.ac.nz/~mpearson/kernel.html+\\
+\end{center}
+
+In addition to the verification process there will be a closed book
+exercise test on~\textbf{\KERNTEST}. The test can cover any material
+from this exercise.
+
+\section{Objective}
+
+The aim of this exercise is to develop your understanding of
+multitasking through implementation of a simple multitasking kernel
+for the REX board.
+
+\section{Introduction}
+
+This exercise continues from the previous simulation exercise. In this
+exercise you will implement a simple multitasking kernel, similar to
+the one shown in the simulator.
+
+This exercise builds from both the ``\INTERTITLE'' exercise as well as
+the ``\MTKSTITLE'' exercise. The exercise assumes that you will use
+the provided WRAMP I/O Device Guide, Exception Guide and Stack Guide
+as well as the course lecture material to gain the knowledge required
+to complete it successfully.
+
+Your kernel will include:
+\begin{itemize}
+\setlength{\itemsep}{0cm}
+\setlength{\parskip}{0cm}
+\item An exception handler
+\item A dispatcher
+\item Some simple jobs
+\end{itemize}
+
+By the end of this exercise your kernel must implement the following
+features which have been discussed in the lecture notes.
+\begin{itemize}
+\setlength{\itemsep}{0cm}
+\setlength{\parskip}{0cm}
+\item Saving and restoring the complete context of the jobs.
+\item Individual stacks for each job
+\item A PCB linked list for job selection
+\end{itemize}
+
+\section{Questions}
+
+\begin{enumerate}
+\item Write a program which uses the REX timer to produce an interrupt
+each second. Inside your exception handler increment a memory location
+which contains a count of the number of seconds the program has been
+running.
+
+Inside the main-loop of your code write a job which continuously loads
+this counter and displays it to the Linux machine as a time in minutes
+and seconds. Write a compliant WRAMP subroutine which accepts a single
+argument, and prints that argument to the Linux machine. Use this
+subroutine to print each of the characters that make up the time. Make
+sure that your subroutine follows all the requirements provided in the
+WRAMP Stack Guide.
+
+\item
+\label{ques:parta}
+
+Modify this program so that the timer interrupts 100 times per
+second. Alter the code which increments the seconds counter so that
+the counter is still only incremented once per second. You must
+complete this question before you complete the electronic verification
+mentioned above.
+
+\item Add to your code a dispatcher and a single PCB. Make the PCB
+link field point to itself. Your dispatcher should save the state of
+the current job, and then load the state of the next job. As there is
+only a single job your dispatcher will end up restoring the same
+state.
+
+To complete this section you will need to introduce a current job
+pointer, as well as correctly initialising a PCB. You should give your
+job a timeslice of 2, that is you will call the dispatcher once for
+every 2 timer interrupts.
+
+The code that formed the main-loop of the original program is now the
+only job being run by a multitasking kernel. You should make sure that
+you enter the job initially by jumping to an entry point inside your
+dispatcher.
+
+This question is the hardest of the exercise and should be completed
+carefully. Make regular backups of working code before you add more
+features.
+
+\item Add a second job to your program. This job should read the value
+on the switches and print the value to the seven segment display.
+
+To add this job you will need to add a second PCB, correctly
+initialise it, and make sure it is part of the PCB linked list.
+
+As you now have two jobs you will also need to create a separate stack
+for each of the jobs. Follow the examples provided in the lecture
+notes on how to do this. You can make the stacks of any size, but
+serious problems can occur if the stack is too small. For the jobs you
+will be running we recommend a stack size of 100 words for each task.
+
+Make sure that both jobs are using the same registers in order to
+check that the contents of these registers are being correctly
+preserved by your dispatcher.
+
+To see the way your kernel is operating you may wish to slow the
+timer down. If the timer interrupts only once per second you should
+see that each job runs for two seconds before the other starts
+running.
+
+\item
+\label{ques:final}
+
+Your kernel should now be running each job inside its own individual
+environment. If this is the case then there should be no reason that
+you would have to write each of the jobs you run. If you are correctly
+saving all the context of a job and restoring it properly then a job
+should never know that it is running alongside other code.
+
+To test this we have provided some code which will make up the final
+job of your multitasking kernel. This job is a very simple game which
+is played on the terminal attached to the REX board.
+
+Add a third PCB and stack to your kernel. The provided job starts at a
+label called \src{gamejob}. The game is provided in a separate
+object file called \filename{game.o}. This file is provided in the
+\filename{/home/201/ex9/} directory. Do \textbf{not} copy this file to
+your home account. Instead link directly against this file.
+
+If you are having problems remembering how to link multiple object
+files together, refer back to the early exercises where your code was
+linked against the \filename{lib.o} object.
+
+For the curious, the source to this game is provided in the
+\filename{game.s} file in the same directory. You are welcome to take a
+copy of this code to play with, but for the final verification your
+kernel must run successfully when linked against the \filename{game.o}
+file provided.
+
+\end{enumerate}
+\thispagestyle{rcsfooters}
+\pagestyle{rcsfooters}
+
+\end{document}
+
+
+
+
+
+

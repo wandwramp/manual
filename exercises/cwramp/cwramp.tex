@@ -1,0 +1,320 @@
+\documentclass[a4paper,10pt]{article}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1.5ex}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
+
+\usepackage{fancyhdr}
+\fancypagestyle{rcsfooters}{
+\fancyfoot[L]{\small $ $RCSfile: cwramp.tex,v $ $}
+\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+}
+
+\renewcommand{\headrulewidth}{0pt}
+
+%INCLUDE OUR GLOBALS
+\usepackage{rex201}
+\usepackage{styles201}
+\usepackage{ex201}
+
+
+\begin{document}
+
+\EXHEADING{\CWRAMPNO}{\CWRAMPTITLE}{%
+Verification Date:~\CWRAMPDUE\\
+Excercise Test Date:~\CWRAMPTEST\\
+}
+
+\section{Assesment}
+To show that you have completed this exercise to a satisfactory
+standard you will be required to demonstrate at a verification session
+that the program you wrote in \textbf{Question~%\ref{ques:final}} 
+2}
+of this exercise
+runs correctly. In addition the marker may ask one or two questions so
+they establish that you understand what you have done.  These
+verification sessions will be held in \ASSESSROOM during the following two
+times:
+
+\begin{itemize}
+\item \CWRAMPDUE~\MORNINGASSESS
+\item \CWRAMPDUE~\MORNINGASSESS
+\end{itemize}
+
+In an attempt to ensure that the verification process runs smoothly
+six machines in \ASSESSROOM will be booked for this purpose during the two
+sessions. When it is your turn to have your program verified you
+should log onto one of these machines and get your program ready to
+run on the REX board. A marker will then verify your program. Once
+your program has been verified you should log off immediately to allow
+the next person to prepare to have their program verified.
+
+In addition to the test there will be a closed book excercise test on
+\textbf{\CWRAMPTEST}.  The test will cover material 
+from excercises 2, 3 and 4.
+
+
+\section{Objective}
+The objective of this assignment is to gain some insight 
+into the relationship between high level
+programming languages and assembly level languages, and 
+the importance of the stack in the
+implementation of functions. To achieve this you will 
+write a function in both C and WRAMP assembly
+that will be compiled, assembled and executed on the 
+REX boards.
+
+\section{Questions}
+\subsection{Question 1} \label{ques:first}
+\emph{%
+Write a C function called \src{counter} that takes two integer 
+arguments, called \src{value} and \src{direction}. The function 
+prototype would appear as follows:
+}
+\begin{center}
+\begin{verbatim}
+     void counter(int value, int direction)
+\end{verbatim}
+\end{center}
+
+This function has two modes of operation. If \src{direction} 
+is set to zero, the seven segment display
+should count from zero up to \src{value}. If \src{direction} 
+is set to one, the seven segment display should
+count down from \src{value} to zero.
+
+In order to be able to see each individual value written to 
+the display a delay must be inserted between
+each write.
+To write to the seven segment display you should 
+use a function called writessd, similar to the one
+provided in exercise three.    This function is 
+provided in a file called \filename{/home/201/lib.o}.    The
+function prototypes for this library are declared in the 
+file \filename{/home201/lib.h}. Your C code must
+include this header. You should have something 
+like the following at the top of your C function:
+
+
+\begin{verbatim}
+     #include "/home/201/lib.h"
+\end{verbatim}
+
+(note the `\#' should be hard up against the left margin.)
+
+\filename{/home/201/lib.o} also provides the delay 
+function. You should call this function once (with no
+arguments) in between writing each value to the seven segment display.
+You must name your function counter, and the 
+C file should not contain any other function.
+Specifically you should not include a \src{main( )} function. 
+The \src{main()} function will be provided and is
+detailed later.
+A full list of the functions provided by the 
+library and the arguments each of these expect is detailed in
+Appendix %ref.
+You should call the file that you create \filename{counter.c} 
+and save it in a directory for this exercise.
+Compile your C program using \program{wcc} (a C 
+compiler that generates code for the WRAMP processor) and
+examine the resulting WRAMP code (\filename{counter.s}). You should 
+pay particular attention to examining
+the relationship between the statements in the 
+C program and the resulting WRAMP assembler
+statements as you will be tested on your understanding 
+of these relationships in the exercise test. The
+command to compile your program into WRAMP code using wcc is:
+\begin{verbatim}
+     wcc ­S counter.c
+\end{verbatim}
+Assemble the WRAMP code using the following command:
+\begin{verbatim}
+     wasm counter.s
+\end{verbatim}
+
+If both of these commands completed without errors you 
+should now have a file called \filename{counter.o} in
+the current directory.
+To allow you to test your function on a REX board 
+two functions are provided. The first function,
+\src{main()}, provides the entry point for the code.    
+This function is provided in the file
+\filename{/home/201/ex4/main.c}. The function 
+simply reads the current value on the switches then calls a
+subroutine called \src{counter\_ctrl}. \src{counter\_ctrl} 
+is the second function provided and is declared
+in the file \filename{/home/210/ex4/ctrl.c}. This 
+function accepts a single argument, which is the value on
+the switches. From this value the function 
+determines the direction and value that your counter
+function will be called with. The provided 
+\src{counter\_ctrl} simply uses the most significant bit (bit 7)
+as direction, and the remaining bits (bits 0 to 6) 
+as value. You should open and view both of
+these files to ensure you understand how they work.
+You do not need to copy these files to your 
+home directory as precompiled versions of both of these are
+given in \filename{/home/201/ex4/main.o} and 
+\filename{/home/201/ex4/ctrl.o} respectively.
+To create an uploadable file that includes the 
+compiled version of your C function counter run the
+following link command on one line:
+
+\begin{verbatim}
+     wlink ­o ex4_1.srec counter.o /home.201/ex4/main.o 
+              /home/201/ex4/ctrl.o /home/201/lib.o
+\end{verbatim}
+
+This links together your \src{counter} function and the provided 
+\src{main}, \src{counter\_ctrl} and library
+functions into one uploadable file called \filename{ex4\_1.srec}.
+You should upload this file to the REX board and confirm 
+that the program operates correctly.
+
+The second stage of this assignment is to replace
+ the provided \src{counter\_ctrl} function with one that
+you write in assembly. For C code and 
+handwritten assembly code to be used interchangeably in the
+same program both the compiler and assembly coder 
+must follow strict conventions on how the two
+interact. These conventions concern both the 
+ways that you must pass and return arguments to and from
+a function and also who is responsible for 
+preserving the contents of any registers that are used.
+The system used to allow for arguments to be 
+passed and registers to be saved is called the stack. The
+code you write in this second part of the assignment 
+must correctly use the stack and obey the
+conventions to successfully interact with the C 
+code that makes up the rest of the program. On the
+WRAMP architecture the "top of stack" is pointed 
+to by the register \reg{sp} and the stack grows downwards.
+The WRAMP calling conventions are detailed fully in a
+lecture handout, but in summary:
+
+\begin{itemize}
+\item All arguments are passed on the top 
+of the stack to the callee function. The stack pointer will
+point to the first argument.
+\item Values returned by a function are returned in register one (\reg{1}).
+\item All registers used by the callee function must be preserved and 
+returned in tact to the caller
+function. This means that if you use any register you must 
+first save it before you use it, and
+restore it before you return. The only 
+exception to this rule is \reg{1}. This register is allowed to
+be overwritten by any function, whether the 
+function returns a value or not.
+\item Any function that wishes to call another function 
+must save their return address from \reg{ra}
+onto the stack. The jal command used to call 
+the next function will otherwise overwrite your
+return address. Leaf functions need not do this.
+\end{itemize}
+
+\subsection{Question 2}
+\emph{
+ You are to write your own version of the 
+\src{counter\_ctrl} function in WRAMP assembly. This
+function will be called with a single argument, that 
+being the value on the switches. Your code
+must call the function counter that you wrote in \emph{Q1} 
+of this assignment. You should pass the
+value on the switches directly to the \src{value} 
+argument of the \src{counter} function. In your
+\src{counter\_ctrl} function the \src{direction} argument 
+passed to \src{counter} should be set to \src{1}
+if the upper 4 bits of the switches (bits 4 to 7) are 
+a greater than or equal to the lower 4 bits
+(bits 0 to 3) of the switches, otherwise direction should 
+be set to \src{0}.
+For example, if the switches are set to \src{0x92} 
+(\src{1001 0010}) you should call the counter
+function with \src{value} set to \src{0x92} and 
+\src{direction} set to \src{1}.
+If the switches are set to \src{0x26} (\src{0010 0110}) you 
+should call the counter function with \src{value}
+set to \src{0x26} and \src{direction} set to \src{0}.
+}
+
+You should call the file you save your \src{counter\_ctrl} 
+function in \filename{my\_ctrl.s}. You must declare
+your \src{counter\_ctrl} function global by placing the 
+following at the top of your code:
+
+\begin{verbatim}
+     .global counter_ctrl
+\end{verbatim}
+
+To assemble your new function you should sue the 
+following wasm command:
+
+\begin{verbatim}
+     wasm my_ctrl.s
+\end{verbatim}
+
+To link your counter and counter\_ctrl functions together 
+along with the provided main and
+library functions you should use the following 
+\program{wlink} command on one line:
+
+\begin{verbatim}
+     wlink ­o ex4_2.srec counter.o my_ctrl.o
+           /home/201/ex4/main.o /home/201/lib.o
+\end{verbatim}
+
+You should now have a file named \filename{ex4\_2.srec} 
+that you can upload and test on the REX board.
+During verification the demonstrator may require 
+that you can prove that your \src{counter\_ctrl}
+function does not modify any registers without saving 
+and restoring them before returning to the caller.
+
+\section{Appendix - Excercise 4 Library Routines}
+
+\begin{description}
+\item[void putch(char character)] The subroutine outputs a 
+single ASCII character to the terminal. The character to be output is
+passed as the first argument.
+%
+\item[void putstr(char *str)] The subroutine outputs
+a null terminated string to the terminal. The address in memory of the
+first character in the spring is passed as the first 
+argument. Uses printf so any percentage signs
+may cause unexpected side-effects.
+%
+\item[int readnum(void)] Subroutine to read a decimal 
+integer number from the keyboard and convert it to a 32 bit 2's
+compliment number. Number is echoed to terminal. The 
+subroutine exits when a non-digit
+character is entered and returns the number read in \reg{1}.
+%
+\item[void writenum(int num)] Subroutine to write a 32
+ bit 2's compliment number to the terminal as a decimal integer
+number. The number to output is passed as the first argument.
+%
+\item[int readswitches(void)]
+When called this subroutine returns, in \reg{1}, the current 
+value on the switches in the low order
+bits (0 to 7). Bits 8 through 31 of \reg{1} are cleared 
+(set by zero) by this subroutine.
+%
+\item[void writessd(int num)] When called this subroutine 
+will display the lowest order byte (bits 0-7) of the first argument as
+a pair of hexadecimal digits to the seven segment displays. 
+For example if num contains
+0x0000005a when the subroutine is called then "5a" will 
+be displayed on the seven-segment
+displays.
+%
+\item[void exit(void)] This is a non-returning 
+subroutine that when called returns control back to the monitor.
+%
+\item[void delay(void)] This subroutine will return 
+approximately 0.25 seconds after it is called.
+\end{description}
+
+\thispagestyle{rcsfooters}
+\pagestyle{rcsfooters}
+\end{document}

@@ -1,0 +1,735 @@
+\section{Introducing REX and WRAMP}
+
+During this year you will be using the REX boards in Lab 1.  
+They should help you gain a practical understanding of the internal workings
+of a computer.  They were developed at this university by Dean Armstrong, as
+part of an undergraduate degree.  
+
+
+\subsection{The WRAMP CPU}
+The \BI{Central Processing Unit} (\BI{CPU}) is responsible for carrying out 
+instructions.
+CPUs have developed at an astounding rate.  From the humble Z80 to the 386, and
+beyond the GHz barrier.  But as the speed increases, so does
+the complexity.  Due to this complexity it is difficult learning to program
+at a low level. 
+
+The WRAMP CPU was designed to solve this problem. It is much easier to 
+understand because it does not have the quirks of performance orientated CPUs.
+Some features of the WRAMP CPU are:
+\begin{itemize}
+\item An easy to understand instruction set.  All instructions conform
+to a clear and consistent structure.
+\item All operations are carried out on 32 bit words.
+\item Only a single instruction is executed at a time.
+\item Memory addressing is easy to understand.
+\end{itemize}
+
+\subsection{The REX board}
+For a CPU to be usable a motherboard is needed.  The REX board was developed
+to host the WRAMP CPU. The REX boards can be found mounted on the walls of 
+Lab 1.  Each is connected to the Linux machine below it and the terminal 
+above it.
+
+The REX board is made up of the following components:
+
+\begin{description}
+\item[CPU] The WRAMP processor is the brain of the REX board.
+%
+\item[RAM] Capable of storing 128K words, the RAM resides at addresses 0x00000
+to 0x1FFFF.  The last 2K words are reserved for the monitor program.  The rest 
+of the RAM is used to store and execute your programs, which, by default, are 
+loaded starting from address 0x00000.
+%
+\item[ROM] Capable of storing 256K words, the ROM resides at addresses 
+0x80000 to 0xBFFFF.  It is used to store the \WRAMPmon\ monitor program.
+%
+\item[Serial Interface] Allows the WRAMP processor to interface with two serial
+ports.  One is connected the Linux machine next to it.  The other connects to
+the terminal on the shelf above.  The terminal will be used in later 
+exercises.
+%
+\item[Parallel Interface] Allows the WRAMP processor to interface with: 
+\begin{itemize}
+\item a set of eight switches from which the CPU can read
+\item two pushbuttons from which the CPU can read
+\item two seven segment displays to which the CPU can write
+\end{itemize}
+\item[Timer] Counts down from a certain value and can interrupt the CPU when 
+finished.
+\item[Control Panel] Provides the user with the ability to control execution
+of the WRAMP CPU.  It also has an LCD display showing the current status
+of the CPU.
+%
+\end{description}
+Use of these I/O devices will be covered in chapter \ref{chapter:io}.
+
+
+\subsection{WRAMPmon}
+The REX board has installed on it monitor software known as \WRAMPmon.
+It communicates with the user through the Linux machine connected to
+the serial port. \WRAMPmon\ is used to upload your programs to the REX
+board and to debug them.  This will be covered in more detail in
+section \ref{intro:wrampmon}.
+%
+%
+%  SECTION - Assembly
+%
+\section{Introduction to the WRAMP Assembly Language} %???
+%
+To help you get started we will begin by analysing,  assembling, 
+executing and debugging a simple WRAMP assembly language program.
+Using \program{emacs} (or your preferred text editor) enter the  
+program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}
+
+%%%
+%
+% Example Code
+%
+%%%
+\begin{figure}[btp]
+\begin{center}
+%\begin{footnotesize}
+\begin{tabular}{|p{15cm}|}
+\hline
+\begin{verbatim}
+ .text
+ .global main
+ main:
+      # Get the address of the welcome message
+      la     $2, welcome_msg
+      # Display the message
+      jal    putstr
+      # Clear our sum register
+      add    $4, $0, $0
+      # Initialise the loop counter
+      addi   $5, $0, 1
+ loop:
+      # Read a number from the user
+      jal    readnum
+      # Add it to our running total
+      add    $4, $4, $1
+      # Increment our loop counter
+      addi   $5, $5, 1
+      # Test to see if we have done all 4 numbers
+      slti   $1, $5, 4
+      # Keep looping until 4 numbers have been entered
+      bnez   $1, loop
+      # Get the output message
+      la     $2, output_msg
+      # Print it
+      jal    putstr
+      # Move our sum into register $2 to display it
+      add    $2, $0, $4
+      # Print out the number
+      jal    writenum
+      # Return to the monitor
+      j      exit
+ .data
+      # This is our welcome message
+ welcome_msg:
+      .asciiz  "Welcome to the world of WRAMP!!!\n\nPlease
+               type four numbers, pressing enter after each:\n"
+      # This is the output message
+ output_msg:
+      .asciiz    "The sum of the numbers is : "
+\end{verbatim}%$
+
+\\
+\hline
+\end{tabular}
+%\end{footnotesize}
+\end{center}
+\caption{WRAMP Assembly Language Program}
+\label{simple_prog}
+\end{figure}
+%%%%
+%%%
+%%
+%
+
+This program first displays a message asking you to enter four numbers.  It
+is then meant to input four numbers, add them up and display the result. 
+If you have noticed the bug in it, don't worry as we will correct this later.
+
+As you read through the source file look for the following:
+
+\begin{description}
+\item[comments] are lines beginning with a hash (\src{\#}).  These work in 
+the same way as \src{//} comments in C and are ignored by the assembler.
+%
+\item[labels] such as \src{main:} are used to refer to a location in the
+memory.  This may be used to move execution to a different area of code,
+or to refer to data in the memory.
+%
+\item[directives] are commands beginning with a period (\src{.}).  They
+pass information to the assembler.
+%
+\item[subroutine calls] are used in this program to perform hardware
+operations such as reading from the serial port.  For example the
+lines \src{jal putstr} and \src{jal readnum} are subroutine calls.
+%
+\item[WRAMP instructions] such as \src{add \$4, \$0, \$0}  get 
+converted to machine code by the assembler.  They can then be executed by the 
+WRAMP CPU.
+%
+\end{description}
+
+\subsection{Labels}
+A label is a means of referencing a location in memory.  Rather than
+specifying absolute addresses when accessing data in memory, a label
+can be used.  This makes it much easier for the programmer to write
+and understand the code.  Labels can also be declared within the
+code. They can then be used as a destination for branch and jump
+instructions.
+
+A label declaration consists of a name (containing no spaces) followed
+by a colon (\src{:}).
+
+The example code in figure \ref{simple_prog} has labels \src{main},
+\src{loop}, \src{welcome\_msg}, \src{output\_msg}.  The labels
+\src{main} and \src{loop} refer to locations within the code.  The
+labels \src{welcome\_msg} and \src{output\_msg} refer to data.
+
+
+
+
+
+\subsection{Directives}
+Directives (commands preceeded by a \src{.}) do not become part of the
+final executable.  They are used to pass information to the assembler,
+like \src{\#} directives do in C.
+
+\subsubsection{\text, \data and \bss}
+A program written in WRAMP assembly can be split into three sections.
+These are used to seperate executable code, initialised data, and
+uninitialised data.  The directives \text, \data and \bss are used to
+do this.  When the assembler encounters one of these directives it
+knows that all the code following it belongs in the given section.
+
+The \text section contains WRAMP assembly instructions which will be
+converted to machine language which can be executed on the WRAMP CPU.
+
+%The \data section is used for initialised data.  
+Within the \data section, space in the memory can be reserved and
+initialised.  This is useful for strings, constants, and variables
+which have an initial value.
+
+The \bss section allows memory space to be reserved but not initialised.  The
+advantage of this is that space can be reserved in chunks using a single
+command.  This feature makes the \bss section useful for arrays.  We will
+cover \bss in more detail in a later exercise.
+
+\subsubsection{Assigning Space}
+Within the \data and \bss sections memory space is assigned using directives. 
+To be able
+to access this you need to place a label before the assigning directive. In the
+example code, the label \src{welcome\_msg:} refers to the memory reserved 
+by the \asciiz directive.
+%
+\begin{verbatim}
+   welcome_msg:
+      .asciiz "Welcome to the world of WRAMP!!!\n\n"
+\end{verbatim}
+
+
+
+Some of the memory assigning directives you may come across:
+\begin{description}
+
+\item[\word \src{n}]  This assigns one word of memory space and 
+initialises it to the number \src{n}.
+
+\item[\asciiz \src{"str"}] reserves and initialises space 
+for a NULL terminated ASCII string (\src{"str"}).
+This means that the string is followed immediatly by a NULL
+character (\src{0}).  The NULL character can then be used
+to identify the end of the string.
+
+\item[\ascii \src{"str"}] reserves and initialises space for 
+the ASCII string \src{"str"} without NULL terminating.
+
+\item[\Space \src{n}] is used to allocate a chunk of space 
+of size \src{n} in the \bss section.
+
+\end{description}
+The \ascii and \asciiz directives can not be used in the \bss section
+as they initialise the space they reserve.  The \word directive may be
+used as long as it is not provided with an argument.
+
+\subsubsection{The \Global Directive}
+When linking multiple files, we need to share functions and data.
+However we do not want to expose all the labels in a file.
+Only labels declared as global (using the \Global directive) are
+accessible outside the current file.  
+
+In the example program we have declared the `entry point' \src{main} as 
+global. To do this we used the following directive:
+\begin{verbatim}
+.global main
+\end{verbatim}
+
+
+\subsection{Registers}
+Registers are the CPU's equivalent of variables.  There are 16 general
+purpose registers numbered 0 to 15. They can be used for temporarily
+storing data while it is used in operations.  Registers are generally
+referred to by a \$-sign followed by a number.  For example \reg{0}
+refers to register zero. The contents of registers can be transferred
+to and from main memory. This done using load and store instructions
+which are covered in a later section.
+
+
+Some of the general purpose registers have special uses:
+
+Register \reg{0} is always zero.  Any attempts to write to it are
+ignored.  This provides a constant source of zero that can be used for
+comparing and initialising registers.
+
+Register fourteen is denoted \reg{sp}. This register is defined by
+convention to be the stack pointer.  While the hardware imposes no
+special conditions on this register, failure to follow this convention
+may affect the ability of code to interoperate with other software.
+
+Register fifteen is denoted \reg{ra}. It is defined by convention to
+be the subroutine return address register.  When a jump and link
+instruction is executed this register is loaded with the address of
+the next instruction after the jump and link. We will discuss stacks
+and this register in a later chapter.
+
+In addition to these general purpose registers is a set of special
+purpose registers.  The use of these is covered in chapter
+\ref{chapter:exceptions}.
+
+Various types of instructions are introduced below.
+
+\subsection{Instructions}
+
+Executable machine code is create by assembling WRAMP instructions.
+Instructions tell the WRAMP CPU what to do.  For example an \src{add} 
+instruction will add the contents of two registers and place the result 
+in another.
+
+\subsubsection{Arithmetic}
+Arithmetic instructions come in four forms, which are listed 
+below, using \src{add} as an example:
+
+
+\src{add \regd, \regs, \regt} \\*
+  Simply performs the specified operation,
+  on \regs\ and \regt, placing the result in \regd.  For example 
+  \mbox{\src{add \$1, \$2, \$0}} will add the contents of registers
+  \reg{2} and \reg{0} then place the result in \reg{1}.
+  \\
+
+\src{addi \regd, \regs, Immediate} \\* 
+  This is known as immediate form.
+  The argument \src{Immediate} is a constant.  Thus the specified
+  operation is performed on \regs\ and \src{Immediate}, and the result
+  placed in \regd.  For example \mbox{\src{addi \$1, \$2, 4}} will add
+  \src{4}\ to the contents of \reg{2}\ and place the result in
+  \reg{1}.  
+  \\
+
+\src{addu \regd, \regs, \regd} \\* 
+  The \emph{u}\ implies that this is
+  an unsigned instruction.  Thus it is assumed that both the operands
+  are positive.  This is important when we consider twos complement
+  representation of negative numbers.  For example \\ \mbox{\src{1111
+  1111 1111 1111 1111 1111 1111 1111}} represents \src{-1} when
+  treated as signed, and 0xFFFFFFFF, a very large positive number,
+  when treated as unsigned.  \\
+
+\src{addui \regd, \regs, Immediate} \\*
+  This is the combination of the two forms above.  It performs an unsigned
+  operation on \regs\ and the \src{Immediate} value.
+  \\
+
+For a full listing of arithmetic instructions see  Appendix 
+\ref{appendix:instr}.
+
+
+\subsubsection{Memory I/O}
+The WRAMP CPU has a 20 bit memory space.  Of this the memory locations 
+0x00000 to 0x1FFFF are RAM.
+
+Unlike other CPUs the WRAMP has only a single method of referencing
+external memory.  It consists of a base address added to an offset.
+The base address is specified as a constant in the instruction.  The
+offset is the contents of a specified register.
+
+The notation for this is \src{base(\regs)}.  The \src{base} can either
+be a label or an integer.  To load from the memory location specified
+by a label, \reg{0} can be used for \regs.  For the first few chapters
+we will use this method of referencing the memory. Figure \ref{memio}
+shows an example. It loads a word of data from memory into a register,
+adds 1 to it, then stores it back into the memory.
+
+
+\src{lw \regd, base(\regs)}\\*
+Used to get the contents of the specified memory location and place it 
+in the register \regd.
+
+\src{sw \regd, base(\regs)}\\*
+Will place the contents of \regd\ into the specified memory location.
+\\
+
+
+\begin{figure}[btp]
+\begin{center}
+%\begin{footnotesize}
+\begin{tabular}{|p{15cm}|}
+\hline
+\begin{verbatim}
+.text
+     . . .
+
+     #Read from the memory location `counter' into $1
+     lw $4, counter($0)
+
+     #Add 1 to $4
+     addi $4, $4, 1
+
+     #Store the contents of $1 into the memory location `counter'
+     sw $4, counter($0)
+
+     . . .
+     
+.data
+     # This is our counter
+counter:
+     .word 0 
+\end{verbatim}%$
+\\
+\hline
+\end{tabular}
+%\end{footnotesize}
+\end{center}
+\caption{Memory I/O Example}
+\label{memio}
+\end{figure}
+
+Sometimes you will need to know the address of a variable.  The 
+instruction `load address' ( \src{la} ) is used for this. It has the 
+structure:
+\\*
+
+\src{la \regd, label} \\*
+Load the address that \src{label} refers to into register \regd.  
+
+\subsubsection{Set Instructions}
+These instructions are used to compare either two registers, or a
+register and an immediate value.  They take the same form as
+arithmetic instructions.  If the test passes the destination register
+is set to \src{1}, otherwise it is cleared to \src{0}.
+
+For example to test if registers \reg{2} and \reg{3} were equal and store the
+result in \reg{1} we would use the `set if equal' instruction: 
+\src{seq \$1, \$2, \$3}.
+
+A full listing of test instructions can be found in the instruction set reference, Appendix \ref{appendix:instr}.
+
+\subsubsection{Program Control}
+We move execution to a different part of the program using two types of 
+instruction: the unconditional jump, and the conditional branch.  
+
+\textbf{Jump Instructions}\\*
+The jump instructions simply move execution to a different line of
+code.  They are unconditional and so do not perform any tests first.
+There are four different varieties:
+
+\src{j  label}  - Jump\\*
+Jumps to the specified label.
+
+\src{jal label} - Jump and link\\*
+Stores the address of the next instruction into the return address register \reg{ra}. It then jumps to the specied label. This is used when calling subroutines.
+
+\src{jr \regs}  -  Jump Register\\*
+Jumps to the location specified by the contents of the register \regs.  
+Because the WRAMP CPU has only a 20 bit address space the upper 12 bits 
+of the register are ignored.  Jump register is typically used to 
+return from a subroutine using \src{jr \reg{ra}}
+
+\src{jalr \regs} - Jump and Link Register\\* A combination of
+\src{jal} and \src{jr}. It works in the same way as \src{jr} but it
+stores the address of the next instruction into the return address
+register before jumping. 
+
+\textbf{Branch Instructions}\\*
+Branching instructions are conditional, they look at whether a
+register is zero or not, and act on that information.  There are two
+varieties: `branch if equal to zero' \src{beqz} and `branch if not
+equal to zero' \src{bnez}.  Both of these instructions take a single
+register and a label as arguments.
+
+For example the `branch if not equal to zero' command 
+`\src{bnez \$1, loop}' will branch to label 
+\src{loop} if \reg{1} is non-zero.
+
+\begin{comment}
+\subsection{I/O Routines}
+
+In the example program you will see we have used the routines
+\src{putstr}, \src{readnum} and \src{writenum} to perfrom input
+and output.  These routines are in the file \LIBEXTWO, which we will 
+\BI{link} to.  Here is an overview of the routines:
+\begin{description}
+\item[\src{putstr}] is used to write a string to the Linux machine.  Put the
+address of the string into register \reg{2}.
+\item[\src{readnum}] reads a number from the Linux machine, leaving it in
+register \reg{1}.
+\item[\src{writenum}] will write the number in register \reg{2} to the 
+Linux machine.
+\end{description}
+\end{comment}
+
+\subsection{Assembling and Linking}
+Before we can execute our program on the REX board we need to translate it 
+into machine code, so that the WRAMP CPU can understand it.  This is a two
+step process.
+
+\subsubsection{Assembly}
+We firstly have to \BI{assemble} the source code using a program
+called an \filename{assembler}.  This involves checking that all the
+directives and instructions within the program make sense (are
+syntactically correct).  The program is then translated into a file
+called an \BI{object file}. This contains portions of machine code
+along with other information about the program.
+
+To assemble our file we use the WRAMP \BI{assembler}, \program{wasm}:
+\begin{verbatim}
+    wasm intro.s
+\end{verbatim}
+
+There should now exist a file called \filename{intro.o}.  This is the 
+\BI{object file}.
+
+\subsubsection{Linking}
+Next we must \BI{link} the \BI{object file}.  A program may be
+comprised of many separate parts.  Even our example program contains
+functions (subroutines) contained in a separate \BI{library}. Linking
+involves joining all these parts together to create a final program.
+
+The WRAMP \BI{linker} is called \program{wlink}.  We will use it to
+link our file to the library \LIBEXTWO\ in the 201 home directory.
+This file \BI{does not} need to be copied into your home directory.
+Issue the command:
+\begin{verbatim}
+     wlink -o intro.srec intro.o /home/201/ex2/lib_ex2.o
+\end{verbatim}
+
+This command links together the object files to create file called
+\filename{intro.srec}.  This file is in a suitable form to be
+uploaded to the REX board and executed.
+
+For further details of this output file format, known as S-Record, generated
+by the linker see Appendix \ref{appendix:srec} 
+
+
+%
+%
+% SECTION - WRAMPmon
+%
+\section{Introduction to WRAMPmon}
+\label{intro:wrampmon}
+
+The \WRAMPmon\ monitor is a program which runs on the REX boards.  It
+provides you with basic facilities for interacting with the REX board.
+It is important for hardware and software development, debugging,
+testing and troubleshooting.  It uses a command line interface to
+perform these functions.
+
+\WRAMPmon\ communicates through the serial port that is connected to the Linux 
+machine.  By running a terminal program on the Linux machine we can talk
+to the REX board.
+
+
+\subsection{WRAMPmon commands}
+A set of commands is provided for the user to interact with \WRAMPmon\
+including:
+
+\begin{itemize}
+\item a help command (\src{help}, or \src{?})
+\item commands to view and alter the memory and register contents
+\item a command to upload your programs
+\item commands to execute programs in the memory
+\item commands for debugging
+\end{itemize}
+
+For a listing of these commands see Appendix \ref{appendix:wrampmon}.
+
+\subsection{Getting started}
+The REX board uses serial ports as its primary form of communication.
+The main serial port on the REX board is connected to a Linux
+machine. The Linux machine runs a terminal program, called
+\filename{remote}, which transmits anything typed on the keyboard
+directly to the REX board, and displays any text received from REX.
+
+To execute the terminal program type \verb|remote| from a console.
+Once you have \verb|remote| running you will need to reset the REX
+board by pressing the red \src{RESET} button.  You should see
+something like Figure \ref{wrampmon}.
+
+\begin{figure}[hbp]
+\begin{center}
+%\begin{footnotesize}
+\begin{tabular}{|p{15cm}|}
+\hline
+\begin{verbatim}
+     +------------------------------------------------+
+     |    WRAMPmon 0.4                                |
+     |    Copyright 2002 the University of Waikato    |
+     |                                                |
+     |    Written by Dean Armstrong                   |
+     +------------------------------------------------+
+
+     >
+\end{verbatim}
+\\
+\hline
+\end{tabular}
+\end{center}
+
+\caption{\WRAMPmon}
+\label{wrampmon}
+\end{figure}
+
+Type \src{?} to obtain a list of commands available within \WRAMPmon.
+
+Help on individual commands can be obtained by typing the command and then a 
+question mark, eg:
+\begin{verbatim}
+     load ?
+\end{verbatim}
+
+Each command gives the required format and available options.
+An item enclosed in square brackets, \src{[}~and~\src{]},
+indicates an optional item. An item enclosed in angled brackets, 
+\src{<}~and~\src{>}, indicates a compulsory item.
+
+If you have any problems with the monitor not responding at any stage you 
+should always be able to get back to
+the board's initial state with the start-up message displayed by pressing the 
+red \src{RESET} button on the REX board.
+
+\subsection{Uploading and Executing your Program}
+Before you can run your program on the REX board it must first be loaded into 
+the board's memory. The easiest
+way to do this is to set the board into load mode and use the upload option 
+within the \program{remote} program to send
+the executable file from the Linux machine to the board. To place the board 
+into load mode, type the following
+command (then press enter) at the \WRAMPmon\ prompt:
+\begin{verbatim}
+     load
+\end{verbatim}
+
+After hitting return there be a reminder response from the board indicating 
+how to send an executable file. To send the executable type:
+
+\verb|     <ctrl>-a| and then \verb|s|
+
+Where \verb|<ctrl>-a| means press and hold the \src{control} key and hit 
+the \src{a} key and then release both keys.
+The \program{remote} program does not pass this key sequence on to the REX 
+board but instead enters a command
+mode. When you press \src{s}, remote will switch into upload mode. A
+dialog box appears which asks you to enter the name of the file you wish to 
+upload. Type in the following file name:
+\begin{verbatim}
+     intro.srec
+\end{verbatim}
+
+After the file name has been entered a series of dots should appear on the 
+screen indicating that the file is being
+uploaded, followed by a message which tells you that is has completed. You 
+should then press the enter key to
+leave the upload mode of \src{remote} at which stage the \WRAMPmon\ prompt 
+should reappear.
+
+Now that the program has been uploaded, you can run it by typing the command:
+\begin{verbatim}
+     go
+\end{verbatim}
+
+This will start executing your program from the entry point defined by the 
+\src{main} label. The program will
+prompt you to enter four numbers. You should continue to type a number and 
+hit enter until the program
+outputs the resulting sum. The output of you program should appear on your 
+screen. When the \WRAMPmon\
+prompt appears again it indicates that your program has finished executing.
+
+
+\subsection{Debugging your Program}
+The program that you have just run on the REX board should have read four 
+numbers from the keyboard and
+output their sum to the terminal. However, when run, only three numbers
+are read before their sum is output.
+
+In this section of the exercise you are going to use the debugging 
+features of \WRAMPmon\ to locate the bug that
+causes this problem.
+
+The debugging commands within \WRAMPmon\ allow you to trace the execution 
+of a program (ie. follow the path
+of execution) by inserting breakpoints.
+
+If a breakpoint is set at a certain instruction, then when the program
+is running, and that instruction is about to be executed, control will
+be returned to the monitor. From here, you can view register and
+memory contents, and maybe resume execution, or step through the
+program one instruction at a time to try and identify bugs.  The
+commands for setting, removing and viewing breakpoints are \src{sb},
+\src{rb}, and \src{vb} respectively. The help facilty in \WRAMPmon\
+fully describes the operation of these commands. For example to find
+out more about the set breakpoint command type
+\begin{verbatim}
+     sb ?
+\end{verbatim}
+
+Insert a breakpoint at the beginning of the loop in the above program 
+(ie. at memory location \src{0x00004}), and
+execute the program using the \src{go} command.
+When a break does occur, use the view registers command to find out the 
+contents of the registers. You should also notice that the breakpoint 
+register dump contains identical information
+to the \src{vr} command.
+
+To continue execution type:
+\begin{verbatim}
+     cont
+\end{verbatim}
+This will cause the program to continue execution until either the
+breakpoint is encountered again or the program completes
+execution. Remember that the program will now wait for you to enter a
+number before it will break again.
+
+Another feature of the monitor that can be used to help debug you programs 
+is the single-step command \src{s}.
+This command causes the only the immediately next instruction 
+to be executed and then returns back to
+\WRAMPmon.
+
+To demonstrate the use of the single step command you are to reload
+the program.  Create a new breakpoint at memory location
+\src{0x00005}. Once this is done run the program using the \src{go}
+command.
+
+Once you have encountered the breakpoint try single stepping through
+the program using the \verb|s| command. Pay careful attention to the
+loop counter in \reg{5} and the instructions that increment and test
+it. As we are only interested in the loop counter at this stage we
+will skip the \src{readnum} subroutine.  We do this using the `step
+over' \src{so} command.  When you reach the instruction \src{jal
+readnum} instead of typing `\src{s}' type `\src{so}'.
+
+At some point you may wish to remove the breakpoint using the
+\src{rb} command and then use \src{cont} to make the program run to
+completion.
+
+As you may have realised the program is designed with a bug.  Although
+it is intended to add 4 numbers it will only add 3.  You should now use
+the debugging methods we have just covered to determine the
+bug.  Then correct it and assemble, link and load the program to confirm
+it operates correctly.

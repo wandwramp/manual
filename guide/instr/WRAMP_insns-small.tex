@@ -1,0 +1,179 @@
+\documentclass[12pt]{report}
+                                                                                                   \usepackage{a4}
+\usepackage[dvips]{graphicx}
+\usepackage[a4paper,hmargin=10mm,vmargin=10mm,nohead]{geometry}
+%\usepackage{pdflscape} %  in latex preamble
+\usepackage{verbatim}
+
+%INCLUDE OUR GLOBALS
+\usepackage{rex201}
+\usepackage{styles201}
+\usepackage{insn201}
+
+%
+
+\begin{document}
+%\begin{landscape}
+\section{WRAMP Instruction Set Summary}
+
+\begin{table}[h]
+\begin{center}
+Arithmetic Instructions\\
+
+\begin{tabular}{|l|l|l|l|}
+  \hline
+  \textbf{asm}  & \textbf{machine code} & \textbf{function} &  \\
+  \hline
+
+  
+  % ADD
+  %\fullarith{add}{0000}{0001}{+}
+  \scriptsize{ add \regd, \regs, \regt }
+  &
+  \rtype{0000}{0000}
+  &
+  \arithmeticinsn{+}
+  &
+  \scriptsize{ Add }
+  \\
+  \hline
+
+
+  % ADDI
+  \scriptsize{ addi \regd, \regs, Imm }
+  &
+  \itype{0001}{0000}
+  &
+  \arithmeticinsni{+}
+  &
+  \scriptsize{ Add Immediate }
+  \\
+  \hline
+
+
+  % SUB
+  \scriptsize{ sub \regd, \regs, \regt }
+  &
+  \rtype{0000}{0010}
+  &
+  \arithmeticinsn{-}
+  &
+  \scriptsize{ Subtract }
+  \\
+  \hline
+
+  % SUBI
+  \scriptsize{ subi \regd, \regs, Imm }
+  &
+  \itype{0001}{0010}
+  &
+  \arithmeticinsni{-}
+  &
+  \scriptsize{ Subtract Immediate }
+  \\
+  \hline
+
+
+  
+
+  % MULT
+  \scriptsize{ mult \regd, \regs, \regt }
+  &
+  \rtype{0000}{0100}
+  &
+  \arithmeticinsn{\times}
+  &
+  \scriptsize{ Multiply }
+  \\
+  \hline
+
+  % MULTI
+  \scriptsize{ multi \regd, \regs, Imm }
+  &
+  \itype{0001}{0100}
+  &
+  \arithmeticinsni{\times}
+  &
+  \scriptsize{ Multiply Immediate }
+  \\
+  \hline
+
+
+  % DIV
+  \scriptsize{ div \regd, \regs, \regt }
+  &
+  \rtype{0000}{0110}
+  &
+  \arithmeticinsn{\div}
+  &
+  \scriptsize{ Divide }
+  \\
+  \hline
+
+  % DIVI
+  \scriptsize{ multi \regd, \regs, Imm }
+  &
+  \itype{0001}{0110}
+  &
+  \arithmeticinsni{\div}
+  &
+  \scriptsize{ Divide Immediate }
+  \\
+  \hline
+
+  
+  % REM
+  \scriptsize{ rem \regd, \regs, \regt }
+  &
+  \rtype{0000}{1000}
+  &
+  \arithmeticinsn{\ \%\ }
+  &
+  \scriptsize{ Remainder }
+  \\
+  \hline
+
+  % REMI
+  \scriptsize{ remi \regd, \regs, Imm }
+  &
+  \itype{0001}{1000}
+  &
+  \arithmeticinsni{\ \%\ }
+  &
+  \scriptsize{ Remainder Immediate }
+  \\
+  \hline
+
+
+  % LHI
+  \scriptsize{ lhi \regd, Immediate }
+  &
+  \itype{0011}{1110}
+  &
+  \lhiinsn
+  &
+  \scriptsize{ Load High Immediate }
+  \\
+  \hline
+
+  % LA
+  \scriptsize{ la \regd, Address }
+  &
+  \jtype{1100}
+  &
+  \lainsn
+  &
+  \scriptsize{ Load Address }
+  \\
+  \hline
+
+  
+ 
+\end{tabular}
+\end{center}
+\end{table}
+
+%\end{landscape}
+
+
+\end{document}

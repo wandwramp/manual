@@ -1,0 +1,298 @@
+\documentclass[a4paper,10pt]{article}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1.5ex}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
+
+\usepackage{fancyhdr}
+\fancypagestyle{rcsfooters}{
+\fancyfoot[L]{\small $ $RCSfile: comms.tex,v $ $}
+\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+}
+
+\renewcommand{\headrulewidth}{0pt}
+
+%INCLUDE OUR GLOBALS
+\usepackage{rex201}
+\usepackage{styles201}
+\usepackage{ex201}
+
+
+\begin{document}
+
+\EXHEADING{\COMMSNO}{\COMMSTITLE}{Final Verification Date:~\COMMSDUE\\}
+
+
+\section{Assessment}
+
+This exercise is electronically marked. Once your code passes the
+electronic marking you will receive an e-mail confirmation sent to your
+waikato e-mail address. The e-mail will be addresses to:
+
+\begin{center}
+\texttt{<your username>@waikato.ac.nz}
+\end{center}
+
+If you cannot collect mail sent to this address you should contact the
+course tutors at:
+
+\begin{center}
+\texttt{contact-cs201@cs.waikato.ac.nz}
+\end{center}
+
+Once you have received the conformation e-mail you should submit your code
+using the following online submission system:
+
+\begin{center}
+\verb+http://byerley.cs.waikato.ac.nz/~tonym/submit/+\\
+\end{center}
+
+If you do not receive a conformation e-mail and you believe your code is
+operating correctly you should contact the course tutors at the above
+e-mail address.
+
+To avoid a test late in the semester there is no class test for this
+exercise.  The material from this exercise may be tested in the final
+exam. (This is also true for the other exercises).
+
+\section{Objectives}
+
+The aim of this exercise is to investigate simple error detection
+mechanisms. To achieve this you will write two programs.  The first adds
+error checking information to a block of data and transmits the frame.  The
+second receives the frame and checks for errors.  You are not required to
+correct the errors, just to report whether an error has occurred.
+
+\section{Introduction} 
+
+The programs you write for this exercise will be linked with routines which
+supply the data and provide (error prone) transmission between your
+programs.  Another routine allows you to check whether you have correctly
+detected any errors that occur.
+
+\newpage
+The main lines of your programs should look something like this:
+
+{\bf Transmit program}
+
+\begin{verbatim}
+#include "/home/201/ex10/libcomms.h"
+
+connect_transmitter();
+
+while ( NULL != (raw = gen()) )
+   {
+   encode(raw, coded);
+   transmit_frame(coded);
+   }
+\end{verbatim}
+
+{\bf Receiver program}
+
+\begin{verbatim}
+#include "/home/201/ex10/libcomms.h"
+
+connect_receiver();
+
+while ( -1 != receive_frame(coded) )
+   {
+   ok = res(check(coded));
+   }	
+\end{verbatim}
+
+You will need to write the \src{encode} and \src{check} routines.
+
+The following figure shows the structure of the complete system.
+
+\begin{center}
+\psfig{figure=comms_block.eps}
+\end{center}
+
+\newpage
+\section{The Supplied Routines}
+
+The six supplied routines are in the library file
+\filename{/home/201/ex10/libcomms.a}.  When you compile your program you
+should include this file as a parameter to \program{g++}.  There is a
+\filename{/home/201/ex10/libcomms.h} file which contains prototypes for the
+supplied routines.
+
+If you wish to do this exercise on equipment other than the lab you
+will need a copy of this library.  However {\em do not take a copy of
+this library without talking to the course tutors first.}
+
+The following table shows which program you will use each routine in:
+\vspace{1cm}
+
+
+\centerline{\begin{tabular}{|l|l|}
+\hline
+Routine & Used in \\
+\hline
+\src{gen()}				& Transmitter \\
+\src{connect\_transmitter()} 	& Transmitter \\
+\src{transmit\_frame()}		& Transmitter \\
+\src{connect\_receiver()}       	& Receiver    \\
+\src{receive\_frame()}		& Receiver    \\
+\src{res()}				& Receiver    \\
+\hline
+\end{tabular}
+}
+
+\subsection{\texttt{gen()}}
+
+Usage:
+
+\hspace*{1cm} \verb+char *gen(void)+ 
+
+\verb+gen()+ returns a string.  The string contains a
+sequence of ``1'' and ``0'' characters, representing the bits to be
+transmitted.  That is, for the sake of this exercise, {\em each bit is
+represented by a whole ASCII character}.
+
+Generated strings will not exceed 100 bits. The length of the generated
+string will always be a multiple of 8.
+
+When there is no more data \verb+gen()+ returns a null string.
+
+\subsection{\texttt{connect\_transmitter()}}
+
+Usage:
+
+\hspace*{1cm} \verb+void connect_transmitter(void)+ 
+
+This routine establishes the connection and must be called before the
+\verb+transmit_frame()+ routine and also before the
+\verb+connect_receiver()+ routine.  This means you must start your
+transmitter program before you start you receiver program.
+
+\subsection{\texttt{connect\_receiver()}}
+
+Usage:
+
+\hspace*{1cm} \verb+void connect_receiver(void)+ 
+
+This routine opens the connection for receiving data and must be called
+before the \verb+receive_frame()+ routine can be used.  It must be
+called after the \verb+connect_transmitter()+ routine.
+
+\subsection{\texttt{transmit\_frame()}}
+
+Usage:
+
+\hspace*{1cm} \verb+void transmit_frame(char *)+ 
+
+\verb+transmit_frame()+ takes a single parameter that is a string.
+The string should contain a sequence of ``1'' and ``0'' characters
+like the string returned from \verb+gen()+.  No other characters
+should be included.
+
+\verb+transmit_frame()+ simulates transmission of the data including
+introducing some errors.  
+
+\subsection{\texttt{receive\_frame()}}
+
+Usage:
+
+\hspace*{1cm} \verb+int receive_frame(char *)+ 
+
+\verb+receive_frame+ takes a single parameter that is a string and
+writes into the string a sequence of ``1'' and ``0'' characters
+representing the result of transmission of the data.
+
+\verb+receive_frame+ normally returns a positive number but returns
+\verb+-1+ when there are no more frames to process.
+
+Note: This routine does not allocate storage for the received frame.
+The parameter must point to a buffer that is sufficiently large to
+receive any message that will be sent from \verb+transmit_frame()+.
+
+\subsection{\texttt{res()}}
+
+Usage:
+
+\hspace*{1cm} \verb+int res(int)+ 
+
+
+\verb+res()+ treats its integer parameter as a boolean specifying
+whether the data was transmitted correctly.  If you detect an error
+call \verb+res(0)+.  If you do not detect an error call \verb+res(1)+.
+
+\verb+res()+ returns 1 if you provide the correct parameter and 0 otherwise.
+\verb+res()+ also writes a log file (\verb+res_log+).
+
+You {\em must} call \verb+res()+ for each block generated and
+transmitted.  \verb+res()+ will be used as part of the assessment
+process.
+
+
+\section{What to Do}
+
+\begin{enumerate}
+\item Use parity to detect errors.  Add one parity bit for every 8
+      bits of data.  This is the minimum requirement.  If you have
+      correctly implemented parity (and only parity) you will receive
+      email that you have met the minimum requirement when you first
+      run your program in the lab with the library provided.  If you
+      do not get the email and are sure you have implemented parity,
+      contact a tutor.
+
+      {\em When you have received the email use the submit program\\
+      (\verb+http://byerley.cs.waikato.ac.nz/~tonym/submit/+) to
+      submit your code so that we have a record of your program.}
+
+\item Add either longitudinal parity or a checksum based bcc.
+
+\item Once you have this working correctly try a more sophisticated
+      algorithm that catches as many errors as possible.  
+
+\end{enumerate}
+
+{\bf Notes:}
+
+\begin{enumerate}
+\item
+The messages in this exercise are supplied and sent as one character
+for each bit.  That is an ASCII string of characters is used but only
+two character values are valid, ``1'' and ``0''.  This makes the
+coding of the exercise simpler but would be very inefficient in a
+real communications protocol.
+
+Although there is no structure in the bit stream you can assume that
+every 8 bits represents a character in the original data stream.
+
+\item \vspace{3mm}
+
+{\em DO NOT} modify the string returned by \verb+gen()+.  You do not
+know how much space is allocated to this string and can not extend it
+in any way.  Instead allocate space for a new string and copy
+appropriate bits into the new string.
+
+\item
+To allow easy debugging the data and errors generated by the system
+will be the same from run to run. 
+
+\item
+For the sake of this exercise the error rate is much higher than is
+normal on communications lines.
+
+\item
+Run your two programs in separate xterm windows on the same
+workstation.  You must be in the same directory when you run both
+programs.
+\end{enumerate}
+
+\section{Extension}
+
+Two possible extensions include error detection that is more robust
+and forward error correction.  If you use forward error detection the
+\verb+res()+ function in the library will not be useful.  Contact a
+tutor if you hare having difficulties discovering which transmissions
+have errors.
+
+\thispagestyle{rcsfooters}
+\pagestyle{rcsfooters}
+
+\end{document}
+

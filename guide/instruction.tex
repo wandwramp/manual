@@ -1,0 +1,753 @@
+
+\setcounter{secnumdepth}{0}
+%\pagenumbering{roman}
+
+\section{WRAMP General Purpose Registers}
+
+\begin{small}
+The WRAMP general purpose register file consists of 16 registers, each
+being 32 bits wide. The hardware imposes special uses on only two of
+these.  Certain software register use conventions have been applied to
+some of the remaining registers, but in essence they remain true
+general purpose registers, as the hardware does not restrict their
+use.
+\end{small}
+
+\vspace{-4ex}
+\begin{figure}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\multicolumn{1}{@{}p{4ex}}{}
+& \multicolumn{1}{@{}p{50ex}}{}\\ 
+\hline
+Register &Description\\
+\hline
+\texttt{\$0} & Hardwired zero\\
+\texttt{\$1} - \texttt{\$13} & General purpose registers\\
+\texttt{\$sp} & Stack pointer\\
+\texttt{\$ra} & Return address register\\
+\hline
+\end{tabular}
+\end{center}
+\caption{The WRAMP General Purpose Registers}
+\label{wramp_regs}
+\end{figure}
+
+\begin{small}
+Register zero (denoted \texttt{\$0}) always contains the value
+zero. Any writes to this register have the value discarded. This
+provides a constant source of zero that can be used for comparing and
+initialising registers.
+
+The fourteenth register is denoted \texttt{\$sp}. This register is
+defined by the conventions to be the stack pointer. While the hardware
+imposes no special conditions on this register, failure to follow this
+convention may affect the ability of code to interoperate with other
+software.
+
+The fifteenth register is denoted \texttt{\$ra}. It is defined to be
+the subroutine return address register.  When a jump and link
+instruction is executed this register is loaded with the address of
+the next instruction after the jump and link. A return from subroutine
+is performed by executing a jump to register \texttt{\$ra},
+ie. \texttt{jr \$ra}.
+\end{small}
+
+\section{WRAMP Instruction Set Architecture}
+\begin{small}
+This section contains the details of the WRAMP instruction set.  All
+machine instructions are listed, with their encoding and a brief
+description of their function.  The instructions are grouped into
+arithmetic instructions, bitwise instructions, test instructions,
+branch instructions, memory instructions, and special instructions.
+
+Each CPU instruction is a word (32 bits) in length. An instruction is
+encoded in one of the three formats shown in figure
+\ref{insn_encoding_formats}.
+\end{small}
+
+\newpage
+% This is the table with the three instruction encoding formats
+\begin{figure}[h]
+{\bf I-Type instruction}
+\itypeinsnformat
+{\bf R-Type instruction}
+\rtypeinsnformat
+{\bf J-Type instruction}
+\jtypeinsnformat
+\vspace{1ex}
+\begin{tabbing}
+xxxx\=field name xxxxxxxx\=description \kill
+\>\texttt{OPCode}\>4 bit operation code\\
+\>\texttt{\regd{}}\>4 bit destination register specifier\\
+\>\texttt{\regs{}}\>4 bit source register specifier\\
+\>\texttt{\regt{}}\>4 bit source register specifier\\
+\>\texttt{Func}\>4 bit function specifier\\
+\>\texttt{Immediate}\>16 bit immediate field\\
+\>\texttt{Address / Offset}\>20 bit absolute or relative address field
+\end{tabbing}
+\caption{WRAMP Instruction encoding formats}
+\label{insn_encoding_formats}
+\end{figure}
+
+
+\subsection{Arithmetic Instructions}
+\noindent
+{\bf Addition}\\
+\noindent
+\texttt{add \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{0000}{\regt}
+Put the sum of register \regs{} and register \regt{}
+into register \regd{}. Generate an overflow exception on signed overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Addition, immediate}\\
+\noindent
+\texttt{addi \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{0000}{Immediate}
+Put the sum of register \regs{} and the sign-extended immediate
+into register \regd{}. Generate an overflow exception on signed overflow.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Addition, unsigned}\\
+\noindent
+\texttt{addu \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{0001}{\regt}
+Put the sum of register \regs{} and register \regt{}
+into register \regd{}. Generate an overflow exception on unsigned overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Addition, unsigned, immediate}\\
+\noindent
+\texttt{addui \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{0001}{Immediate}
+Put the sum of register \regs{} and the zero-extended immediate
+into register \regd{}. Generate an overflow exception on unsigned overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Subtraction}\\
+\noindent
+\texttt{sub \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{0010}{\regt}
+Put the difference of register \regs{} and register \regt{}
+into register \regd{}. Generate an overflow exception on signed overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Subtraction, immediate}\\
+\noindent
+\texttt{subi \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{0010}{Immediate}
+Put the difference of register \regs{} and the sign-extended immediate
+into register \regd{}. Generate an overflow exception on signed overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Subtraction, unsigned}\\
+\noindent
+\texttt{subu \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{0011}{\regt}
+Put the difference of register \regs{} and register \regt{}
+into register \regd{}. Generate an overflow exception on unsigned overflow.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Subtraction, unsigned, immediate}\\
+\noindent
+\texttt{subui \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{0011}{Immediate}
+Put the difference of register \regs{} and the zero-extended immediate
+into register \regd{}. Generate an overflow exception on unsigned overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Multiplication}\\
+\noindent
+\texttt{mult \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{0100}{\regt}
+Put the product of the signed multiplication of register \regs{} and register \regt{}
+into register \regd{}. Generate an overflow exception on signed overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Multiplication, immediate}\\
+\noindent
+\texttt{multi \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{0100}{Immediate}
+Put the product of the signed multiplication of register \regs{} and the sign-extended immediate
+into register \regd{}. Generate an overflow exception on signed overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Multiplication, unsigned}\\
+\noindent
+\texttt{multu \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{0101}{\regt}
+Put the product of the unsigned multiplication of register \regs{} and register \regt{}
+into register \regd{}. Generate an overflow exception on unsigned overflow.
+\vspace{3ex}
+
+\noindent
+{\bf Multiplication, unsigned, immediate}\\
+\noindent
+\texttt{multui \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{0101}{Immediate}
+Put the product of the unsigned multiplication of register \regs{} and the zero-extended immediate
+into register \regd{}. Generate an overflow exception on unsigned overflow.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Division}\\
+\noindent
+\texttt{div \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{0110}{\regt}
+Put the result of the signed integer division of register \regs{} by register \regt{}
+into register \regd{}. Generate a divide-by-zero exception if the contents of \regt{} is zero.
+\vspace{3ex}
+
+\noindent
+{\bf Division, immediate}\\
+\noindent
+\texttt{divi \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{0110}{Immediate}
+Put the result of the signed integer division of register \regs{} by the sign-extended immediate
+into register \regd{}. Generate a divide-by-zero exception if the immediate value is zero.
+\vspace{3ex}
+
+\noindent
+{\bf Division, unsigned}\\
+\noindent
+\texttt{divu \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{0111}{\regt}
+Put the result of the unsigned division of register \regs{} by register \regt{}
+into register \regd{}. Generate a divide-by-zero exception if the contents of \regt{} is zero.
+\vspace{3ex}
+
+\noindent
+{\bf Division, unsigned, immediate}\\
+\noindent
+\texttt{divui \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{0111}{Immediate}
+Put the result of the unsigned division of register \regs{} by the zero-extended immediate
+into register \regd{}. Generate a divide-by-zero exception if the immediate value is zero. 
+\vspace{3ex}
+
+\noindent
+{\bf Remainder}\\
+\noindent
+\texttt{rem \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{1000}{\regt}
+Put the remainder of the signed division of register \regs{} by register \regt{}
+into register \regd{}. Generate a divide-by-zero exception if the contents of \regt{} is zero.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Remainder, immediate}\\
+\noindent
+\texttt{remi \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{1000}{Immediate}
+Put the remainder of the signed division of register \regs{} by the sign-extended immediate
+into register \regd{}. Generate a divide-by-zero exception if the immediate value is zero.
+\vspace{3ex}
+
+\noindent
+{\bf Remainder, unsigned}\\
+\noindent
+\texttt{remu \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{1001}{\regt}
+Put the remainder of the unsigned division of register \regs{} by the register \regt{}
+into register \regd{}. Generate a divide-by-zero exception if the contents of \regt{} is zero.
+\vspace{3ex}
+
+\noindent
+{\bf Remainder, unsigned, immediate}\\
+\noindent
+\texttt{remui \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{1001}{Immediate}
+Put the remainder of the unsigned division of register \regs{} by the zero-extended immediate
+into register \regd{}. Generate a divide-by-zero exception if the immediate value is zero.
+\vspace{3ex}
+
+\noindent
+{\bf Load high immediate}\\
+\noindent
+\texttt{lhi \regd, Immediate}
+\itypeinsn{0011}{\regd}{0000}{1110}{Immediate}
+Put the 16 bit immediate into the upper 16 bits of register \regd{},
+and set the lower 16 bits to zero.
+\vspace{3ex}
+
+\noindent
+{\bf Load address}\\
+\noindent
+\texttt{la \regd, Address}
+\jtypeinsn{1100}{\regd}{0000}{Address}
+Put the zero-extended 20 bit address into register \regd{}.
+\vspace{3ex}
+\newpage
+
+\subsection{Bitwise instructions}
+
+\noindent
+{\bf And}\\
+\noindent
+\texttt{and \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{1011}{\regt}
+Put the result of the logical AND of registers \regs{} and \regt{} into register \regd{}.
+\vspace{3ex}
+
+\noindent
+{\bf And, immediate}\\
+\noindent
+\texttt{andi \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{1011}{Immediate}
+Put the result of the logical AND of register \regs{} and the zero-extended immediate into register \regd{}.
+\vspace{3ex}
+
+\noindent
+{\bf Or}\\
+\noindent
+\texttt{or \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{1101}{\regt}
+Put the result of the logical OR of registers \regs{} and \regt{} into register \regd{}.
+\vspace{3ex}
+
+\noindent
+{\bf Or, immediate}\\
+\noindent
+\texttt{ori \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{1101}{Immediate}
+Put the result of the logical OR of register \regs{} and the zero-extended immediate into register \regd{}.
+\vspace{3ex}
+
+\noindent
+{\bf Xor}\\
+\noindent
+\texttt{xor \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{1111}{\regt}
+Put the result of the logical exclusive-OR of registers \regs{} and \regt{} into register \regd{}.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Xor, immediate}\\
+\noindent
+\texttt{xori \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{1111}{Immediate}
+Put the result of the logical exclusive-OR of register \regs{} and the zero-extended immediate into register \regd{}.
+\vspace{3ex}
+
+\noindent
+{\bf Shift left logical}\\
+\noindent
+\texttt{sll \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{1010}{\regt}
+Shift the value in register \regs{} left by the unsigned value given by the
+least significant 5 bits of register \regt{}, and put the result in register \regd{},
+inserting zeros into the low order bits.
+\vspace{3ex}
+
+\noindent
+{\bf Shift left logical, immediate}\\
+\noindent
+\texttt{slli \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{1010}{Immediate}
+Shift the value in register \regs{} left by the unsigned value given by the
+least significant 5 bits of the immediate, and put the result in register \regd{},
+inserting zeros into the low order bits.
+\vspace{3ex}
+
+\noindent
+{\bf Shift right logical}\\
+\noindent
+\texttt{srl \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{1100}{\regt}
+Shift the value in register \regs{} right by the unsigned value given by the
+least significant 5 bits of register \regt{}, and place the result in register \regd{},
+inserting zeros into the high order bits.
+\vspace{3ex}
+
+\noindent
+{\bf Shift right logical, immediate}\\
+\noindent
+\texttt{srli \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{1100}{Immediate}
+Shift the value in register \regs{} right by the unsigned value given by the
+least significant 5 bits of the immediate, and place the result in register \regd{},
+inserting zeros into the high order bits.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Shift right arithmetic}\\
+\noindent
+\texttt{sra \regd, \regs, \regt}
+\rtypeinsn{0000}{\regd}{\regs}{1110}{\regt}
+Shift the value in register \regs{} right by the unsigned value given by the
+least significant 5 bits of register \regt{}, and place the result in register \regd{},
+sign-extending the high order bits.
+\vspace{3ex}
+
+\noindent
+{\bf Shift right arithmetic, immediate}\\
+\noindent
+\texttt{srai \regd, \regs, Immediate}
+\itypeinsn{0001}{\regd}{\regs}{1110}{Immediate}
+Shift the value in register \regs{} right by the unsigned value given by the
+least significant 5 bits of the immediate, and place the result in register \regd{},
+sign-extending the high order bits.
+\vspace{3ex}
+
+\subsection{Test instructions}
+
+\noindent
+{\bf Set on less than}\\
+\noindent
+\texttt{slt \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{0000}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+less than register \regt{} according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on less than immediate}\\
+\noindent
+\texttt{slti \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{0000}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+less than the sign-extended immediate according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Set on less than, unsigned}\\
+\noindent
+\texttt{sltu \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{0001}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+less than register \regt{} according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on less than, unsigned, immediate}\\
+\noindent
+\texttt{sltui \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{0001}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+less than the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on greater than}\\
+\noindent
+\texttt{sgt \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{0010}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+greater than register \regt{} according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on greater than, immediate}\\
+\noindent
+\texttt{sgti \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{0010}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+greater than the sign-extended immediate according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on greater than, unsigned}\\
+\noindent
+\texttt{sgtu \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{0011}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+greater than register \regt{} according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Set on greater than, unsigned, immediate}\\
+\noindent
+\texttt{sgtui \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{0011}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+greater than the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on less than or equal to}\\
+\noindent
+\texttt{sle \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{0100}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+less than or equal to register \regt{} according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on less than or equal to, immediate}\\
+\noindent
+\texttt{slei \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{0100}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+less than or equal to the sign-extended immediate according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on less than or equal to, unsigned}\\
+\noindent
+\texttt{sleu \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{0101}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+less than or equal to register \regt{} according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on less than or equal to, unsigned, immediate}\\
+\noindent
+\texttt{sleui \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{0101}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+less than or equal to the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Set on greater than or equal to}\\
+\noindent
+\texttt{sge \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{0110}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+greater than or equal to register \regt{} according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on greater than or equal to immediate}\\
+\noindent
+\texttt{sgei \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{0110}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+greater than or equal to the sign-extended immediate according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on greater than or equal to, unsigned}\\
+\noindent
+\texttt{sgeu \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{0111}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+greater than or equal to register \regt{} according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on greater than or equal to, unsigned, immediate}\\
+\noindent
+\texttt{sgeui \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{0111}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+greater than or equal to the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on equal to}\\
+\noindent
+\texttt{seq \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{1000}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+equal to register \regt{} according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Set on equal to immediate}\\
+\noindent
+\texttt{seqi \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{1000}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+equal to the sign-extended immediate according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on equal to, unsigned}\\
+\noindent
+\texttt{sequ \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{1001}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+equal to register \regt{} according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on equal to, unsigned, immediate}\\
+\noindent
+\texttt{sequi \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{1001}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+equal to the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on not equal to}\\
+\noindent
+\texttt{sne \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{1010}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+not equal to register \regt{} according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on not equal to immediate}\\
+\noindent
+\texttt{snei \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{1010}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+not equal to the sign-extended immediate according to a signed comparison, and 0 otherwise.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Set on not equal to, unsigned}\\
+\noindent
+\texttt{sneu \regd, \regs, \regt}
+\rtypeinsn{0010}{\regd}{\regs}{1011}{\regt}
+Set register \regd{} to 1 if register \regs{} is
+not equal to register \regt{} according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\noindent
+{\bf Set on not equal to, unsigned, immediate}\\
+\noindent
+\texttt{sneui \regd, \regs, Immediate}
+\itypeinsn{0011}{\regd}{\regs}{1011}{Immediate}
+Set register \regd{} to 1 if register \regs{} is
+not equal to the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
+\vspace{3ex}
+
+\subsection{Branch instructions}
+
+\noindent
+{\bf Jump}\\
+\noindent
+\texttt{j Address}
+\jtypeinsn{0100}{0000}{0000}{Address}
+Unconditionally jump to the instruction whose address is given by the address field.
+\vspace{3ex}
+
+\noindent
+{\bf Jump to register}\\
+\noindent
+\texttt{jr \regs}
+\jtypeinsn{0101}{0000}{\regs}{0000 0000 0000 0000 0000}
+Unconditionally jump to the instruction whose
+address is in the least significant 20 bits of register \regs{}.
+\vspace{3ex}
+
+\noindent
+{\bf Jump and link}\\
+\noindent
+\texttt{jal Address}
+\jtypeinsn{0110}{0000}{0000}{Address}
+Unconditionally jump to the instruction whose address is given by the address field.
+Save the address of the next instruction in register \texttt{\$ra}.
+\vspace{3ex}
+\newpage
+
+\noindent
+{\bf Jump and link register}\\
+\noindent
+\texttt{jalr \regs}
+\jtypeinsn{0111}{0000}{\regs}{0000 0000 0000 0000 0000}
+Unconditionally jump to the instruction whose
+address is in the least significant 20 bits of register \regs{}.
+Save the address of the next instruction in register \texttt{\$ra}.
+\vspace{3ex}
+
+\noindent
+{\bf Branch on equal to zero}\\
+\noindent
+\texttt{beqz \regs, Offset}
+\jtypeinsn{1010}{0000}{\regs}{Offset}
+Conditionally branch the number of instructions specified by the
+sign-extended offset if register \regs{} is equal to 0.
+\vspace{3ex}
+
+\noindent
+{\bf Branch on not equal to zero}\\
+\noindent
+\texttt{bnez \regs, Offset}
+\jtypeinsn{1011}{0000}{\regs}{Offset}
+Conditionally branch the number of instructions specified by the
+sign-extended offset if register \regs{} is not equal to 0.
+\vspace{3ex}
+
+\subsection{Memory instructions}
+
+\noindent
+{\bf Load word}\\
+\noindent
+\texttt{lw \regd, Offset(\regs{})}
+\jtypeinsn{1000}{\regd}{\regs}{Offset}
+Add the contents of register \regs{} and the sign-extended offset to
+give an effective address. Load the contents of the memory location
+specified by this effective address into register \regd{}.
+\vspace{3ex}
+
+\noindent
+{\bf Store word}\\
+\noindent
+\texttt{sw \regd, Offset(\regs{})}
+\jtypeinsn{1001}{\regd}{\regs}{Offset}
+Add the contents of register \regs{} and the sign-extended offset to
+give an effective address. Store the contents of register \regd{} into
+the memory location specified by this effective address.
+\vspace{3ex}
+\newpage
+
+\subsection{Special instructions}
+
+\noindent
+{\bf Move general register to special register}\\
+\noindent
+\texttt{movgs \regd, \regs}
+\itypeinsn{0011}{\regd}{\regs}{1100}{0000 0000 0000 0000}
+Copy the contents of general purpose register \regs{} into special purpose register \regd{}.
+\vspace{3ex}
+
+\noindent
+{\bf Move special register to general register}\\
+\noindent
+\texttt{movsg \regd, \regs}
+\itypeinsn{0011}{\regd}{\regs}{1101}{0000 0000 0000 0000}
+Copy the contents of special purpose register \regs{} into general purpose register \regd{}.
+\vspace{3ex}
+
+\noindent
+{\bf Break}\\
+\noindent
+\texttt{break}
+\itypeinsn{0010}{0000}{0000}{1100}{0000 0000 0000 0000}
+Generate a breakpoint exception, transferring control to the exception handler.
+\vspace{3ex}
+
+\noindent
+{\bf System call}\\
+\noindent
+\texttt{syscall}
+\itypeinsn{0010}{0000}{0000}{1101}{0000 0000 0000 0000}
+Generate a system call exception, transferring control to the exception handler.
+\vspace{3ex}
+
+\noindent
+{\bf Return from exception}\\
+\noindent
+\texttt{rfe}
+\itypeinsn{0010}{0000}{0000}{1110}{0000 0000 0000 0000}
+Restore the saved interrupt enable and kernel/user mode bits and jump to
+the instruction at the address specified in the special register \texttt{\$ear}.
+\vspace{3ex}

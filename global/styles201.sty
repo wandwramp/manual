@@ -1,0 +1,210 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STYLES for 201 Documents
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\ProvidesPackage{styles201}
+
+
+%\newcommand{\LIBEXTHREEFULLPATH}{/home/201/ex3/lib\_ex3.o}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%  HEADING
+%----------------------
+\newcommand{\HEADING}[1]{
+{\centering \large \bf THE UNIVERSITY OF WAIKATO\\}
+{\centering \large \bf Department of Computer Science\\[0.5cm]}
+
+{\centering \large \bf REX Board and WRAMP CPU Documentation\\[0.5cm]}
+{\centering \large \bf #1\\[0.5cm]}
+\hrule
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%  EXCERCISE HEADING
+%----------------------
+%
+% \EXHEADING{\EXCERCISENO}{\EXCERCISENAME}{VERIFICATION}
+\newcommand{\EXHEADING}[3]{
+{\centering \large \bf THE UNIVERSITY OF WAIKATO\\}
+{\centering \large \bf Department of Computer Science\\[0.5cm]}
+
+{\centering \large \bf COMP201-03Y Computer Systems \CORYEAR\\}%[0.5cm]}
+{\centering \large \bf Excercise~#1~---~#2\\[1cm]}
+
+#3
+\hrule
+}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%  EXCERCISE TEST HEADING
+%----------------------
+%
+% \EXTESTHEADING{\EXCERCISENO}{\EXCERCISETESTDATE}
+\newcommand{\EXTESTHEADING}[2]{\EXHEADING{#1~Test}{#2}{}}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%  EXCERCISE TEST ANSWERSHEET HEADING
+%----------------------
+%
+% \EXTESTAHEADING{\EXCERCISENO}{\EXCERCISETESTDATE}
+\newcommand{\EXTESTAHEADING}[2]{
+{\centering \large \bf THE UNIVERSITY OF WAIKATO\\}
+{\centering \large \bf Department of Computer Science\\[0.5cm]}
+
+{\centering \large \bf COMP201-03Y Computer Systems \CORYEAR\\}%[0.5cm]}
+{\centering \large \bf Excercise~#1~Test~-~#2\\[1cm]}
+{\centering \large \bf Answer Sheet\\[5mm]}
+If you need more space than is provided, write on the reverse of the
+page and clearly indicate this.\\[5mm]
+Name:\hspace*{5cm}ID Number:\\
+
+\hrule
+}
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%Formatting Definitions
+%----------------------
+
+\newcommand{\subscr}[1]{\raisebox{-0.5ex}{\small #1}}  %Subscript
+\newcommand{\src}[1]{\texttt{#1}}                      %Source code
+\newcommand{\filename}[1]{\emph{#1}}                   %Filenams
+\newcommand{\cout}[1]{\{ #1 \}   }                     %Computer output
+\newcommand{\program}[1]{\emph{#1}}                    %Program names{eg emacs}
+\newcommand{\hardware}[1]{\emph{#1}}                   %Items of hardware
+
+\newcommand{\reg}[1]{\src{\$#1}}                       %Output register form
+\newcommand{\BI}[1]{\textbf{\emph{#1}}}                %Bold Italics
+
+%Test Marks
+\newcommand{\marks}[1]
+{\begin{flushright}{\bf (#1 marks)}\end{flushright}}
+
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%Instruction set Formatting
+%--------------------------
+\newcommand\jtypeinsn[4]{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{40ex}}{}\\ 
+	\hline
+	\texttt{#1} & \texttt{#2} & \texttt{#3} & \texttt{#4}\\
+	\hline
+	\multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 20}\\
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\jtypeinsnformat{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{40ex}}{}\\ 
+	\multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{20 bits}\\
+	\hline
+	\texttt{OPcode} & \texttt{\regd} & \texttt{\regs} & \texttt{Address / Offset}\\
+	\hline
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\rtypeinsn[5]{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{24ex}}{} & \multicolumn{1}{@{}p{8ex}}{}\\ 
+	\hline
+	\texttt{#1} & \texttt{#2} & \texttt{#3} & \texttt{#4} & \texttt{0000 0000 0000} & \texttt{#5}\\
+	\hline
+	\multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 12} & \multicolumn{1}{c}{\small 4}\\
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\rtypeinsnformat{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{24ex}}{} & \multicolumn{1}{@{}p{8ex}}{}\\ 
+	\multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{12 bits} & \multicolumn{1}{c}{4 bits}\\
+	\hline
+	\texttt{OPcode} & \texttt{\regd} & \texttt{\regs} & \texttt{Func} & \texttt{0000 0000 0000} & \texttt{\regt}\\
+	\hline
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\itypeinsn[5]{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{32ex}}{}\\ 
+	\hline
+	\texttt{#1} & \texttt{#2} & \texttt{#3} & \texttt{#4} & \texttt{#5}\\
+	\hline
+	\multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 16}\\
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\itypeinsnformat{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{32ex}}{}\\ 
+
+	\multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{16 bits}\\
+
+	\hline
+	\texttt{OPcode} & \texttt{\regd} & \texttt{\regs} & \texttt{Func} & \texttt{Immediate}\\
+	\hline
+	\end{tabular}
+	\end{center}
+	}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% Predefined Text
+%----------------------
+
+%Directives
+\newcommand{\text}{\src{.text} }
+\newcommand{\data}{\src{.data} }
+\newcommand{\bss}{\src{.bss} }
+\newcommand{\Global}{\src{.global} }
+\newcommand{\ascii}{\src{.ascii} }
+\newcommand{\asciiz}{\src{.asciiz} }
+\newcommand{\word}{\src{.word} }
+\newcommand{\Space}{\src{.space} }
+
+\newcommand{\WRAMPmon}{\program{WRAMPmon}}
+
+
+% Predefined Registers
+\newcommand\regs{R\subscr{s}} %Rs
+\newcommand\regd{R\subscr{d}} %Rd
+\newcommand\regt{R\subscr{t}} %Rt
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%

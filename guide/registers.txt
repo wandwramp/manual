@@ -1,0 +1,21 @@
+Registers are the CPU's equivalent of variables.  There are 16 general
+purpose registers which can be used for temporarily storing data while
+it is used in operations.  All arithmetic and test instructions use
+registers.  Registers are referred to by a \$-sign followed by a
+number (0-15).  For example \reg{0} refers to register zero. The
+contents of registers can be transferred to and from main memory.
+
+Register \reg{0} is always zero.  Any attempts to write to it are
+ignored.  This provides a constant source of zero that can be used for
+comparing and initialising registers.
+
+The fourteenth register is denoted \reg{sp}. This register is defined
+by convention to be the stack pointer.  While the hardware imposes no
+special conditions on this register, failure to follow this convention
+may affect the ability of code to interoperate with other software.
+
+The fifteenth register is denoted \reg{ra}. It is defined by convention to be the subroutine return address register.  When a jump and link instruction is executed this register is loaded with the address of the next instruction after the jump and link.
+
+The last 2 registers have been given names.  Register 14 is called the `Stack Pointer' register, and is referred to as  \reg{sp}.  Register 15 is the `Return Address Register' and is \reg{ra}.
+
+In addition to these general purpose registers are a few special purpose registers.  The use of these is covered in chapter \ref{excpetions}.

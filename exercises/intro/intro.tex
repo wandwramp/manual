@@ -1,0 +1,119 @@
+\documentclass[a4paper,10pt]{article}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1.5ex}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
+
+\usepackage{fancyhdr}
+\fancypagestyle{rcsfooters}{
+\fancyfoot[L]{\small $ $RCSfile: intro.tex,v $ $}
+\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+}
+
+\renewcommand{\headrulewidth}{0pt}
+
+%INCLUDE OUR GLOBALS
+\usepackage{rex201}
+\usepackage{styles201}
+\usepackage{ex201}
+
+
+\begin{document}
+
+\EXHEADING{\INTRONO}{\INTROTITLE}{%
+Verification Date:~\INTRODUE\\
+Excercise Test Date:~\CWRAMPTESTDATE\\
+}
+
+
+\section{Assessment}
+To show that you have completed this exercise to a satisfactory
+standard you will be required to demonstrate at a verification session
+that the program you wrote in \textbf{Question~\ref{ques:final}} 
+of this exercise
+runs correctly. In addition the marker may ask one or two questions so
+they establish that you understand what you have done.  These
+verification sessions will be held in Lab 1 during the following two
+times:
+
+\begin{itemize}
+\item \INTRODUE~\MORNINGASSESS
+\item \INTRODUE~\AFTERNOONASSESS 
+\end{itemize}
+
+In an attempt to ensure that the verification process runs smoothly
+six machines in \ASSESSROOM\ will be booked for this purpose during the two
+sessions. When it is your turn to have your program verified you
+should log onto one of these machines and get your program ready to
+run on the REX board. A marker will then verify your program. Once
+your program has been verified you should log off immediately to allow
+the next person to prepare to have their program verified.
+
+In addition to the test there will be a closed book excercise test on
+\textbf{\CWRAMPTEST}.  The test will cover material 
+from excercises 2, 3 and 4.
+
+The tutorial times are listed on the course webpage:
+
+\begin{center}
+\src{\WEBPAGEBASE}
+\end{center}
+
+\section{Ojectives}
+The objective of this exercise is to familiarise 
+yourself with writing, assembling, linking, running, and
+debugging assembly code for the WRAMP processor and the REX board.
+
+Before attempting this excercise you should have read the 
+chapter `Introduction....' in your course manual.
+
+
+\section{Questions}
+\begin{enumerate}
+\item\label{ques:first} Write a program which continually (i.e. is in an 
+infinite loop) reads the values on the switches and
+outputs the value read to the two seven segment displays.
+For example if the switches are set to the
+pattern shown in Figure ... the two seven segment displays should show \src{92}.
+
+\item\label{ques:two} Modify your program in question 
+\ref{ques:first} to continually 
+output the number of switches currently set (in the
+down position or one) to the seven segment display. For 
+example if the switches are set to the pattern
+shown in Figure ...  then the seven segment display should display \src{03}.
+\item\label{ques:final} Modify the program written in question \ref{ques:two} to encrypt
+the count of set switches before outputting it to
+the seven-segment display. The encryption algorithm 
+to be applied is the very simple mapping function
+defined in Table \ref{table:encode}. For example, the value \src{4} 
+encrypted would be displayed as \src{05}, and the value
+\src{8} encrypted would be displayed as \src{07}.
+\end{enumerate}
+
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+\verb|       |0\verb|       | & \verb|       |1\verb|       | \\ \hline
+1 & 0 \\ \hline
+2 & 8 \\ \hline
+3 & 2 \\ \hline
+4 & 5 \\ \hline
+5 & 4 \\ \hline
+6 & 9 \\ \hline
+7 & 3 \\ \hline
+8 & 7 \\ 
+\hline
+\end{tabular}
+\end{center}
+\label{table:encode}
+\caption{Mapping Function for Encryption Process}
+\end{table}
+
+
+\thispagestyle{rcsfooters}
+\pagestyle{rcsfooters}
+\end{document}

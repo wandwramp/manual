@@ -1,0 +1,237 @@
+\documentclass[a4paper,10pt]{article}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1.5ex}
+
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
+
+\usepackage{fancyhdr}
+\fancypagestyle{rcsfooters}{
+\fancyfoot[L]{\small $ $RCSfile: io.tex,v $ $}
+\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+}
+
+%INCLUDE OUR GLOBALS
+\usepackage{rex201}
+\usepackage{styles201}
+\usepackage{ex201}
+
+\begin{document}
+
+\EXHEADING{\IONO}{\IOTITLE}{%
+Verification Date:~\IODUE\\
+Exercise Test Date:~\IOTEST\\  	
+}
+
+
+
+\section{Assessment}
+
+To show that you have completed this exercise to a satisfactory
+standard you will be required to demonstrate at a verification session
+that the program you wrote in \textbf{Question~\ref{ques:final}} of this exercise
+runs correctly. In addition the marker may ask one or two questions so
+they establish that you understand what you have done.  These
+verification sessions will be held in \ASSESSROOM during the following two
+times: 
+
+\begin{itemize}
+\item \IODUE~\MORNINGASSESS
+\item \IODUE~\AFTERNOONASSESS
+\end{itemize}
+
+In an attempt to ensure that the verification process runs smoothly
+six machines in \ASSESSROOM will be booked for this purpose during the two
+sessions. When it is your turn to have your program verified you
+should log onto one of these machines and get your program ready to
+run on the REX board. A marker will then verify your program. Once
+your program has been verified you should log off immediately to allow
+the next person to prepare to have their program verified.
+
+In addition to the verification process there will be a closed book
+exercise test on~\textbf{\IOTEST}. The test can cover any material
+from exercises 5 or 6.
+
+\section{Objective}
+
+The purpose of this exercise is to reinforce the ideas presented in
+lectures on I/O devices. To achieve this goal you will be asked to
+write WRAMP code to correctly talk to the I/O devices provided on the
+REX board.
+
+\section{Introduction}
+There are a range of I/O systems provided on the REX Board are. This
+exercise will deal with two particular devices:
+
+\begin{itemize}
+\item A parallel port
+\item A dual serial port
+\end{itemize}
+
+\subsection{Parallel Port}
+\label{sec:parallel}
+
+The REX board parallel port is connected to the switches and the pair
+of seven segment display devices. To obtain the current value set on
+the switches you should read a word from the location~\LOCSWS. The
+lower 8 bits of this word will be set to the current value on the
+switches. The upper 24 bits will be set to zero.
+
+The first seven segment display can be written to by writing to the
+address~\LOCSSDONE~and the second display by writing to~\LOCSSDTWO. By
+default writing to these locations will decode the least significant
+four bits and display it as a hexadecimal value to the display. The
+upper 28 bits are ignored.
+
+
+\subsection{Serial Port}
+
+
+The REX board provides two serial interfaces, one of which is
+connected to the Linux machine and the other is connected to the
+terminal that should be sitting on the shelf above the board. 
+
+For each of the serial interfaces there are 4 registers accessible to
+the CPU. These registers are the transmit data register, the receive
+data register, the status register and the control register.
+
+The transmit data register holds the value that is to be sent out of
+the serial port. The receive data register holds the value that has
+been received in the serial port. The status register indicates if
+there is a value in the receive data register and also if the value in
+the transmit data register has been sent. The control register allows
+the configuration of the serial port. For this exercise the control
+register will have already been configured for you by the monitor so
+it will not need to be altered. Each serial port has a base address
+and the 4 registers for each serial port are expressed as an offset
+from this address. The base addresses for each port are defined in
+table~\ref{table:serialbase} and the offsets are defined in
+table~\ref{table:serialoffset}. The format of the status register for
+each of the serial devices is shown in table~\ref{table:serialstat}.
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Port} & \textbf{Base Address} \\
+\hline
+Linux machine & \LOCLINBASE \\ 
+\hline
+Terminal & \LOCTERMBASE \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Base addresses for each serial port}
+\label{table:serialbase}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Register} & \textbf{Address} \\
+\hline
+Transmit Data & Base + \LOCTRANOFFSET \\ 
+\hline
+Receive Data & Base + \LOCRECOFFSET \\
+\hline
+Control & Base + \LOCCONTROLOFFSET \\
+\hline
+Status & Base + \LOCSTATOFFSET \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Offsets for each register}
+\label{table:serialoffset}
+\end{table}
+
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Bit} & \textbf{Function} \\
+\hline
+0 & Receive Data Ready \\
+ & 1 if data in receive data register, 0 otherwise \\
+\hline
+1 & Transmit Data Sent \\
+ & 1 if ready for next character, 0 if data is still being transmitted  \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Status register format}
+\label{table:serialstat}
+\end{table}
+
+\section{Questions}
+
+\begin{enumerate}
+
+\item Write a program which continually (i.e. is in an infinite loop)
+reads the values on the switches and outputs the value read to the two
+seven segment displays. This is the same question as question 10 of
+exercise 3, however this time you should \textbf{not} use the writessd
+and readswitches routines that you were provided with for that
+exercise. You should instead directly talk to the parallel port using
+the addresses supplied in section~\ref{sec:parallel}.
+
+\item 
+\label{ques:single}
+
+Write a program that sends an X to the serial port that is
+connected to the terminal above the board. Do not use any library
+routines to do the I/O (e.g. putstr). Instead manipulate the serial
+port directly.
+
+\item 
+\label{ques:badmult}
+Modify the program you wrote in question~\ref{ques:single} to output
+25 Xs' without first checking the status register to make sure that
+the serial device is ready to send the next character. When you run
+the program what happens?  Why? \textit{Note:} single stepping through
+your program will cause very different effects to running your program
+without any breaks in execution. Why?
+
+\item Modify the program you wrote in question~\ref{ques:badmult} so
+that all of the Xs' are sent correctly out through the serial port.
+
+\item 
+\label{ques:upperlower}
+Write a program that continually reads characters from the serial port
+connected to the terminal, converts any \textbf{lowercase} characters
+to \textbf{uppercase} and outputs them to the serial port connected to
+the Linux machine. (e.g. if an 'a' is received on the serial port
+connected to the terminal then an 'A' will be output to the serial
+port connected to the Linux machine. However, if an 'A' is received on
+the serial port connected to the terminal then an 'A' is output to the
+serial port connected to the Linux machine.)
+
+\item 
+\label{ques:switchcase}
+Modify the program you wrote in question~\ref{ques:upperlower} so that
+it reads the characters from the Linux machine and outputs to the
+terminal. Also modify the program so that instead of making all
+characters uppercase it changes the case of all characters
+input. (i.e. you should make all lowercase characters uppercase and
+all uppercase characters lower case.) You should be careful not to
+modify any non-character that is input such as spaces or punctuation.
+
+\item 
+\label{ques:final}
+Write a program that combines the functionality of both programs
+in~\ref{ques:upperlower} and~\ref{ques:switchcase}
+simultaneously. That is the program should both output
+\textbf{uppercase} versions of the characters typed on the terminal to
+the Linux machine and switch the case of all characters input on the
+Linux machine and display that to the terminal. To achieve this your
+program will to contain a loop that repeatedly polls each of the
+devices (i.e. the terminal and the Linux machine) in turn to see if a
+character has been received, and if so outputs it to the appropriate
+serial interface.
+
+\end{enumerate}
+
+\thispagestyle{rcsfooters}
+\pagestyle{rcsfooters}
+\end{document}

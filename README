@@ -1,0 +1,14 @@
+make :
+
+(nb it is assumed that this is in the folder ~/comp201!  If not then
+modifiy the variable BASEPATH in the Makefile)
+
+eps        - make all eps graphics
+dvi        - make guide dvi files (build/xxx.dvi)
+standalone - make guide ps/pdf files (output/guide/xxx.ps/.pdf)
+
+all        - make all of the above
+
+clean      - remove everything including intermediate files
+cleanout   - remove .dvi and .ps/.pdf only.  allows dvi file to be built twice
+             for latex to update references.

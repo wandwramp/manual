@@ -1,0 +1,116 @@
+
+
+\newcommand{\witem}[2]
+{\item[\src{#1}] #2}
+\begin{comment}
+ load                               Load an S-Record into RAM
+ go [address]                       Begin executing a program
+ dis [start_address [end_address]]  Disassemble instructions from memory
+ vm [start_address [end_address]]   View memory contents
+ sm <address> <value>               Set the value of a memory location
+ vr [reg]                           View register contents
+ sr <reg> <value>                   Set register contents
+ sb <address>                       Set a breakpoint
+ vb                                 View current breakpoints
+ rb <address>                       Remove a breakpoint
+ cont                               Continue executing a program
+ s                                  Step
+ so                                 Step over
+ about                              Display information about this system
+ help or ?                          Display this information
+\end{comment}
+
+\begin{tabular}{l l}
+%\hline
+\verb|load|
+&
+Load an S-Record into RAM
+\\
+%\hline
+
+\verb|go [address]|
+&
+Begin executing a program
+\\
+%\hline
+
+\verb|dis [start_address [end_address]]|
+&
+Disassemble instructions from memory
+\\
+%\hline
+
+\verb|vm [start_address [end_address]]|
+&
+View memory contents
+\\
+%\hline
+
+\verb|sm <address> <value>|
+&
+Set the value of a memory location
+\\
+%\hline
+
+\verb|vr [reg] |
+&
+View register contents
+\\
+%\hline
+
+\verb|sr <reg> <value>|
+&
+Set register contents
+\\
+%\hline
+
+\verb|sb <address>|
+&
+Set a breakpoint
+\\
+%\hline
+
+\verb|vb|
+&
+View current breakpoints
+\\
+%\hline
+
+\verb|rb <address>|
+&
+Remove a breakpoint
+\\
+%\hline
+
+\verb|cont|
+&
+Continue executing a program
+\\
+%\hline
+
+\verb|s|
+&
+Step
+\\
+%\hline
+
+\verb|so|
+&
+Step over
+\\
+%\hline
+
+\verb|about|
+&
+Display information about this system
+\\
+%\hline
+
+\verb|help| or \verb|?|
+&
+Show this help screen
+\\
+%\hline
+
+
+\end{tabular}

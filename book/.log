@@ -1,0 +1,29 @@
+This is TeX, Version 3.14159 (Web2C 7.3.7) (format=latex 2002.5.24)  27 NOV 2002 13:59
+**book.
+(./.tex
+! Interruption.
+<to be read again> 
+                   \begingroup 
+l.1 
+    \relax
+? q
+OK, entering \batchmode...
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, n
+ohyphenation, loaded.
+)
+! Emergency stop.
+<*> book.
+         
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 5 strings out of 10847
+ 19 string characters out of 70946
+ 44507 words of memory out of 263001
+ 3034 multiletter control sequences out of 10000+0
+ 3640 words of font info for 14 fonts, out of 400000 for 1000
+ 14 hyphenation exceptions out of 1000
+ 5i,0n,1p,16b,7s stack positions out of 300i,100n,500p,50000b,4000s
+No pages of output.

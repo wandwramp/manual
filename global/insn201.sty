@@ -1,0 +1,43 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    INSTRUCTION SET RELATED
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{insn201}
+
+
+%%%%%%%%
+% Formatting
+%%%%%%%%
+
+% Characters and Stuff
+\newcommand{\mem}[1]{[ #1 ]}
+\newcommand{\signextend}{\int}
+
+% Instruction types
+\newcommand{\rtype}[2]
+	   { \scriptsize{#1 dddd ssss #2 0000 0000 0000 tttt} } 
+\newcommand{\itype}[2]
+	   { \scriptsize{#1 dddd ssss #2 iiii iiii iiii iiii } }
+\newcommand{\jtype}[1]
+	   { \scriptsize{#1 dddd ssss aaaa aaaa aaaa aaaa aaaa } }
+
+%Instructions
+\newcommand{\arithmeticinsn}[1]
+	   { \scriptsize{$ \regd \leftarrow \regs #1 \regt $ } }
+\newcommand{\arithmeticinsni}[1]
+           { \scriptsize{$ \regd \leftarrow \regs #1 \signextend(Immediate) $ }
+	   }
+\newcommand{\arithmeticinsnu}[1]
+           { \scriptsize{$ \regd \leftarrow \regs #1 \regt $ } }
+\newcommand{\arithmeticinsnui}[1]
+           { \scriptsize{$ \regd \leftarrow \regs #1 Immediate $ } }
+\newcommand{\lhiinsn}
+           { \scriptsize{$ \regd \leftarrow Immediate \ll 16 $} }
+\newcommand{\lainsn}
+           { \scriptsize{$ \regd \leftarrow Address $} }
+
+%%%%%%%%%%%%%
+%
+% Actual stuff
+%
+%%%%%%%%%%%%%
