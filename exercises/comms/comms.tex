@@ -8,7 +8,7 @@
 \usepackage{fancyhdr}
 \fancypagestyle{rcsfooters}{
 \fancyfoot[L]{\small $ $RCSfile: comms.tex,v $ $}
-\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+\fancyfoot[R]{\small $ $Revision: 1.2 $ $}
 }
 
 \renewcommand{\headrulewidth}{0pt}
@@ -79,13 +79,16 @@ The main lines of your programs should look something like this:
 \begin{verbatim}
 #include "/home/201/ex10/libcomms.h"
 
-connect_transmitter();
+void main()
+{
+  connect_transmitter();
 
-while ( NULL != (raw = gen()) )
-   {
-   encode(raw, coded);
-   transmit_frame(coded);
-   }
+  while ( NULL != (raw = gen()) )
+    {
+      encode(raw, coded);
+      transmit_frame(coded);
+    }
+}
 \end{verbatim}
 
 {\bf Receiver program}
@@ -93,12 +96,15 @@ while ( NULL != (raw = gen()) )
 \begin{verbatim}
 #include "/home/201/ex10/libcomms.h"
 
-connect_receiver();
+void main()
+{
+  connect_receiver();
 
-while ( -1 != receive_frame(coded) )
-   {
-   ok = res(check(coded));
-   }	
+  while ( -1 != receive_frame(coded) )
+    {
+      ok = res(check(coded));
+    }
+}
 \end{verbatim}
 
 You will need to write the \src{encode} and \src{check} routines.
@@ -113,9 +119,9 @@ The following figure shows the structure of the complete system.
 \section{The Supplied Routines}
 
 The six supplied routines are in the library file
-\filename{/home/201/ex10/libcomms.a}.  When you compile your program you
+\filename{/home/201/ex9/libcomms.a}.  When you compile your program you
 should include this file as a parameter to \program{g++}.  There is a
-\filename{/home/201/ex10/libcomms.h} file which contains prototypes for the
+\filename{/home/201/ex9/libcomms.h} file which contains prototypes for the
 supplied routines.
 
 If you wish to do this exercise on equipment other than the lab you
