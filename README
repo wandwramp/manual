@@ -1,11 +1,24 @@
-make :
+Makefile commands :
 
+-- ALL: --
+all        - make all outputs (ps/pdf files in output/)
+	     does not leave dvi or eps files.
+
+-- GRAPHICS: --
 eps        - make all eps graphics
-dvi        - make guide dvi files (build/xxx.dvi)
-standalone - make guide ps/pdf files (output/guide/xxx.ps/.pdf)
 
-all        - make all of the above
+-- DVI FILES: --
+dvi        - make guide dvi files (build/guides/xxx.dvi)
+exdvi      - make exercise dvi files (build/ex/xxx.dvi)
+instrdvi   - make instruction dvi files (build/instr/xxx.dvi)
+bookdvi    - make book dvi files (build/book/xxx.dvi)
 
+
+-- OUTPUT --
+standalone - make guide ps/pdf files (output/guides/)
+exercise   - make exercises ps/pdf (output/exercise/)
+instr      - make instruction-set ps/pdf (output/instr/)
+book       - make book ps/pdf (output/book/)
+
+-- CLEAN --
 clean      - remove everything including intermediate files
-cleanout   - remove .dvi and .ps/.pdf only.  allows dvi file to be built twice
-             for latex to update references.
