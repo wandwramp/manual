@@ -18,6 +18,9 @@ INSTR = $(patsubst %.tex, %.ps, $(patsubst guide/instr/%, \
 	output/instr/ps/%, $(wildcard guide/instr/*.tex))) \
 	$(patsubst %.tex, %.pdf, $(patsubst guide/instr/%, \
 	output/instr/pdf/%, $(wildcard guide/instr/*.tex))) 
+INSTRDVI = $(patsubst %.tex, %.dvi, $(patsubst guide/instr/%, \
+	build/instr/%, $(wildcard guide/instr/*.tex)))
+
 BOOK = output/book/book.ps output/book/book.pdf
 EXERCISES = output/exercises/ps/comms.ps output/exercises/pdf/comms.pdf \
 	output/exercises/ps/cwramp.ps output/exercises/pdf/cwramp.pdf \
@@ -45,17 +48,16 @@ export TEXINPUTS=:$(BASEPATH)/global:$(BASEPATH)/global/graphics:$(BASEPATH)/gui
 %.dvi : %.tex
 
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
-#               BUILDing everything
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
+#               BUILDing everything			  #
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 
 # Make all
 .PHONY : all
-all :	eps dvi standalone allex  instr book
+all :	eps standalone exercise instr book
 
 
-
-# ----------------------------------------------------------
+#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-# 
 #                    EPS files
 
 #EPS - 'make eps' makes all eps's using the second/third rules
@@ -74,23 +76,19 @@ global/graphics/%.eps : global/graphics/src/%.fig
 .PHONY : dvi
 dvi :   $(DVI)
 
-build/guides/%.dvi : build/guides/%.aux \
-		$(GLOBALSTY)
-	cd build/guides && latex $(patsubst build/guides/%, \
-			  ../../guide/standalone/%, \
-			  $(patsubst %.aux, %.tex, $< ) )
-
-
-build/guides/%.aux : guide/standalone/%.tex \
+build/guides/%.dvi : guide/standalone/%.tex \
 #	      $(subst _a., ., guide/%.tex)\
 	      $(GLOBALSTY)
-	cd build/guides && latex ../../$<
+	cd build/guides && \
+	latex ../../$< && \
+	latex ../../$<
 
 
 
 #GUIDES STANDALONE.ps .pdf - 'make standalone'
 .PHONY : standalone
 standalone: $(STANDALONE)
+
 output/guides/ps/%.ps : build/guides/%.dvi 
 	dvips  -o $@ $<
 
@@ -107,6 +105,10 @@ output/guides/pdf/%.pdf : build/guides/%.dvi
 #                     Instructions
 .PHONY : instr
 instr: $(INSTR)
+
+.PHONY : instrdvi
+instrdvi: $(INSTRDVI)
+
 output/instr/ps/%.ps :  build/instr/%.dvi
 	dvips -o $@ $<
 
@@ -118,28 +120,39 @@ output/instr/pdf/%.pdf :  build/instr/%.dvi
 		$(patsubst %.pdf, %.ps, ../../../$@)
 	rm $(patsubst %.pdf, %.ps, $@)
 
-build/instr/%.dvi : build/instr/%.aux $(GLOBALSTY)
-	cd build/instr && latex $(patsubst build%, ../../guide%, \
-			  $(patsubst %.aux, %.tex, $< ) )
-
-build/instr/%.aux : guide/instr/%.tex $(GLOBALSTY)
-	cd build/instr && latex ../../$<
+build/instr/%.dvi : guide/instr/%.tex $(GLOBALSTY)
+	cd build/instr && \
+	latex ../../$< && \
+	latex ../../$<
 
 # ----------------------------------------------------------
 #                     Book
+.PHONY : bookdvi
+bookdvi : $(GUIDESRC) $(BOOKSRC)
+	cd build/book && \
+	latex ../../book/book.tex && \
+	latex ../../book/book.tex      # Rererun to get cross references right
+
 .PHONY : book
 book: $(GUIDESRC) $(BOOKSRC)
-	cd build && latex ../book/book.tex
-	cd build && latex ../book/book.tex # Rererun to get cross references right
-	dvips -o output/book/ps/book.ps build/book.dvi
-	dvipdf  build/book.dvi  output/book/pdf/book.pdf
+	cd build/book && \
+	latex ../../book/book.tex && \
+	latex ../../book/book.tex      # Rererun to get cross references right
+	dvips -o output/book/ps/book.ps build/book/book.dvi
+	dvips    -Ppdf -G0 build/book/book.dvi \
+		 -o build/book/book.ps
+	cd output/book/pdf && \
+	ps2pdf  -sPAPERSIZE=a4 -dMaxSubsetPct=100 -dCompatibilityLevel=1.2 \
+		-dSubsetFonts=true -dEmbedAllFonts=true  \
+		../../../build/book/book.ps
+	rm build/book/book.ps
 
 
 # ----------------------------------------------------------
 #                     Exercises
 
-.PHONY : allex
-allex : $(EXERCISES) 
+.PHONY : exercise
+exercise : $(EXERCISES)
 
 output/exercises/ps/%.ps : build/ex/%.dvi
 	dvips -o $@ $<	
@@ -154,7 +167,7 @@ output/exercises/pdf/%.pdf : build/ex/%.dvi
 
 
 .PHONY : exdvi
-exdvi :  $(EXDVI)
+exdvi :  $(EXDVI)  
 
 #------ Have to do them individually
 
@@ -163,11 +176,11 @@ build/ex/intro.dvi : exercises/intro/intro.tex
 	cd build/ex && \
 	latex ../../$< && \
 	latex ../../$<
-build/ex/data.dvi : exercises/data/data.tex
+build/ex/data.dvi : exercises/data/data.tex  
 	cd build/ex && \
 	latex ../../$< && \
 	latex ../../$<
-build/ex/cwramp.dvi : exercises/cwramp/cwramp.tex
+build/ex/cwramp.dvi : exercises/cwramp/cwramp.tex  
 	cd build/ex && \
 	latex ../../$< && \
 	latex ../../$<
@@ -200,17 +213,6 @@ build/ex/comms.dvi : exercises/comms/comms.tex
 #                clean ups
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # 
 
-.PHONY : cleanout # Just removes the final output
-cleanout :
-	echo CLEANOUT
-	-rm $(wildcard build/*.dvi )
-	-rm $(wildcard build/guide/*.dvi )
-	-rm $(wildcard build/ex/*.dvi )
-	-rm $(wildcard output/guides/ps/* )
-	-rm $(wildcard output/guides/pdf/* )
-	-rm $(wildcard output/exercises/ps/* )
-	-rm $(wildcard output/exercises/pdf/* )
-
 .PHONY : clean # Removes everything
 clean:
 	echo ALLCLEAN
@@ -225,8 +227,4 @@ clean:
 	-rm $(wildcard output/instr/ps/* )
 	-rm $(wildcard output/instr/pdf/* )
 	-rm $(wildcard global/graphics/*.eps)
-
-
-
-
 
