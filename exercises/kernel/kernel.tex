@@ -8,7 +8,7 @@
 \usepackage{fancyhdr}
 \fancypagestyle{rcsfooters}{
 \fancyfoot[L]{\small $ $RCSfile: kernel.tex,v $ $}
-\fancyfoot[R]{\small $ $Revision: 1.1 $ $}
+\fancyfoot[R]{\small $ $Revision: 1.2 $ $}
 }
 
 %INCLUDE OUR GLOBALS
@@ -21,8 +21,7 @@
 \begin{document}
 
 \EXHEADING{\KERNNO}{\KERNTITLE}{%
-Intermediate Verification Date:~\KERNADUE \\
-Final Verification Date:~\KERNDUE~(9am -- 12noon and 4 -- 6pm) \\
+Verification Date:~\KERNDUE~(9am -- 12noon and 3 -- 5pm) \\
 Exercise Test Date:~\KERNTEST \\
 }
 
@@ -38,7 +37,7 @@ following two times:
 
 \begin{itemize}
 \item \KERNDUE~9am -- 12noon in Lab 1
-\item \KERNDUE~4 -- 6pm in Lab 1
+\item \KERNDUE~3 -- 5pm in Lab 1
 \end{itemize}
 
 In an attempt to ensure that the verification process runs smoothly
@@ -48,19 +47,6 @@ should log onto one of these machines and get your program ready to
 run on the REX board. A marker will then verify your program. Once
 your program has been verified you should log off immediately to allow
 the next person to prepare to have their program verified.
-
-Due to the size of this exercise an intermediate electronic
-verification must be completed by~\textbf{\KERNADUE}. You should
-complete this verification as soon as you have completed
-\textbf{Question~\ref{ques:parta}}. If you do not submit this form by
-the due date then you will not be credited for this exercise, even if
-you complete the final verification.
-
-To complete this verification complete the form on the following web
-page:
-\begin{center}
-\verb+http://lab1-1.cs.waikato.ac.nz/~mpearson/kernel.html+\\
-\end{center}
 
 In addition to the verification process there will be a closed book
 exercise test on~\textbf{\KERNTEST}. The test can cover any material
@@ -80,7 +66,7 @@ the one shown in the simulator.
 
 This exercise builds from both the ``\INTERTITLE'' exercise as well as
 the ``\MTKSTITLE'' exercise. The exercise assumes that you will use
-the provided WRAMP I/O Device Guide, Exception Guide and Stack Guide
+the I/O Device, Exception and Stack material in the REX/WRAMP manual,
 as well as the course lecture material to gain the knowledge required
 to complete it successfully.
 
@@ -124,9 +110,7 @@ WRAMP Stack Guide.
 
 Modify this program so that the timer interrupts 100 times per
 second. Alter the code which increments the seconds counter so that
-the counter is still only incremented once per second. You must
-complete this question before you complete the electronic verification
-mentioned above.
+the counter is still only incremented once per second.
 
 \item Add to your code a dispatcher and a single PCB. Make the PCB
 link field point to itself. Your dispatcher should save the state of
@@ -185,7 +169,7 @@ is played on the terminal attached to the REX board.
 Add a third PCB and stack to your kernel. The provided job starts at a
 label called \src{gamejob}. The game is provided in a separate
 object file called \filename{game.o}. This file is provided in the
-\filename{/home/201/ex9/} directory. Do \textbf{not} copy this file to
+\filename{/home/201/ex8/} directory. Do \textbf{not} copy this file to
 your home account. Instead link directly against this file.
 
 If you are having problems remembering how to link multiple object
