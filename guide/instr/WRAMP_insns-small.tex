@@ -27,7 +27,6 @@ Arithmetic Instructions\\
 
   
   % ADD
-  %\fullarith{add}{0000}{0001}{+}
   \scriptsize{ \texttt{add \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0000}
@@ -51,7 +50,6 @@ Arithmetic Instructions\\
   \hline
 
   % ADDU
-  %\fullarith{add}{0000}{0001}{+}
   \scriptsize{ \texttt{addu \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0001}
@@ -280,7 +278,6 @@ Arithmetic Instructions\\
   \hline
 
   % AND
-  %\fullarith{add}{0000}{0001}{+}
   \scriptsize{ \texttt{and \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{1011}
@@ -328,7 +325,6 @@ Arithmetic Instructions\\
   \hline
   
   % XOR
-  %\fullarith{add}{0000}{0001}{+}
   \scriptsize{ \texttt{xor \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{1111}
@@ -350,9 +346,82 @@ Arithmetic Instructions\\
   \scriptsize{ Bitwise XOR Immediate }
   \\
   \hline
-  
+
+
+  % SLL
+  \scriptsize{ \texttt{sll \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1010}
+  &
+  \arithmeticinsnu{\ \ll\ }
+  &
+  \scriptsize{ Shift Left Logical }
+  \\
+  \hline
+
+
+  % SLLI
+  \scriptsize{ \texttt{slli \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1010}
+  &
+  \arithmeticinsnui{\ \ll\ }
+  &
+  \scriptsize{ Shift Left Logical Immediate }
+  \\
+  \hline  
   
  
+  % SRL
+  \scriptsize{ \texttt{srl \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1100}
+  &
+  \arithmeticinsnu{\ \gg\ }
+  &
+  \scriptsize{ Shift Right Logical }
+  \\
+  \hline
+
+
+  % SRLI
+  \scriptsize{ \texttt{srli \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1100}
+  &
+  \arithmeticinsnui{\ \gg\ }
+  &
+  \scriptsize{ Shift Right Logical Immediate }
+  \\
+  \hline
+
+
+  % SRA
+  \scriptsize{ \texttt{sra \regdsm, \regssm, \regtsm} }
+  &
+  \rtype{0000}{1110}
+  &
+  \srainsn
+  &
+  \scriptsize{ Shift Right Arithmetic }
+  \\
+  \hline
+
+
+  % SRLAI
+  \scriptsize{ \texttt{srai \regdsm, \regssm, immed} }
+  &
+  \itype{0001}{1110}
+  &
+  \srainsnimm
+  &
+  \scriptsize{ Shift Right Aritmetic Immediate }
+  \\
+  \hline
+
+
+
+
 \end{tabular}
 \end{center}
 \end{table}
