@@ -8,7 +8,7 @@
 \usepackage{fancyhdr}
 \fancypagestyle{rcsfooters}{
 \fancyfoot[L]{\small $ $RCSfile: intro.tex,v $ $}
-\fancyfoot[R]{\small $ $Revision: 1.4 $ $}
+\fancyfoot[R]{\small $ $Revision: 1.5 $ $}
 }
 
 \renewcommand{\headrulewidth}{0pt}
@@ -95,7 +95,7 @@ displayed as \src{07}.
 \begin{center}
 %\begin{tabular}{|c|}
 %\hline
-\includegraphics[width=15cm]{switches.eps}
+\includegraphics[width=10cm]{switches.eps}
 %\\
 %\hline
 %\end{tabular}
@@ -126,8 +126,50 @@ displayed as \src{07}.
 \end{table}
 
 
+\section{I/O Routines}
+\begin{footnotesize}
+\begin{itemize}
+\item putch 
+The subroutine outputs a single ASCII character to the
+terminal. The character to be output is passed in register \reg{2}.
 
+\item putstr 
+The subroutine outputs a null terminated string to the
+terminal. The address in memory of the first character in the string
+is passed to the subroutine in register \reg{2}. Uses printf so any
+percentage signs may cause unexpected side-effects.
 
+\item readnum 
+Subroutine to read a decimal integer number from the keyboard
+and convert it to 32 bit 2's compliment number. Number is echoed to
+terminal. The subroutine exits when a non-digit character is entered
+and returns the number read in register \reg{1}.
+
+\item writenum 
+Subroutine to write a 32 bit 2's compliment number to the
+terminal as a decimal integer number. The number to output is passed
+in register \reg{2}.
+
+\item readswitches 
+When called this subroutine returns, in register
+\reg{1}, the current value on the switches in the low order bits (0 to
+7). Bits 8 through 31 of \reg{1} are cleared (set to zero) by this
+subroutine. For example if the subroutine is called with the switches
+set in the pattern shown in Figure 3 then \reg{1} will contain 0x00000092
+when the subroutine returns.
+
+\item writessd 
+When called this subroutine will display the lowest
+order byte (bits 0-7) of register \reg{2} as a pair of hexadecimal digits
+to the seven segment displays. For example if \reg{2} contains 0x0000005a
+when the subroutine is called then "5a" will be displayed on the
+seven-segment displays.
+
+\item exit 
+This is a non-returning subroutine that when called returns
+control back to the monitor.
+\end{itemize}
+\end{footnotesize}
 
 
 \thispagestyle{rcsfooters}
