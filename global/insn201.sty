@@ -42,6 +42,11 @@
            { \scriptsize{$ \regdsm \leftarrow immed \ll 16 $} }
 \newcommand{\lainsn}
            { \scriptsize{$ \regdsm \leftarrow address $} }
+\newcommand{\srainsn}
+           { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ \regtsm\ ) $ } }
+\newcommand{\srainsnimm}
+           { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ immed ) $ } }
+
 
 %%%%%%%%%%%%%
 %
