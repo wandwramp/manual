@@ -512,3 +512,30 @@ execute an \src{rfe} instruction:
 This means that the next instruction fetched will normally be the
 next instruction of the original code. The IE and KU bits will also
 normally be restored to the value they had when the exception occurred.
+
+\section{Compliant Exception Routine}
+
+The exception proceedure above provides a mechanism whereby an exception routine
+can run when an exception occurs and restore control to the main program without
+affecting its operation.  In this way an exception routine can be general
+purpose to be used during the operation of any program.  Such a routine should:
+
+\begin{itemize}
+\item Only use\reg{13} freely
+\item Save the contents of any other register before using it.
+\item Restore the saved contents of any other register before finishing
+\item Ensure that the contents of the OIE bit, the OKU bit, \reg{ers} and
+\reg{ear} are not modified
+\item Finish with an \src{rfe}  instruction.
+\end{itemize}
+
+In addition any new exception routine that is installed must:
+
+\begin{itemize}
+\item Save the address of the system exception handler
+\item Check the exception type
+\item Pass any exceptions it cannot handle to the system exception handler
+\end{itemize}
+
+An exception routine that meets all these requirements is termed {\em compliant}
+with the WRAMP conventions.

@@ -217,8 +217,7 @@ which have an initial value.
 
 The \bss section allows memory space to be reserved but not initialised.  The
 advantage of this is that space can be reserved in chunks using a single
-command.  This feature makes the \bss section useful for arrays.  We will
-cover \bss in more detail in a later exercise.
+command.  This feature makes the \bss section useful for arrays. 
 
 \subsubsection{Assigning Space}
 Within the \data and \bss sections memory space is assigned using directives. 
@@ -384,13 +383,13 @@ Will place the contents of \regd\ into the specified memory location.
 .text
      . . .
 
-     #Read from the memory location `counter' into $1
+     #Read from the memory location `counter' into $4
      lw $4, counter($0)
 
      #Add 1 to $4
      addi $4, $4, 1
 
-     #Store the contents of $1 into the memory location `counter'
+     #Store the contents of $4 into the memory location `counter'
      sw $4, counter($0)
 
      . . .
@@ -622,7 +621,7 @@ command (then press enter) at the \WRAMPmon\ prompt:
      load
 \end{verbatim}
 
-After hitting return there be a reminder response from the board indicating 
+After hitting return there should be a reminder response from the board indicating 
 how to send an executable file. To send the executable type:
 
 \verb|     <ctrl>-a| and then \verb|s|
@@ -654,7 +653,7 @@ This will start executing your program from the entry point defined by the
 \src{main} label. The program will
 prompt you to enter four numbers. You should continue to type a number and 
 hit enter until the program
-outputs the resulting sum. The output of you program should appear on your 
+outputs the resulting sum. The output of your program should appear on your 
 screen. When the \WRAMPmon\
 prompt appears again it indicates that your program has finished executing.
 
@@ -705,7 +704,7 @@ number before it will break again.
 
 Another feature of the monitor that can be used to help debug you programs 
 is the single-step command \src{s}.
-This command causes the only the immediately next instruction 
+This command causes only the immediately next instruction 
 to be executed and then returns back to
 \WRAMPmon.
 

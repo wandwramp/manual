@@ -44,7 +44,7 @@ growing downwards.
 push:
       # move the stack pointer down
       # by one to create space for 
-      # a value to br pushed onto 
+      # a value to be pushed onto 
       # the stack.
 
       subui $sp, $sp, 1
@@ -582,7 +582,7 @@ registers. To overcome this limit, the stack is set up so that local
 variables can be stored on the stack and only be loaded into registers
 temporarily as required. A code segment is shown in Figure
 \ref{var_example}(a). Figure \ref{var_example}(b) provides an example
-of the WRAMP code would look if the local variables are kept on the
+of how the WRAMP code would look if the local variables are kept on the
 stack. As you can see, even in this small piece of code there is a
 large proportion of the code dealing with fetching and storing the
 variables to and from the stack. If you are writing C code it is the
