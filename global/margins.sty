@@ -1,0 +1,19 @@
+%%  margins.sty -- v. 0.1   by Robert Kiesling
+%%  Copies of this code may be freely distributed in verbatim form.
+%%
+%%  Some elementary plain TeX margin-changing commands. Lengths are
+%%  in inches:
+%%  \leftmargin{1}   %% sets the document's left margin in 1 inch.
+%%  \leftindent{1}   %% sets the following paragraphs' indent in 
+%%                     1 inch.
+%%  \rightindent{1}  %% sets the following paragraphs' right margins
+%%                   %% in 1 inch.
+%%  \llength{3}      %% sets the following lines' lengths to 3 inches.
+%%
+\providespackage{margins}
+\def\lmargin#1{\hoffset = #1 in}
+\def\lindent#1{\leftskip = #1 in}
+\def\rindent#1{\rightskip = #1 in}
+\def\llength#1{\hsize = #1 in}
+%%
+%% (End of margins macros.}
