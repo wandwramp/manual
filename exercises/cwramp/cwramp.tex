@@ -9,10 +9,8 @@
 \usepackage{fancyhdr}
 \fancypagestyle{rcsfooters}{
 \fancyfoot[L]{\small $ $RCSfile: cwramp.tex,v $ $}
-\fancyfoot[R]{\small $ $Revision: 1.3 $ $}
+\fancyfoot[R]{\small $ $Revision: 1.4 $ $}
 }
-
-\renewcommand{\headrulewidth}{0pt}
 
 %INCLUDE OUR GLOBALS
 \usepackage{rex201}
@@ -20,11 +18,13 @@
 \usepackage{ex201}
 
 
+\renewcommand{\headrulewidth}{0pt}
+
 \begin{document}
 
 \EXHEADING{\CWRAMPNO}{\CWRAMPTITLE}{%
 Verification Date:~\CWRAMPDUE\\
-Excercise Test Date:~\CWRAMPTEST\\
+Exercise Test Date:~\CWRAMPTEST\\
 }
 
 \section{Assesment}
@@ -35,7 +35,7 @@ that the program you wrote in \textbf{Question~%\ref{ques:final}}
 of this exercise
 runs correctly. In addition the marker may ask one or two questions so
 they establish that you understand what you have done.  These
-verification sessions will be held in \ASSESSROOM during the following two
+verification sessions will be held in \ASSESSROOM\ during the following two
 times:
 
 \begin{itemize}
@@ -44,16 +44,16 @@ times:
 \end{itemize}
 
 In an attempt to ensure that the verification process runs smoothly
-six machines in \ASSESSROOM will be booked for this purpose during the two
+six machines in \ASSESSROOM\ will be booked for this purpose during the two
 sessions. When it is your turn to have your program verified you
 should log onto one of these machines and get your program ready to
 run on the REX board. A marker will then verify your program. Once
 your program has been verified you should log off immediately to allow
 the next person to prepare to have their program verified.
 
-In addition to the test there will be a closed book excercise test on
+In addition to the test there will be a closed book exercise test on
 \textbf{\CWRAMPTEST}.  The test will cover material 
-from excercises 2, 3 and 4.
+from exercises 1, 2 and 3.
 
 
 \section{Objective}
@@ -93,7 +93,7 @@ use a function called writessd, similar to the one
 provided in exercise three.    This function is 
 provided in a file called \filename{/home/201/lib.o}.    The
 function prototypes for this library are declared in the 
-file \filename{/home201/lib.h}. Your C code must
+file \filename{/home/201/lib.h}. Your C code must
 include this header. You should have something 
 like the following at the top of your C function:
 
@@ -142,11 +142,11 @@ To allow you to test your function on a REX board
 two functions are provided. The first function,
 \src{main()}, provides the entry point for the code.    
 This function is provided in the file
-\filename{/home/201/ex4/main.c}. The function 
+\filename{/home/201/ex3/main.c}. The function 
 simply reads the current value on the switches then calls a
 subroutine called \src{counter\_ctrl}. \src{counter\_ctrl} 
 is the second function provided and is declared
-in the file \filename{/home/210/ex4/ctrl.c}. This 
+in the file \filename{/home/210/ex3/ctrl.c}. This 
 function accepts a single argument, which is the value on
 the switches. From this value the function 
 determines the direction and value that your counter
@@ -157,20 +157,20 @@ as value. You should open and view both of
 these files to ensure you understand how they work.
 You do not need to copy these files to your 
 home directory as precompiled versions of both of these are
-given in \filename{/home/201/ex4/main.o} and 
-\filename{/home/201/ex4/ctrl.o} respectively.
+given in \filename{/home/201/ex3/main.o} and 
+\filename{/home/201/ex3/ctrl.o} respectively.
 To create an uploadable file that includes the 
 compiled version of your C function counter run the
 following link command on one line:
 
 \begin{verbatim}
-     wlink ­-o ex4_1.srec counter.o /home.201/ex4/main.o 
-              /home/201/ex4/ctrl.o /home/201/lib.o
+     wlink ­-o ex3_1.srec counter.o /home.201/ex3/main.o 
+              /home/201/ex3/ctrl.o /home/201/lib.o
 \end{verbatim}
 
 This links together your \src{counter} function and the provided 
 \src{main}, \src{counter\_ctrl} and library
-functions into one uploadable file called \filename{ex4\_1.srec}.
+functions into one uploadable file called \filename{ex3\_1.srec}.
 You should upload this file to the REX board and confirm 
 that the program operates correctly.
 
@@ -262,11 +262,11 @@ library functions you should use the following
 \program{wlink} command on one line:
 
 \begin{verbatim}
-     wlink -­o ex4_2.srec counter.o my_ctrl.o
-           /home/201/ex4/main.o /home/201/lib.o
+     wlink -­o ex3_2.srec counter.o my_ctrl.o
+           /home/201/ex3/main.o /home/201/lib.o
 \end{verbatim}
 
-You should now have a file named \filename{ex4\_2.srec} 
+You should now have a file named \filename{ex3\_2.srec} 
 that you can upload and test on the REX board.
 During verification the demonstrator may require 
 that you can prove that your \src{counter\_ctrl}
