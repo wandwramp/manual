@@ -7,7 +7,7 @@
 \usepackage{epsfig}
 \usepackage{verbatim}
 
-\usepackage[a4paper, hmargin=25mm, vmargin=30mm]{geometry}
+\usepackage[a4paper, hmargin=15mm, vmargin=30mm]{geometry}
 \usepackage{syntonly}
 
 \usepackage{ex201}
@@ -53,15 +53,12 @@
 \appendix
 \chapter{Instruction Set}
 \label{appendix:instr}
-%\include{instruction}
 \input{instruction}
 \chapter{Small Instruction Set}
+\label{appendix:instrsm}
 \input{instr-small}
-
 \chapter{WRAMPmon Commands}
 \label{appendix:wrampmon}
 \input{wrampmon}
-%\chapter{S-Record Format}
-%\label{appendix:srec}
-%S-REC stuff
+
 \end{document}
