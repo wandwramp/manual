@@ -28,7 +28,7 @@ Arithmetic Instructions\\
   
   % ADD
   %\fullarith{add}{0000}{0001}{+}
-  \scriptsize{ \texttt{add \regd, \regs, \regt} }
+  \scriptsize{ \texttt{add \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0000}
   &
@@ -40,7 +40,7 @@ Arithmetic Instructions\\
 
 
   % ADDI
-  \scriptsize{ \texttt{addi \regd, \regs, immed} }
+  \scriptsize{ \texttt{addi \regdsm, \regssm, immed} }
   &
   \itype{0001}{0000}
   &
@@ -52,7 +52,7 @@ Arithmetic Instructions\\
 
   % ADDU
   %\fullarith{add}{0000}{0001}{+}
-  \scriptsize{ \texttt{addu \regd, \regs, \regt} }
+  \scriptsize{ \texttt{addu \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0001}
   &
@@ -64,7 +64,7 @@ Arithmetic Instructions\\
 
 
   % ADDUI
-  \scriptsize{ \texttt{addui \regd, \regs, immed} }
+  \scriptsize{ \texttt{addui \regdsm, \regssm, immed} }
   &
   \itype{0001}{0001}
   &
@@ -76,7 +76,7 @@ Arithmetic Instructions\\
 
 
   % SUB
-  \scriptsize{ \texttt{sub \regd, \regs, \regt} }
+  \scriptsize{ \texttt{sub \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0010}
   &
@@ -87,7 +87,7 @@ Arithmetic Instructions\\
   \hline
 
   % SUBI
-  \scriptsize{ \texttt{subi \regd, \regs, immed} }
+  \scriptsize{ \texttt{subi \regdsm, \regssm, immed} }
   &
   \itype{0001}{0010}
   &
@@ -98,7 +98,7 @@ Arithmetic Instructions\\
   \hline
 
   % SUBU
-  \scriptsize{ \texttt{subu \regd, \regs, \regt} }
+  \scriptsize{ \texttt{subu \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0011}
   &
@@ -109,7 +109,7 @@ Arithmetic Instructions\\
   \hline
 
   % SUBUI
-  \scriptsize{ \texttt{subui \regd, \regs, immed} }
+  \scriptsize{ \texttt{subui \regdsm, \regssm, immed} }
   &
   \itype{0001}{0011}
   &
@@ -123,7 +123,7 @@ Arithmetic Instructions\\
   
 
   % MULT
-  \scriptsize{ \texttt{mult \regd, \regs, \regt} }
+  \scriptsize{ \texttt{mult \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0100}
   &
@@ -134,7 +134,7 @@ Arithmetic Instructions\\
   \hline
 
   % MULTI
-  \scriptsize{ \texttt{multi \regd, \regs, immed} }
+  \scriptsize{ \texttt{multi \regdsm, \regssm, immed} }
   &
   \itype{0001}{0100}
   &
@@ -145,7 +145,7 @@ Arithmetic Instructions\\
   \hline
 
   % MULTU
-  \scriptsize{ \texttt{multu \regd, \regs, \regt} }
+  \scriptsize{ \texttt{multu \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0101}
   &
@@ -156,7 +156,7 @@ Arithmetic Instructions\\
   \hline
 
   % MULTUI
-  \scriptsize{ \texttt{multui \regd, \regs, immed} }
+  \scriptsize{ \texttt{multui \regdsm, \regssm, immed} }
   &
   \itype{0001}{0101}
   &
@@ -168,7 +168,7 @@ Arithmetic Instructions\\
 
 
   % DIV
-  \scriptsize{ \texttt{div \regd, \regs, \regt} }
+  \scriptsize{ \texttt{div \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0110}
   &
@@ -179,7 +179,7 @@ Arithmetic Instructions\\
   \hline
 
   % DIVI
-  \scriptsize{ \texttt{divi \regd, \regs, immed} }
+  \scriptsize{ \texttt{divi \regdsm, \regssm, immed} }
   &
   \itype{0001}{0110}
   &
@@ -190,7 +190,7 @@ Arithmetic Instructions\\
   \hline
 
   % DIVU
-  \scriptsize{ \texttt{divu \regd, \regs, \regt} }
+  \scriptsize{ \texttt{divu \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{0111}
   &
@@ -201,7 +201,7 @@ Arithmetic Instructions\\
   \hline
 
   % DIVUI
-  \scriptsize{ \texttt{divui \regd, \regs, immed} }
+  \scriptsize{ \texttt{divui \regdsm, \regssm, immed} }
   &
   \itype{0001}{0111}
   &
@@ -213,7 +213,7 @@ Arithmetic Instructions\\
 
   
   % REM
-  \scriptsize{ \texttt{rem \regd, \regs, \regt} }
+  \scriptsize{ \texttt{rem \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{1000}
   &
@@ -224,7 +224,7 @@ Arithmetic Instructions\\
   \hline
 
   % REMI
-  \scriptsize{ \texttt{remi \regd, \regs, immed} }
+  \scriptsize{ \texttt{remi \regdsm, \regssm, immed} }
   &
   \itype{0001}{1000}
   &
@@ -235,7 +235,7 @@ Arithmetic Instructions\\
   \hline
 
   % REMU
-  \scriptsize{ \texttt{remu \regd, \regs, \regt} }
+  \scriptsize{ \texttt{remu \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{1001}
   &
@@ -246,7 +246,7 @@ Arithmetic Instructions\\
   \hline
 
   % REMUI
-  \scriptsize{ \texttt{remui \regd, \regs, immed} }
+  \scriptsize{ \texttt{remui \regdsm, \regssm, immed} }
   &
   \itype{0001}{1001}
   &
@@ -258,7 +258,7 @@ Arithmetic Instructions\\
 
 
   % LHI
-  \scriptsize{ \texttt{lhi \regd, immed} }
+  \scriptsize{ \texttt{lhi \regdsm, immed} }
   &
   \itype{0011}{1110}
   &
@@ -269,7 +269,7 @@ Arithmetic Instructions\\
   \hline
 
   % LA
-  \scriptsize{ \texttt{la \regd, address} }
+  \scriptsize{ \texttt{la \regdsm, address} }
   &
   \jtype{1100}
   &
@@ -281,7 +281,7 @@ Arithmetic Instructions\\
 
   % AND
   %\fullarith{add}{0000}{0001}{+}
-  \scriptsize{ \texttt{and \regd, \regs, \regt} }
+  \scriptsize{ \texttt{and \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{1011}
   &
@@ -293,7 +293,7 @@ Arithmetic Instructions\\
 
 
   % ANDI
-  \scriptsize{ \texttt{andi \regd, \regs, immed} }
+  \scriptsize{ \texttt{andi \regdsm, \regssm, immed} }
   &
   \itype{0001}{1011}
   &
@@ -305,7 +305,7 @@ Arithmetic Instructions\\
 
   % OR
   %\fullarith{add}{0000}{0001}{+}
-  \scriptsize{ \texttt{or \regd, \regs, \regt} }
+  \scriptsize{ \texttt{or \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{1101}
   &
@@ -317,7 +317,7 @@ Arithmetic Instructions\\
 
 
   % ORI
-  \scriptsize{ \texttt{ori \regd, \regs, immed} }
+  \scriptsize{ \texttt{ori \regdsm, \regssm, immed} }
   &
   \itype{0001}{1101}
   &
@@ -329,7 +329,7 @@ Arithmetic Instructions\\
   
   % XOR
   %\fullarith{add}{0000}{0001}{+}
-  \scriptsize{ \texttt{xor \regd, \regs, \regt} }
+  \scriptsize{ \texttt{xor \regdsm, \regssm, \regtsm} }
   &
   \rtype{0000}{1111}
   &
@@ -341,7 +341,7 @@ Arithmetic Instructions\\
 
 
   % XORI
-  \scriptsize{ \texttt{xori \regd, \regs, immed} }
+  \scriptsize{ \texttt{xori \regdsm, \regssm, immed} }
   &
   \itype{0001}{1111}
   &
