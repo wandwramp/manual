@@ -1,0 +1,551 @@
+\documentclass[a4paper,10pt]{article}
+\setlength{\parindent}{0ex}
+\setlength{\parskip}{1.5ex}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage[a4paper, hmargin=25mm, vmargin=30mm, nohead]{geometry}
+
+\begin{document}
+\newcommand{\testmarks}[1]
+{\begin{flushright}{\bf (#1 marks)}\end{flushright}}
+
+{\centering \large \bf THE UNIVERSITY OF WAIKATO\\}
+{\centering \large \bf Department of Computer Science\\[0.5cm]}
+
+{\centering \large \bf COMP201B ---  Computer Systems\\}
+{\centering \large \bf Exercise 3 Test --- 15th August 2005\\[0.3cm]}
+{\centering \bf Worth 16\% --- Marked out of: 40\\[0.3cm]}
+{\centering \bf Time allowed: 60 Min\\[1cm]}
+\hrule
+
+\begin{enumerate}
+
+\vspace{5cm}
+
+\item Convert the following 32 bit IEEE-754 format number to decimal.
+The IEEE-754 format is shown in Figure \ref{fig:ieee754}. Show your working.
+\begin{center}
+\texttt{01000000 11010100 00000000 00000000 (0x40d40000)}
+\end{center}
+\testmarks{4}
+
+\begin{figure}[h]
+\begin{center}
+    \psfig{figure=float.eps, width=.5\linewidth}
+    \caption{IEEE-754 Format}
+    \label{fig:ieee754}
+  \end{center}
+\end{figure}
+
+
+
+\newpage
+
+\item The header for a .WAV sound file is shown in Figure
+\ref{fig:wavhex}. Determine (in decimal) The number of channels, the sample rate, the size of each
+sample and the number of samples of this audio clip. You should show any working. The header fieldsand format for WAV files are
+shown in Figure \ref{fig:wavheader}. 
+\testmarks{8}
+
+\begin{figure}[h]
+  \begin{center}
+{\small
+
+\begin{verbatim}
+       00000000: 5249 4646 E20F 0000 5741 5645 666D 7420  RIFF....WAVEfmt
+       00000010: 1000 0000 0100 0100 44AC 0000 8858 0100  ........D....X..
+       00000020: 0200 1000 6461 7461 B80F 0000 0001 0001  ....data........
+       00000030: 0001 0001 0001 0001 0001 0001 0001 0001  ................
+       00000040: 0001 0001 0003 0003 0003 0003 0003 0004  ................
+\end{verbatim}}
+
+\caption{HEX dump of WAV file header}
+  \end{center}
+\label{fig:wavhex}
+\end{figure}
+
+\begin{figure}[h]
+  \begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+	\hline
+	Field Name 	& File Offset & Field Size & Endian & Value \\ \hline
+	Chunk ID	& 0 	& 4	& big		& ``RIFF'' \\ \hline
+	ChunkSize 	& 4	& 4	& little	& Filesize - 8 \\ \hline
+	Format 		& 8	& 4	& big		& ``WAVE'' \\ \hline
+	Subchunk1ID 	& 12	& 4	& big		& ``fmt\ '' \\  \hline
+	Subchunk1Size 	& 16	& 4	& little	& Size of SubChunk1 -8 \\ \hline
+	AudioFormat 	& 20	& 2	& little	& 1 for PCM \\ \hline
+	NumChannels 	& 22	& 2	& little	& No. of audio channels \\ \hline
+	SampleRate 	& 24	& 4	& little	& Samples per second \\ \hline
+	ByteRate 	& 28	& 4	& little	& Bytes/sec (all channels) \\ \hline
+	BlockAlign 	& 32	& 2	& little	& Bytes/sample (all channels) \\ \hline
+	BitsPerSample 	& 34 	& 2	& little	& Bits/sample (one channel) \\ \hline
+	SubChunk2ID 	& 36	& 4	& big		& ``data'' \\ \hline
+	SubChunk2Size 	& 40	& 4	& little	&  Bytes of data \\ \hline
+	data 		& 44	& variable & little	&  audio sample
+	data \\ \hline
+  \end{tabular}
+  \caption{WAV file header fields}
+  \label{fig:wavheader}
+  \end{center}
+\end{figure}
+
+\newpage
+
+\item Figure \ref{fig:bitcount} contains a small WRAMP assembly language
+program which a programmer has been asked to check. The program has
+assembled, linked and uploaded to a REX board. The
+ \texttt{WRAMPmon} breakpoint facility has been used to set
+a breakpoint in the middle of a loop (line 11 in Figure
+\ref{fig:bitcount}) so that the programmer can check the program is executing
+correctly. Before running the program the programmer decides to
+disassemble the program using the ``\texttt{dis}'' command. The
+disassembled program including the breakpoint location is shown in
+Figure~\ref{fig:bitcount-dis}.
+
+The programmer then uses the \texttt{go} command to start the program
+executing. Each time the breakpoint is encountered the contents of the
+relevant registers are noted then the programs execution is continued
+using the \texttt{cont} command. This continues until the programs
+execution completes.
+
+\begin{enumerate}
+\item On the answer sheet provided, note what the contents of registers three
+(\$3), four (\$4) and five (\$5) would have been each time the
+breakpoint was encountered. You will need to trace the execution of
+the code and provide the contents for all three registers once for
+each time the breakpoint would have been encountered.
+\testmarks{5}
+
+\item This program performs a computation on the initial value loaded into register \$3 to produce a final result in register \$4. What characteristic of the initial value that is in register \$3, does the result represent?
+\testmarks{2}
+\end{enumerate}
+
+
+\begin{figure}[h]
+{\small
+\begin{verbatim}
+       1:   .global main
+       2:   main:
+       3:       addi    $3, $0, 0x0f07
+       4:       andi    $4, $3, 0x01
+       5:
+       6:   loop:
+       7:       srli    $3, $3, 1
+       8:       beqz    $3, stop
+       9:  
+       10:      andi    $5, $3, 1
+       11:      addi    $4, $4, $5
+       12:   
+       13:      j       loop
+       14:  stop:
+       15:      j       exit
+\end{verbatim}
+%%$
+} 
+\caption{WRAMP code to check}
+\label{fig:bitcount}
+\end{figure}
+
+\begin{figure}[h]
+{\small
+\begin{verbatim}
+       0x00000 13000f07       addi     $3,$0,0x0f07
+       0x00001 143b0001       andi     $4,$3,0x0001
+       0x00002 133c0001       srli     $3,$3,0x0001
+       0x00003 a0300003       beqz     $3,0x00004
+       0x00004 153b0001       andi     $5,$3,0x0001
+       0x00005 04400005 !BRK! add      $4,$4,$5
+       0x00006 40000002       j        0x00002
+       0x00007 4000003c       j        0x0003c
+\end{verbatim}
+%%$
+} 
+\caption{WRAMPmon disassembly of the uploaded code}
+\label{fig:bitcount-dis}
+\end{figure}
+
+\newpage
+
+\item Figure~\ref{fig:non_dolittle} shows a naive implementation of the algorithm shown in the psuedo-code in Figure~\ref{fig:dolittle_psuedocode}.  This implementation uses registers to pass arguments and does not comply with WRAMP register use and subroutine conventions.  You are to rewrite this function in WRAMP assemply language so that it does fully comply with all WRAMP register use and subroutine conventions.
+\testmarks{12}
+
+\begin{figure}[h]
+{\small
+\begin{center}
+\begin{verbatim}
+                      dolittle(arg1, arg2) {
+                         if (arg1 != 0) then
+                               result=dosomething(arg1, arg2);
+                         else
+                               result=dosomething(arg1, arg2);
+                         return result;
+                      }
+\end{verbatim}
+\end{center}
+%%$
+} 
+\caption{Psuedo-code for the dolittle function.}
+\label{fig:dolittle_psuedocode}
+\end{figure}
+
+\begin{figure}[h]
+{\small
+\begin{center}
+\begin{verbatim}
+
+       1:   	lw 	$1, arg1
+       2:   	lw	$2, arg2
+       3:   	j	dolittle
+       4:   dol_return:
+       5:   	sw	$3, result
+       6:
+       7:
+       8:   dolittle:
+       9:   	sne	$15, $1, $0
+       10:   	bnez	$15, else
+       11:   	j	dosomething
+       12:   else
+       13:   	add	$14, $1, $0
+       14:   	add	$1, $2, $0
+       15:   	add	$2, $14, $0
+       16:   	j	dosomething
+       17:   dos_return
+       18:   	j	dol_return
+       19:   dosomething
+       : 
+       :
+       32:   	j dos_return
+\end{verbatim}
+\end{center}
+} 
+\caption{Non-compliant implementation of dolittle function.}
+\label{fig:non_dolittle}
+\end{figure}
+
+
+\newpage
+
+
+
+\item Figure~\ref{fig:c_function} shows a function written in C that is in a file called \texttt{myfunc.c}. This file is compiled with the WRAMP C Compiler using the command `\texttt{wcc -S myfunc.c}', to generate a file called \texttt{myfunc.s}.
+Figure~\ref{fig:c_function_wramp_code} shows an incomplete listing of \texttt{myfunc.s}, where code corresponding to certain lines
+within \texttt{myfunc.c} have been removed at the points indicated.
+
+\begin{enumerate}
+
+\item Identify which variables are stored in registers \$5, \$6 and \$7.
+\testmarks{2}
+\item List the line numbers of the lines within the C code for which the corresponding assembler code has been removed.
+\testmarks{2}
+\item Insert instructions into the assembler listing to make it a complete and correct translation of the C code.
+\testmarks{5}
+\end{enumerate}
+
+\begin{figure}[ht]
+{\small
+\begin{verbatim}
+
+       1:   int somefunc(int index);
+       2:   void printnum(int num);
+       3:   
+       4:   void myfunc(int start, int end)
+       5:   {
+       6:    int i, sum, lookup;
+       7:   
+       8:     sum = 0;
+       9:     i=start;
+       10:  
+       11:     while (i <=  end)
+       12:     {
+       13:      lookup=somefunc(i);
+       14:      sum = sum + lookup;
+       15:      printnum(lookup);
+       16:      i++;
+       17:     }
+       18:  
+       19:    if (sum < start)
+       20:      sum = end;
+       21:
+       22:    printnum(sum);
+       23:  }
+\end{verbatim}
+}
+\caption{myfunc.c}
+\label{fig:c_function}
+
+\end{figure}
+
+\begin{figure}[ht]
+{\small
+\begin{verbatim}
+        .global myfunc
+        .text
+        myfunc:
+               subui   $sp, $sp, 6
+               sw      $5, 1($sp)
+               sw      $6, 2($sp)
+               sw      $7, 3($sp)
+               sw      $13, 4($sp)
+               sw      $ra, 5($sp)
+               addu    $5, $0, $0
+
+     # Instructions have been removed here.
+
+               j       L.3
+       L.2:
+
+     # Instructions have been removed here.
+
+               addu    $13, $0, $1
+               addu    $6, $0, $13
+               add     $5, $5, $6
+               sw      $6, 0($sp)
+               jal     printnum
+               addi    $7, $7, 1
+       L.3:
+               lw      $13, 7($sp)
+
+    # Instructions have been removed here.
+
+               lw      $13, 7($sp)
+               sge     $13, $5, $13
+               bnez    $13, L.5
+               lw      $5, 6($sp)
+       L.5:
+               sw      $5, 0($sp)
+               jal     printnum
+       L.1:
+               lw      $5, 1($sp)
+               lw      $6, 2($sp)
+               lw      $7, 3($sp)
+               lw      $13, 4($sp)
+               lw      $ra, 5($sp)
+               addui   $sp, $sp, 6
+               jr      $ra
+
+  
+\end{verbatim}
+}%$ 
+\caption{myfunc.s}
+\label{fig:c_function_wramp_code}
+
+\end{figure}
+
+
+\end{enumerate}
+
+
+
+
+
+
+
+
+
+\clearpage
+\newpage
+\newpage
+\newpage
+\setcounter{page}{1} 
+
+\vspace*{-1cm} 
+
+{\centering
+\Large 
+Department of Computer Science\\
+University of Waikato\\[5mm]
+COMP201B --- Computer Systems\\[5mm]
+\bf Exercise 3 Test 2005\\
+Answer Sheet\\[5mm]
+}
+If you need more space than is provided, write on the reverse of the
+page and clearly indicate this.\\[5mm]
+Name:\hspace*{5cm}ID Number:\\
+\hrule
+
+\begin{enumerate}
+
+\item Convert the given 32bit IEEE-754 floating point value to decimal. Show
+all working.
+\testmarks{4}
+\vspace{3mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}
+\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}
+\hrule\vspace{3mm}
+
+\newpage
+\item  The header for a .WAV sound file is shown in Figure
+\ref{fig:wavhex-ans}. Determine (in decimal) The number of channels, the sample rate, the size of eachsample and the number of samples of this audio clip. You should show any working. The header fields and format for WAV files are shown in Figure \ref{fig:wavheader}. 
+\testmarks{8}
+
+\begin{figure}[h]
+  \begin{center}
+{\small
+
+\begin{verbatim}
+       00000000: 5249 4646 E20F 0000 5741 5645 666D 7420  RIFF....WAVEfmt
+       00000010: 1000 0000 0100 0100 44AC 0000 8858 0100  ........D....X..
+       00000020: 0200 1000 6461 7461 B80F 0000 0001 0001  ....data........
+       00000030: 0001 0001 0001 0001 0001 0001 0001 0001  ................
+       00000040: 0001 0001 0003 0003 0003 0003 0003 0004  ................
+\end{verbatim}}
+
+\caption{HEX dump of WAV file header}
+  \end{center}
+\label{fig:wavhex-ans}
+\end{figure}
+
+\vspace{3mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}
+\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}
+\hrule\vspace{3mm}
+
+\begin{tabular}{p{30mm}|l|lp{30mm}|l|}
+\cline{2-2} \cline{5-5}
+No. of  Channels & \hspace{20mm} & \hspace{5mm} & Sample Rate & \hspace{20mm} \\
+& & & & \\
+\cline{2-2} \cline{5-5}
+\end{tabular}
+
+\begin{tabular}{p{30mm}|l|lp{30mm}|l|}
+\cline{2-2} \cline{5-5}
+Sample Size (bytes) & \hspace{20mm} & \hspace{5mm} & No. of Samples & \hspace{20mm} \\
+& & & & \\
+\cline{2-2} \cline{5-5}
+\end{tabular}
+
+\newpage
+\item \begin{enumerate}
+\item What are the contents of the following registers each time the
+breakpoint is encountered? You should fill in one line each time you
+believe a breakpoint was hit. You should not need more lines than are
+provided, although you may need less.
+\testmarks{6}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline\hspace{10mm}\textbf{\$3}\hspace{10mm} & \hspace{10mm}\textbf{\$4}\hspace{10mm} & \hspace{10mm}\textbf{\$5}\hspace{10mm} \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline & & \\ & & \\
+\hline
+\end{tabular}
+\end{center}
+
+\item What function does this program perform?
+\testmarks{2}
+\vspace{3mm}\hrule\vspace{7mm}\hrule\vspace{3mm}
+
+\end{enumerate}
+
+\newpage
+\item Write the \texttt{dolittle} function in the following space.
+\testmarks{12}
+\vspace{5mm}
+\begin{large}
+\texttt{.text}\vspace{2mm}\\
+\texttt{dolittle:}
+\end{large}
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+\vspace{7mm}\hrule
+\vspace{3mm}
+\begin{large}
+\end{large}
+
+\item \begin{enumerate}
+\item Identify which variables are stored in registers \$5, \$6 and \$7.
+\testmarks{2}
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{3mm}
+\item List the line numbers of the lines within the C code for which the corresponding assembler code has been removed.
+\testmarks{2}
+\vspace{7mm}\vspace{3mm}\hrule\vspace{7mm}\hrule\vspace{3mm}
+
+\item Insert instructions into the assembler listing to make it a complete and correct translation of the C code.
+\testmarks{5}
+
+\begin{figure}[ht]
+{\small
+\begin{verbatim}
+        .global myfunc
+        .text
+        myfunc:
+               subui   $sp, $sp, 6
+               sw      $5, 1($sp)
+               sw      $6, 2($sp)
+               sw      $7, 3($sp)
+               sw      $13, 4($sp)
+               sw      $ra, 5($sp)
+               addu    $5, $0, $0
+
+\end{verbatim}   
+\vspace{7mm}\hrule\vspace{7mm}\hrule
+
+\begin{verbatim}
+
+               j       L.3
+       L.2:
+
+\end{verbatim}   
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+
+\begin{verbatim}
+
+               addu    $13, $0, $1
+               addu    $6, $0, $13
+               add     $5, $5, $6
+               sw      $6, 0($sp)
+               jal     printnum
+               addi    $7, $7, 1
+       L.3:
+               lw      $13, 7($sp)
+
+\end{verbatim}   
+\vspace{7mm}\hrule\vspace{7mm}\hrule\vspace{7mm}\hrule
+
+\begin{verbatim}
+   
+               lw      $13, 7($sp)
+               sge     $13, $5, $13
+               bnez    $13, L.5
+               lw      $5, 6($sp)
+       L.5:
+               sw      $5, 0($sp)
+               jal     printnum
+       L.1:
+               lw      $5, 1($sp)
+               lw      $6, 2($sp)
+               lw      $7, 3($sp)
+               lw      $13, 4($sp)
+               lw      $ra, 5($sp)
+               addui   $sp, $sp, 6
+               jr      $ra
+
+  
+\end{verbatim}
+}%$ 
+\caption{myfunc.s}
+\label{fig:c_function_wramp_code-ans}
+
+\end{figure}
+
+\end{enumerate}
+
+\end{enumerate}
+
+
+\end{document}
+
+
+
+
