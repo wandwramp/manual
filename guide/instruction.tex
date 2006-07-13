@@ -109,7 +109,6 @@ into register \regd{}. Generate an overflow exception on signed overflow.
 Put the sum of register \regs{} and the sign-extended immediate
 into register \regd{}. Generate an overflow exception on signed overflow.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Addition, unsigned}\\
@@ -119,6 +118,7 @@ into register \regd{}. Generate an overflow exception on signed overflow.
 Put the sum of register \regs{} and register \regt{}
 into register \regd{}. Generate an overflow exception on unsigned overflow.
 \vspace{3ex}
+\newpage
 
 \noindent
 {\bf Addition, unsigned, immediate}\\
@@ -155,7 +155,6 @@ into register \regd{}. Generate an overflow exception on signed overflow.
 Put the difference of register \regs{} and register \regt{}
 into register \regd{}. Generate an overflow exception on unsigned overflow.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Subtraction, unsigned, immediate}\\
@@ -174,6 +173,7 @@ into register \regd{}. Generate an overflow exception on unsigned overflow.
 Put the product of the signed multiplication of register \regs{} and register \regt{}
 into register \regd{}. Generate an overflow exception on signed overflow.
 \vspace{3ex}
+\newpage
 
 \noindent
 {\bf Multiplication, immediate}\\
@@ -201,7 +201,6 @@ into register \regd{}. Generate an overflow exception on unsigned overflow.
 Put the product of the unsigned multiplication of register \regs{} and the zero-extended immediate
 into register \regd{}. Generate an overflow exception on unsigned overflow.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Division}\\
@@ -229,6 +228,7 @@ into register \regd{}. Generate a divide-by-zero exception if the immediate valu
 Put the result of the unsigned division of register \regs{} by register \regt{}
 into register \regd{}. Generate a divide-by-zero exception if the contents of \regt{} is zero.
 \vspace{3ex}
+\newpage
 
 \noindent
 {\bf Division, unsigned, immediate}\\
@@ -247,7 +247,6 @@ into register \regd{}. Generate a divide-by-zero exception if the immediate valu
 Put the remainder of the signed division of register \regs{} by register \regt{}
 into register \regd{}. Generate a divide-by-zero exception if the contents of \regt{} is zero.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Remainder, immediate}\\
@@ -284,6 +283,7 @@ into register \regd{}. Generate a divide-by-zero exception if the immediate valu
 Put the 16 bit immediate into the upper 16 bits of register \regd{},
 and set the lower 16 bits to zero.
 \vspace{3ex}
+\newpage
 
 \noindent
 {\bf Load address}\\
@@ -292,7 +292,6 @@ and set the lower 16 bits to zero.
 \jtypeinsn{1100}{\regd}{0000}{Address}
 Put the zero-extended 20 bit address into register \regd{}.
 \vspace{3ex}
-\newpage
 
 \subsection{Bitwise instructions}
 
@@ -384,7 +383,6 @@ Shift the value in register \regs{} right by the unsigned value given by the
 least significant 5 bits of the immediate, and place the result in register \regd{},
 inserting zeros into the high order bits.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Shift right arithmetic}\\
@@ -395,6 +393,7 @@ Shift the value in register \regs{} right by the unsigned value given by the
 least significant 5 bits of register \regt{}, and place the result in register \regd{},
 sign-extending the high order bits.
 \vspace{3ex}
+\newpage
 
 \noindent
 {\bf Shift right arithmetic, immediate}\\
@@ -425,7 +424,6 @@ less than register \regt{} according to a signed comparison, and 0 otherwise.
 Set register \regd{} to 1 if register \regs{} is
 less than the sign-extended immediate according to a signed comparison, and 0 otherwise.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Set on less than, unsigned}\\
@@ -444,6 +442,7 @@ less than register \regt{} according to an unsigned comparison, and 0 otherwise.
 Set register \regd{} to 1 if register \regs{} is
 less than the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
 \vspace{3ex}
+\newpage
 
 \noindent
 {\bf Set on greater than}\\
@@ -471,7 +470,6 @@ greater than the sign-extended immediate according to a signed comparison, and 0
 Set register \regd{} to 1 if register \regs{} is
 greater than register \regt{} according to an unsigned comparison, and 0 otherwise.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Set on greater than, unsigned, immediate}\\
@@ -499,6 +497,7 @@ less than or equal to register \regt{} according to a signed comparison, and 0 o
 Set register \regd{} to 1 if register \regs{} is
 less than or equal to the sign-extended immediate according to a signed comparison, and 0 otherwise.
 \vspace{3ex}
+\newpage
 
 \noindent
 {\bf Set on less than or equal to, unsigned}\\
@@ -517,7 +516,6 @@ less than or equal to register \regt{} according to an unsigned comparison, and 
 Set register \regd{} to 1 if register \regs{} is
 less than or equal to the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Set on greater than or equal to}\\
@@ -554,6 +552,7 @@ greater than or equal to register \regt{} according to an unsigned comparison, a
 Set register \regd{} to 1 if register \regs{} is
 greater than or equal to the zero-extended immediate according to an unsigned comparison, and 0 otherwise.
 \vspace{3ex}
+\newpage
 
 \noindent
 {\bf Set on equal to}\\
@@ -563,7 +562,6 @@ greater than or equal to the zero-extended immediate according to an unsigned co
 Set register \regd{} to 1 if register \regs{} is
 equal to register \regt{} according to a signed comparison, and 0 otherwise.
 \vspace{3ex}
-\newpage
 
 \noindent
 {\bf Set on equal to immediate}\\
