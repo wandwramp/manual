@@ -217,6 +217,7 @@ build/ex/comms.dvi : exercises/comms/comms.tex
 clean:
 	echo ALLCLEAN
 	-rm $(wildcard build/* )
+	-rm $(wildcard build/book/* )
 	-rm $(wildcard build/ex/* )
 	-rm $(wildcard build/guides/* )
 	-rm $(wildcard build/instr/* )
