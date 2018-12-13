@@ -1,0 +1,10 @@
+# Handcrafted for this repo :)
+
+output/**/*.pdf
+output/**/*.ps
+global/graphics/*.eps
+
+*.aux
+*.dvi
+*.log
+*.toc
