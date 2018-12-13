@@ -2,7 +2,7 @@
 
 This manual will guide you through the use of Basys3 FPGAs that are programmed
 with the WRAMP architecture. Only the Basys3 itself is required for most of the
-functionality, but the second serial port requires a Micro-USB PMOD attachment.
+functionality, but the second serial port requires a Micro-USB PMOD expansion.
 WRAMP can be used without this attached, but the second serial port will not function.
 
 WRAMP is designed to be a simple architecture which can help you gain a practical
@@ -14,57 +14,57 @@ by Daniel Oosterwijk and Tyler Marriner at the University of Waikato.
 \subsection{The WRAMP CPU}
 The \BI{Central Processing Unit} (\BI{CPU}) is responsible for carrying out 
 instructions.
-CPUs have developed at an astounding rate.  From the humble Z80 to the 386, and
-beyond the GHz barrier.  But as the speed increases, so does
-the complexity.  Due to this complexity it is difficult learning to program
+CPUs have developed at an astounding rate. From the humble Z80 to the 386, and
+beyond the GHz barrier. But as the speed increases, so does
+the complexity. Due to this complexity it is difficult learning to program
 at a low level. 
 
 The WRAMP CPU was designed to solve this problem. It is much easier to 
 understand because it does not have the quirks of performance orientated CPUs.
 Some features of the WRAMP CPU are:
 \begin{itemize}
-\item An easy to understand instruction set.  All instructions conform
-to a clear and consistent structure.
-\item All operations are carried out on 32 bit words.
-\item Only a single instruction is executed at a time.
-\item Memory addressing is easy to understand.
+    \item An easy to understand instruction set. All instructions conform
+            to a clear and consistent structure.
+    \item All operations are carried out on 32 bit words.
+    \item Only a single instruction is executed at a time.
+    \item Memory addressing is easy to understand.
 \end{itemize}
 
-\subsection{The REX board}
-For a CPU to be usable a motherboard is needed.  The REX board was developed
-to host the WRAMP CPU. The REX boards can be found mounted on the walls of 
-Lab 1.  Each is connected to the Linux machine below it and the terminal 
-above it.
+\subsection{The Basys board}
+For a CPU to be usable a motherboard is needed. Originally, the REX board
+developed to host the WRAMP CPU. However, the Basys FPGA can be reprogrammed
+to take the form of both the WRAMP CPU and its peripheral components.
+It should be connected via the Micro-USB port on the top-left to a Linux machine
+with the \texttt{remote} tool installed.
 
-The REX board is made up of the following components:
+The Basys board includes the following components:
 
 \begin{description}
-\item[CPU] The WRAMP processor is the brain of the REX board.
+\item[CPU] The WRAMP processor is the brain of the Basys board.
 %
-\item[RAM] Capable of storing 128K words, the RAM resides at addresses 0x00000
-to 0x1FFFF.  The last 2K words are reserved for use by the monitor program.  The rest 
+\item[RAM] Capable of storing 16K words, the RAM resides at addresses 0x00000
+to 0x03FFF. The last \todo{Check: Is this still 2K words? That's a lot!} 2K words are reserved for use by the monitor program. The rest 
 of the RAM is used to store and execute your programs, which, by default, are 
 loaded starting from address 0x00000.
 %
-\item[ROM] Capable of storing 256K words, the ROM resides at addresses 
-0x80000 to 0xBFFFF.  It is used to store the \WRAMPmon\ monitor program.
+\item[ROM] Capable of storing 32K words, the ROM resides at addresses 
+0x80000 to 0x87FFF. It is used to store the \WRAMPmon\ monitor program.
 %
 \item[Serial Interface] Allows the WRAMP processor to interface with two serial
-ports.  One is connected the Linux machine next to it.  The other connects to
-the terminal on the shelf above.  The terminal will be used in later 
-exercises.
+ports. One is connected to a Linux machine via the Micro-USB port on the top-right
+of the Basys board, which can also provide power. The other connects to the Micro-USB
+port of a PMOD expansion, which should be connected to the top half of the 
+bottom-right PMOD port.
 %
 \item[Parallel Interface] Allows the WRAMP processor to interface with: 
 \begin{itemize}
-\item a set of eight switches from which the CPU can read
-\item two pushbuttons from which the CPU can read
-\item two seven segment displays to which the CPU can write
+\item a set of sixteen switches from which the CPU can read
+\item three pushbuttons from which the CPU can read
+\item four seven segment displays to which the CPU can write
+\item a set of sixteen LEDs to which the CPU can write
 \end{itemize}
 \item[Timer] Counts down from a certain value and can interrupt the CPU when 
 finished.
-\item[Control Panel] Provides the user with the ability to control execution
-of the WRAMP CPU.  It also has an LCD display showing the current status
-of the CPU.
 %
 \end{description}
 Use of these I/O devices will be covered in chapter \ref{chapter:io}.
