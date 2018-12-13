@@ -71,21 +71,24 @@ Use of these I/O devices will be covered in chapter \ref{chapter:io}.
 
 
 \subsection{WRAMPmon}
-The REX board has installed on it monitor software known as \WRAMPmon.
+The Basys board has installed on it monitor software known as \WRAMPmon.
 It communicates with the user through the Linux machine connected to
-the serial port. \WRAMPmon\ is used to upload your programs to the REX
-board and to debug them.  This will be covered in more detail in
+the first serial port. \WRAMPmon\ is used to upload your programs to the
+board and to debug them. This will be covered in more detail in
 section \ref{intro:wrampmon}.
 %
 %
-%  SECTION - Assembly
+% SECTION - Assembly
 %
-\section{Introduction to the WRAMP Assembly Language} %???
+\section{Introduction to the WRAMP Assembly Language}
 %
-To help you get started we will begin by analysing,  assembling, 
+To help you get started we will begin by analysing, assembling,
 executing and debugging a simple WRAMP assembly language program.
-Using \program{emacs} (or your preferred text editor) enter the  
-program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}. A digital copy is also available at \filename{/home/comp200/manual/intro.s}; you can simply copy this to avoid retyping the program.
+Using \program{emacs} (or your preferred text editor) enter the
+program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}.
+A digital copy is also bundled with this manual, named \filename{intro.s}.
+\todo[color=blue!30]{Bundle intro.s}
+You can simply use this to avoid retyping the program.
 
 %%%
 %
@@ -145,7 +148,7 @@ program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}. A dig
 \end{tabular}
 %\end{footnotesize}
 \end{center}
-\caption{WRAMP Assembly Language Program (\filename{/home/comp200/manual/intro.s})}
+\caption{WRAMP Assembly Language Program (\filename{intro.s})}
 \label{simple_prog}
 \end{figure}
 %%%%
@@ -153,29 +156,29 @@ program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}. A dig
 %%
 %
 
-This program first displays a message asking you to enter four numbers.  It
+This program first displays a message asking you to enter four numbers. It
 is then meant to input four numbers, add them up and display the result. 
 If you have noticed the bug in it, don't worry as we will correct this later.
 
 As you read through the source file look for the following:
 
 \begin{description}
-\item[comments] are lines beginning with a hash (\src{\#}).  These work in 
+\item[comments] are lines beginning with a hash (\src{\#}). These work in
 the same way as \src{//} comments in C and are ignored by the assembler.
 %
 \item[labels] such as \src{main:} are used to refer to a location in the
-memory.  This may be used to move execution to a different area of code,
+memory. This may be used to move execution to a different area of code,
 or to refer to data in the memory.
 %
-\item[directives] are commands beginning with a period (\src{.}).  They
+\item[directives] are commands beginning with a period (\src{.}). They
 pass information to the assembler.
 %
 \item[subroutine calls] are used in this program to perform hardware
-operations such as reading from the serial port.  For example the
+operations such as reading from the serial port. For example the
 lines \src{jal putstr} and \src{jal readnum} are subroutine calls.
 %
-\item[WRAMP instructions] such as \src{add \reg{4}, \reg{0}, \reg{0}}  get 
-converted to machine code by the assembler.  They can then be executed by the 
+\item[WRAMP instructions] such as \src{add \reg{4}, \reg{0}, \reg{0}} get
+converted to machine code by the assembler. They can then be executed by the
 WRAMP CPU.
 %
 \end{description}
