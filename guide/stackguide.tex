@@ -546,9 +546,9 @@ cat(first, second, third);
   ...
 
  # Put the parameters for cat onto the stack
- sw $3, 0($sp)    # 'first'
+ sw $5, 0($sp)    # 'first'
  sw $4, 1($sp)    # 'second'
- sw $5, 2(sp)     # 'third'
+ sw $3, 2($sp)    # 'third'
 
  # Call the function
  jal cat

@@ -1,6 +1,6 @@
 \section{Introducing REX and WRAMP}
 
-During this year you will be using the REX boards in Lab 1.  
+During this course you will be using the REX boards in Lab 1.  
 They should help you gain a practical understanding of the internal workings
 of a computer.  They were developed at this university by Dean Armstrong, as
 part of an undergraduate degree.  
@@ -37,7 +37,7 @@ The REX board is made up of the following components:
 \item[CPU] The WRAMP processor is the brain of the REX board.
 %
 \item[RAM] Capable of storing 128K words, the RAM resides at addresses 0x00000
-to 0x1FFFF.  The last 2K words are reserved for the monitor program.  The rest 
+to 0x1FFFF.  The last 2K words are reserved for use by the monitor program.  The rest 
 of the RAM is used to store and execute your programs, which, by default, are 
 loaded starting from address 0x00000.
 %
@@ -80,7 +80,7 @@ section \ref{intro:wrampmon}.
 To help you get started we will begin by analysing,  assembling, 
 executing and debugging a simple WRAMP assembly language program.
 Using \program{emacs} (or your preferred text editor) enter the  
-program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}
+program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}. A digital copy is also available at \filename{/home/comp200/manual/intro.s}; you can simply copy this to avoid retyping the program.
 
 %%%
 %
@@ -140,7 +140,7 @@ program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}
 \end{tabular}
 %\end{footnotesize}
 \end{center}
-\caption{WRAMP Assembly Language Program}
+\caption{WRAMP Assembly Language Program (\filename{/home/comp200/manual/intro.s})}
 \label{simple_prog}
 \end{figure}
 %%%%
@@ -510,11 +510,11 @@ functions (subroutines) contained in a separate \BI{library}. Linking
 involves joining all these parts together to create a final program.
 
 The WRAMP \BI{linker} is called \program{wlink}.  We will use it to
-link our file to the library \LIBEXTWO\ in the 201 home directory.
+link our object file to the library object file in the COMP200 home directory.
 This file \BI{does not} need to be copied into your home directory.
 Issue the command:
 \begin{verbatim}
-     wlink -o intro.srec intro.o /home/201/ex2/lib_ex2.o
+     wlink -o intro.srec intro.o /home/comp200/manual/lib_manual.o
 \end{verbatim}
 
 This command links together the object files to create file called
@@ -669,7 +669,7 @@ features of \WRAMPmon\ to locate the bug that
 causes this problem.
 
 The debugging commands within \WRAMPmon\ allow you to trace the execution 
-of a program (ie. follow the path
+of a program (i.e. follow the path
 of execution) by inserting breakpoints.
 
 If a breakpoint is set at a certain instruction, then when the program
