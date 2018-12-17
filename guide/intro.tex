@@ -507,43 +507,49 @@ Linux machine.
 \end{comment}
 
 \subsection{Assembling and Linking}
-Before we can execute our program on the REX board we need to translate it 
-into machine code, so that the WRAMP CPU can understand it.  This is a two
+Before we can execute our program on the Basys board we need to translate it 
+into machine code, so that the WRAMP CPU can understand it. This is a two
 step process.
 
 \subsubsection{Assembly}
-We firstly have to \BI{assemble} the source code using a program
-called an \filename{assembler}.  This involves checking that all the
+First, we have to \BI{assemble} the source code using a program
+called an \filename{assembler}. This involves checking that all the
 directives and instructions within the program make sense (are
-syntactically correct).  The program is then translated into a file
+syntactically correct). The program is then translated into a file
 called an \BI{object file}. This contains portions of machine code
 along with other information about the program.
 
 To assemble our file we use the WRAMP \BI{assembler}, \program{wasm}:
 \begin{verbatim}
-    wasm intro.s
+   wasm intro.s
 \end{verbatim}
 
-There should now exist a file called \filename{intro.o}.  This is the 
-\BI{object file}.
+There should now exist a file called \filename{intro.o}. This is the 
+\BI{object file}. You can manually specify a filename by providing the
+\src{-o} flag, but the default name is usually the clearest: the
+object file created from the source file with the same name.
+
+\begin{verbatim}
+   wasm -o intro.o intro.s
+\end{verbatim}
 
 \subsubsection{Linking}
-Next we must \BI{link} the \BI{object file}.  A program may be
-comprised of many separate parts.  Even our example program contains
+Next we must \BI{link} the \BI{object file}. A program may be
+comprised of many separate parts. Even our example program contains
 functions (subroutines) contained in a separate \BI{library}. Linking
 involves joining all these parts together to create a final program.
 
-The WRAMP \BI{linker} is called \program{wlink}.  We will use it to
-link our object file to the library object file in the COMP200 home directory.
-This file \BI{does not} need to be copied into your home directory.
+The WRAMP \BI{linker} is called \program{wlink}. We will use it to
+link our object file to the library object file bundled with this manual.
+\todo[color=blue!30]{Bundle lib\_manual.o}
 Issue the command:
 \begin{verbatim}
-     wlink -o intro.srec intro.o /home/comp200/manual/lib_manual.o
+     wlink -o intro.srec intro.o lib_manual.o
 \end{verbatim}
 
 This command links together the object files to create file called
-\filename{intro.srec}.  This file is in a form known as S-Record, which
-is suitable to be uploaded to the REX board and executed.
+\filename{intro.srec}. This file is in a form known as S-Record, which
+is suitable to be uploaded to WRAMPmon and executed.
 
 %
 %
