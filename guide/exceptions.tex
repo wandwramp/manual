@@ -86,7 +86,7 @@ with exceptions are:
 \item \reg{ers} - Exception Register Save
 \end{itemize}
 
-These special purpose registers cannot be operated on directly like
+All special purpose registers cannot be operated on directly like
 the general purpose registers. Rather, two instructions are provided
 to allow register contents to be copied from a general purpose
 register to a special purpose register, or vice-versa. These
@@ -542,7 +542,9 @@ with the WRAMP conventions.
 
 \section{Other Special Registers}
 
-There are also four other special registers implemented in WRAMP, although these registers are not needed for normal use.
+Although there are 16 special registers, the assembler requires they are called by name of which only 9 are named.
+The five exception related registers mentioned at the start of this chapter and four more disscussed here.  
+These four registers are not needed for normal use.
 These are:
 
 \begin{itemize}
