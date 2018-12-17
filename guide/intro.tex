@@ -298,109 +298,105 @@ This creates a program which will continually read from the switches
 and save their value to the LEDs. It has no reserved memory.
 
 \subsection{Registers}
-Registers are the CPU's equivalent of variables.  There are 16 general
+Registers are the CPU's equivalent of variables. There are 16 general
 purpose registers numbered 0 to 15. They can be used for temporarily
-storing data while it is used in operations.  Registers are generally
-referred to by a \$-sign followed by a number.  For example \reg{0}
+storing data while it is used in operations. Registers are generally
+referred to by a \$-sign followed by a number. For example \reg{0}
 refers to register zero. The contents of registers can be transferred
-to and from main memory. This done using load and store instructions
+to and from main memory. This done using load and store instructions,
 which are covered in a later section.
-
 
 Some of the general purpose registers have special uses:
 
-Register \reg{0} is always zero.  Any attempts to write to it are
-ignored.  This provides a constant source of zero that can be used for
+Register \reg{0} is always zero. Any attempts to write to it are
+ignored. This provides a constant source of zero that can be used for
 comparing and initialising registers.
 
 Register fourteen is denoted \reg{sp}. This register is defined by
-convention to be the stack pointer.  While the hardware imposes no
+convention to be the stack pointer. While the hardware imposes no
 special conditions on this register, failure to follow this convention
 may affect the ability of code to interoperate with other software.
 
 Register fifteen is denoted \reg{ra}. It is defined by convention to
-be the subroutine return address register.  When a jump and link
-instruction is executed this register is loaded with the address of
+be the subroutine return address register. When a jump and link
+instruction is executed, this register is loaded with the address of
 the next instruction after the jump and link. We will discuss stacks
 and this register in a later chapter.
 
 In addition to these general purpose registers is a set of special
-purpose registers.  The use of these is covered in chapter
+purpose registers. The use of these is covered in chapter
 \ref{chapter:exceptions}.
 
 Various types of instructions are introduced below.
 
 \subsection{Instructions}
 
-Executable machine code is create by assembling WRAMP instructions.
-Instructions tell the WRAMP CPU what to do.  For example an \src{add} 
-instruction will add the contents of two registers and place the result 
+Executable machine code is created by assembling WRAMP instructions.
+Instructions tell the WRAMP CPU what to do. For example an \src{add}
+instruction will add the contents of two registers and place the result
 in another.
 
 \subsubsection{Arithmetic}
-Arithmetic instructions come in four forms, which are listed 
+Arithmetic instructions come in four forms, which are listed
 below, using \src{add} as an example:
 
 
 \src{add \regd, \regs, \regt} \\*
-  Simply performs the specified operation,
-  on \regs\ and \regt, placing the result in \regd.  For example 
-  \mbox{\src{add \$1, \$2, \$0}} will add the contents of registers
-  \reg{2} and \reg{0} then place the result in \reg{1}.
-  \\
+Simply performs the specified operation
+on \regs\ and \regt, placing the result in \regd. For example,
+\mbox{\src{add \reg{1}, \reg{2}, \reg{0}}} will add the contents of registers
+\reg{2} and \reg{0} then place the result in \reg{1}.
+\\
 
-\src{addi \regd, \regs, Immediate} \\* 
-  This is known as immediate form.
-  The argument \src{Immediate} is a constant.  Thus the specified
-  operation is performed on \regs\ and \src{Immediate}, and the result
-  placed in \regd.  For example \mbox{\src{addi \$1, \$2, 4}} will add
-  \src{4}\ to the contents of \reg{2}\ and place the result in
-  \reg{1}.  
-  \\
+\src{addi \regd, \regs, Immediate} \\*
+This is known as immediate form.
+The argument \src{Immediate} is a constant. Thus the specified
+operation is performed on \regs\ and \src{Immediate}, and the result
+placed in \regd. For example \mbox{\src{addi \reg{1}, \reg{2}, 4}} will add
+\src{4}\ to the contents of \reg{2}\ and place the result in \reg{1}.
+\\
 
 \src{addu \regd, \regs, \regd} \\* 
-  The \emph{u}\ implies that this is
-  an unsigned instruction.  Thus it is assumed that both the operands
-  are positive.  This is important when we consider twos complement
-  representation of negative numbers.  For example \\ \mbox{\src{1111
-  1111 1111 1111 1111 1111 1111 1111}} represents \src{-1} when
-  treated as signed, and 0xFFFFFFFF, a very large positive number,
-  when treated as unsigned.  \\
+The \emph{u}\ tells the CPU that this is an unsigned instruction.
+Both operands will be treated as positive, which is important when
+we consider the two's complement representation of negative numbers.
+For example, \mbox{\src{1111 1111 1111 1111 1111 1111 1111 1111}} 
+represents \src{-1} when treated as signed, and 0xFFFFFFFF, a very 
+large positive number, when treated as unsigned.
+\\
 
 \src{addui \regd, \regs, Immediate} \\*
-  This is the combination of the two forms above.  It performs an unsigned
-  operation on \regs\ and the \src{Immediate} value.
-  \\
+This is the combination of the two forms above. It performs an unsigned
+operation on \regs\ and the \src{Immediate} value.
+\\
 
-For a full listing of arithmetic instructions see  Appendix 
+For a full listing of arithmetic instructions see Appendix
 \ref{appendix:instr}.
 
-
 \subsubsection{Memory I/O}
-The WRAMP CPU has a 20 bit memory space.  Of this the memory locations 
-0x00000 to 0x1FFFF are RAM.
+The WRAMP CPU has a 20 bit memory space. Of this, the memory locations 
+0x00000 to 0x03FFF are RAM.
 
-Unlike other CPUs the WRAMP has only a single method of referencing
-external memory.  It consists of a base address added to an offset.
-The base address is specified as a constant in the instruction.  The
+Unlike other CPUs, WRAMP has only a single method of referencing
+external memory. It consists of a base address added to an offset.
+The base address is specified as a constant in the instruction. The
 offset is the contents of a specified register.
 
-The notation for this is \src{base(\regs)}.  The \src{base} can either
-be a label or an integer.  To load from the memory location specified
-by a label, \reg{0} can be used for \regs.  For the first few chapters
-we will use this method of referencing the memory. Figure \ref{memio}
-shows an example. It loads a word of data from memory into a register,
-adds 1 to it, then stores it back into the memory.
-
+The notation for this is \src{base(\regs)}. The \src{base} can either
+be a label or an integer. To load from the memory location specified
+by a label, \reg{0} can be used for \regs. We will mostly use this method
+of accessing memory. Figure \ref{memio} shows an example.
+It loads a word of data from memory into a register, adds 1 to it,
+then stores it back into the memory.
 
 \src{lw \regd, base(\regs)}\\*
 Used to get the contents of the specified memory location and place it 
 in the register \regd.
+\\
 
 \src{sw \regd, base(\regs)}\\*
 Will place the contents of \regd\ into the specified memory location.
 \\
-
 
 \begin{figure}[btp]
 \begin{center}
@@ -436,72 +432,72 @@ counter:
 \label{memio}
 \end{figure}
 
-Sometimes you will need to know the address of a variable.  The 
+Sometimes you will need to know the address of a variable. The 
 instruction `load address' ( \src{la} ) is used for this. It has the 
 structure:
 \\*
 
 \src{la \regd, label} \\*
-Load the address that \src{label} refers to into register \regd.  
+Load the address that \src{label} refers to into register \regd. 
 
-\subsubsection{Set Instructions}
+\subsubsection{Test Instructions}
 These instructions are used to compare either two registers, or a
-register and an immediate value.  They take the same form as
-arithmetic instructions.  If the test passes the destination register
+register and an immediate value. They take the same form as
+arithmetic instructions. If the test passes the destination register
 is set to \src{1}, otherwise it is cleared to \src{0}.
 
-For example to test if registers \reg{2} and \reg{3} were equal and store the
+For example, to test if registers \reg{2} and \reg{3} were equal and store the
 result in \reg{1} we would use the `set if equal' instruction: 
-\src{seq \$1, \$2, \$3}.
+\src{seq \reg{1}, \reg{2}, \reg{3}}.
 
 A full listing of test instructions can be found in the instruction set reference, Appendix \ref{appendix:instr}.
 
 \subsubsection{Program Control}
-We move execution to a different part of the program using two types of 
-instruction: the unconditional jump, and the conditional branch.  
+We can move execution to a different part of the program using two types
+of instruction: the unconditional jump, and the conditional branch.
 
 \textbf{Jump Instructions}\\*
 The jump instructions simply move execution to a different line of
-code.  They are unconditional and so do not perform any tests first.
+code. They are unconditional and so do not perform any tests first.
 There are four different varieties:
 
-\src{j  label}  - Jump\\*
+\src{j label} - Jump\\*
 Jumps to the specified label.
 
 \src{jal label} - Jump and link\\*
 Stores the address of the next instruction into the return address register \reg{ra}. It then jumps to the specied label. This is used when calling subroutines.
 
-\src{jr \regs}  -  Jump Register\\*
-Jumps to the location specified by the contents of the register \regs.  
-Because the WRAMP CPU has only a 20 bit address space the upper 12 bits 
-of the register are ignored.  Jump register is typically used to 
+\src{jr \regs} - Jump Register\\*
+Jumps to the location specified by the contents of the register \regs.
+Because the WRAMP CPU has only a 20 bit address space the upper 12 bits
+of the register are ignored. Jump register is typically used to
 return from a subroutine using \src{jr \reg{ra}}
 
-\src{jalr \regs} - Jump and Link Register\\* A combination of
-\src{jal} and \src{jr}. It works in the same way as \src{jr} but it
-stores the address of the next instruction into the return address
-register before jumping. 
+\src{jalr \regs} - Jump and Link Register\\* 
+A combination of \src{jal} and \src{jr}. 
+It works in the same way as \src{jr}, but it stores the address of the
+next instruction into the return address register before jumping.
 
 \textbf{Branch Instructions}\\*
-Branching instructions are conditional, they look at whether a
-register is zero or not, and act on that information.  There are two
+Branching instructions are conditional. They look at whether a
+register is zero or not, and act on that information. There are two
 varieties: `branch if equal to zero' \src{beqz} and `branch if not
-equal to zero' \src{bnez}.  Both of these instructions take a single
+equal to zero' \src{bnez}. Both of these instructions take a single
 register and a label as arguments.
 
-For example the `branch if not equal to zero' command 
-`\src{bnez \$1, loop}' will branch to label 
-\src{loop} if \reg{1} is non-zero.
+For example the `branch if not equal to zero' command
+\src{bnez \reg{1}, loop} will branch to label \src{loop} if
+\reg{1} is non-zero.
 
 \begin{comment}
 \subsection{I/O Routines}
 
 In the example program you will see we have used the routines
 \src{putstr}, \src{readnum} and \src{writenum} to perfrom input
-and output.  These routines are in the file \LIBEXTWO, which we will 
-\BI{link} to.  Here is an overview of the routines:
+and output. These routines are in the file \LIBEXTWO, which we will 
+\BI{link} to. Here is an overview of the routines:
 \begin{description}
-\item[\src{putstr}] is used to write a string to the Linux machine.  Put the
+\item[\src{putstr}] is used to write a string to the Linux machine. Put the
 address of the string into register \reg{2}.
 \item[\src{readnum}] reads a number from the Linux machine, leaving it in
 register \reg{1}.
