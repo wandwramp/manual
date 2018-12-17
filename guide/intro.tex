@@ -69,7 +69,6 @@ finished.
 \end{description}
 Use of these I/O devices will be covered in chapter \ref{chapter:io}.
 
-
 \subsection{WRAMPmon}
 The Basys board has installed on it monitor software known as \WRAMPmon.
 It communicates with the user through the Linux machine connected to
@@ -184,10 +183,10 @@ WRAMP CPU.
 \end{description}
 
 \subsection{Labels}
-A label is a means of referencing a location in memory.  Rather than
+A label is a means of referencing a location in memory. Rather than
 specifying absolute addresses when accessing data in memory, a label
-can be used.  This makes it much easier for the programmer to write
-and understand the code.  Labels can also be declared within the
+can be used. This makes it much easier for the programmer to write
+and understand the code. Labels can also be declared within the
 code. They can then be used as a destination for branch and jump
 instructions.
 
@@ -195,62 +194,61 @@ A label declaration consists of a name (containing no spaces) followed
 by a colon (\src{:}).
 
 The example code in figure \ref{simple_prog} has labels \src{main},
-\src{loop}, \src{welcome\_msg}, \src{output\_msg}.  The labels
-\src{main} and \src{loop} refer to locations within the code.  The
+\src{loop}, \src{welcome\_msg}, \src{output\_msg}. The labels
+\src{main} and \src{loop} refer to locations within the code. The
 labels \src{welcome\_msg} and \src{output\_msg} refer to data.
 
-
-
-
-
 \subsection{Directives}
-Directives (commands preceeded by a \src{.}) do not become part of the
-final executable.  They are used to pass information to the assembler,
+Directives (commands preceded by a \src{.}) do not become part of the
+final executable. They are used to pass information to the assembler,
 like \src{\#} directives do in C.
 
 \subsubsection{\text, \data and \bss}
 A program written in WRAMP assembly can be split into three sections.
 These are used to seperate executable code, initialised data, and
-uninitialised data.  The directives \text, \data and \bss are used to
-do this.  When the assembler encounters one of these directives it
+uninitialised data. The directives \text, \data and \bss are used to
+do this. When the assembler encounters one of these directives it
 knows that all the code following it belongs in the given section.
 
 The \text section contains WRAMP assembly instructions which will be
 converted to machine language which can be executed on the WRAMP CPU.
 
-%The \data section is used for initialised data.  
+%The \data section is used for initialised data.
 Within the \data section, space in the memory can be reserved and
-initialised.  This is useful for strings, constants, and variables
+initialised. This is useful for strings, constants, and variables
 which have an initial value.
 
-The \bss section allows memory space to be reserved but not initialised.  The
-advantage of this is that space can be reserved in chunks using a single
-command.  This feature makes the \bss section useful for arrays. 
+The \bss section allows memory space to be reserved but not initialised.
+The advantage of this is that space can be reserved in chunks using a single
+command. This feature makes the \bss section useful for arrays.
 
 \subsubsection{Assigning Space}
 Within the \data and \bss sections memory space is assigned using directives. 
-To be able
-to access this you need to place a label before the assigning directive. In the
-example code, the label \src{welcome\_msg:} refers to the memory reserved 
-by the \asciiz directive.
-%
+To be able to access this you need to place a label before the assigning
+directive. In the example code, the label \src{welcome\_msg:} refers to the
+memory reserved by the \asciiz directive.
+
 \begin{verbatim}
    welcome_msg:
       .asciiz "Welcome to the world of WRAMP!!!\n\n"
 \end{verbatim}
 
+The following is a list of the available memory assigning directives
+and how they can be used.
 
-
-Some of the memory assigning directives you may come across:
 \begin{description}
 
-\item[\word \src{n}]  This assigns one word of memory space and 
-initialises it to the number \src{n}.
+\item[\word \src{n}] assigns one word of memory space and initialises it to
+the number \src{n}.
+If a character is provided instead of a number, like \src{\word `a'}, the space
+will be initialised to the ASCII value of that character.
+If the name of a label is provided, like \src{\word main}, the space will be
+initialised to the address of that label.
 
 \item[\asciiz \src{"str"}] reserves and initialises space 
 for a NULL terminated ASCII string (\src{"str"}).
 This means that the string is followed immediatly by a NULL
-character (\src{0}).  The NULL character can then be used
+character (\src{0}). The NULL character can then be used
 to identify the end of the string.
 
 \item[\ascii \src{"str"}] reserves and initialises space for 
@@ -260,22 +258,44 @@ the ASCII string \src{"str"} without NULL terminating.
 of size \src{n} in the \bss section.
 
 \end{description}
-The \ascii and \asciiz directives can not be used in the \bss section
-as they initialise the space they reserve.  The \word directive may be
+The \ascii and \asciiz directives cannot be used in the \bss section
+as they initialise the space they reserve. The \word directive may be
 used as long as it is not provided with an argument.
 
 \subsubsection{The \Global Directive}
 When linking multiple files, we need to share functions and data.
 However we do not want to expose all the labels in a file.
 Only labels declared as global (using the \Global directive) are
-accessible outside the current file.  
+accessible outside the current file.
 
 In the example program we have declared the `entry point' \src{main} as 
 global. To do this we used the following directive:
 \begin{verbatim}
-.global main
+   .global main
 \end{verbatim}
 
+\subsubsection{The \equ Directive}
+When writing large programs, it can be useful to declare a number of
+constants to avoid the use of magic numbers. The \equ directive will
+create a named constant, which is simply an alias to a number. It is
+similar to a \src{\#define} directive in C. It will not define an
+area in memory, nor will it exist in a compiled program aside from
+where it is used. The directive can be used as follows:
+
+\begin{verbatim}
+   .global main
+   .text
+   main:
+      lw $1, switches($0)
+      sw $1, leds($0)
+      j main
+
+      .equ   switches, 0x73000
+      .equ   leds,     0x7300A
+\end{verbatim}
+
+This creates a program which will continually read from the switches
+and save their value to the LEDs. It has no reserved memory.
 
 \subsection{Registers}
 Registers are the CPU's equivalent of variables.  There are 16 general
