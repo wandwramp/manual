@@ -38,7 +38,7 @@ is encountered)
 WRAMP provides eight external interrupts. The external interrupts are 
 simply wires coming into the processor, and so can be connected to any 
 devices.  These are called IRQ0 (for Interrupt ReQuest) to IRQ7. On the 
-REX board these are connected as follows:
+Basys board these are connected as follows:
 
 \begin{center}
 \begin{tabular}{|c|l|c|l|}
@@ -381,9 +381,9 @@ program.
 
 \section{User Interrupt Button}
 
-The REX board provides a simple method for creating an
-interrupt. There is a button located on the front of the case, next to
-the reset button labeled ``INTR''. When this button is pressed IRQ1,
+The Basys board provides a simple method for creating an
+interrupt. There is a set of five buttons located on the bottom right.
+The interrupt button is the bottom one. When this button is pressed IRQ1,
 the ``User Interrupt Button'', interrupt will be triggered. If this
 interrupt is unmasked and the global interrupt enable is turned on in
 \src{\$cctrl} an exception will occur.
@@ -392,10 +392,10 @@ This button provides a simple way to test an exception handler as it
 avoids problems that could be caused by mis-configuration of the I/O
 device that is being used to provide the exception.
 
-Like all other REX interrupt sources the user interrupt button needs
+Like all other WRAMP interrupt sources the user interrupt button needs
 to be acknowledged each time an exception occurs. To acknowledge a
 ``User Interrupt'' you store zero to the address
-\src{0x7f000}. Unlike the other I/O devices on the REX board you do
+\src{0x7f000}. Unlike the other I/O devices on the Basys board you do
 not need to enable or disable the user interrupt button. If IRQ1 is
 unmasked in \src{\$cctrl} and interrupts are enabled the button
 will cause an exception when pressed.
