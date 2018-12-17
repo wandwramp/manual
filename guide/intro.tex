@@ -558,16 +558,15 @@ is suitable to be uploaded to WRAMPmon and executed.
 \section{Introduction to WRAMPmon}
 \label{intro:wrampmon}
 
-The \WRAMPmon\ monitor is a program which runs on the REX boards.  It
-provides you with basic facilities for interacting with the REX board.
+The \WRAMPmon\ monitor is a program which runs on the Basys boards. It
+provides you with basic facilities for interacting with the board.
 It is important for hardware and software development, debugging,
-testing and troubleshooting.  It uses a command line interface to
+testing and troubleshooting. It uses a command line interface to
 perform these functions.
 
-\WRAMPmon\ communicates through the serial port that is connected to the Linux 
-machine.  By running a terminal program on the Linux machine we can talk
-to the REX board.
-
+\WRAMPmon\ communicates through the first serial port, which is usually
+connected to a Linux machine.
+By running a terminal emulator on the Linux machine, we can talk to the board.
 
 \subsection{WRAMPmon commands}
 A set of commands is provided for the user to interact with \WRAMPmon\
@@ -584,28 +583,31 @@ including:
 For a listing of these commands see Appendix \ref{appendix:wrampmon}.
 
 \subsection{Getting started}
-The REX board uses serial ports as its primary form of communication.
-The main serial port on the REX board is connected to a Linux
+The Basys board uses serial ports as its primary form of communication.
+The first serial port on the board should be connected to a Linux
 machine. The Linux machine runs a terminal program, called
 \filename{remote}, which transmits anything typed on the keyboard
-directly to the REX board, and displays any text received from REX.
+directly to the board, and displays any text received from WRAMP.
 
-To execute the terminal program type \verb|remote| from a console.
-Once you have \verb|remote| running you will need to reset the REX
-board by pressing the red \src{RESET} button.  You should see
+To execute the terminal program type \src{remote} from a console.
+Once you have \src{remote} running you will need to reset the
+board by pressing the red \src{RESET} button. You should see
+\todo{Which button is reset?}
 something like Figure \ref{wrampmon}.
 
-\begin{figure}[hbp]
+\begin{figure}[h]
 \begin{center}
 %\begin{footnotesize}
 \begin{tabular}{|p{15cm}|}
 \hline
 \begin{verbatim}
       +------------------------------------------------+
-      |                 WRAMPmon 0.6                   |
+      |                 WRAMPmon 0.7                   |
       | Copyright 2002, 2003 The University of Waikato |
       |                                                |
       |          Written by Dean Armstrong             |
+      |       Ported to the Basys3 in 2018 by          |
+      |     Daniel Oosterwijk and Tyler Marriner       |
       +------------------------------------------------+
       
       Type ? and press enter for available commands.
@@ -626,7 +628,7 @@ Type \src{?} to obtain a list of commands available within \WRAMPmon.
 Help on individual commands can be obtained by typing the command and then a 
 question mark, eg:
 \begin{verbatim}
-     load ?
+   load ?
 \end{verbatim}
 
 Each command gives the required format and available options.
@@ -635,128 +637,120 @@ indicates an optional item. An item enclosed in angled brackets,
 \src{<}~and~\src{>}, indicates a compulsory item.
 
 If you have any problems with the monitor not responding at any stage you 
-should always be able to get back to
-the board's initial state with the start-up message displayed by pressing the 
-red \src{RESET} button on the REX board.
+should always be able to get back to the board's initial state with the
+start-up message displayed by pressing the \src{RESET} button.
 
 \subsection{Uploading and Executing your Program}
-Before you can run your program on the REX board it must first be loaded into 
-the board's memory. The easiest
-way to do this is to set the board into load mode and use the upload option 
-within the \program{remote} program to send
-the executable file from the Linux machine to the board. To place the board 
-into load mode, type the following
-command (then press enter) at the \WRAMPmon\ prompt:
+Before you can run your program on the Basys board it must first be loaded
+into the board's memory. This can be done by settin the board into \src{load}
+mode and using the upload option within the \program{remote} program to send
+the S-Record file from the Linux machine to the board. To place the board
+into load mode, type the following command (then press enter) at the
+\WRAMPmon\ prompt:
 \begin{verbatim}
-     load
+   load
 \end{verbatim}
 
 After hitting return there should be a reminder response from the board indicating 
 how to send an executable file. To send the executable type:
 
-\verb|     <ctrl>-a| and then \verb|s|
+\verb|   <ctrl>-a| and then \verb|s|
 
-Where \verb|<ctrl>-a| means press and hold the \src{control} key and hit 
+Where \verb|<ctrl>-a| means press and hold the \src{control} key, hit 
 the \src{a} key and then release both keys.
-The \program{remote} program does not pass this key sequence on to the REX 
-board but instead enters a command
-mode. When you press \src{s}, remote will switch into upload mode. A
-dialog box appears which asks you to enter the name of the file you wish to 
-upload. Type in the following file name:
+The \program{remote} program does not pass this key sequence on to the Basys 
+board, but instead enters a command mode. When you press \src{s}, remote will
+switch into upload mode. A dialog box appears which asks you to enter the name
+of the file you wish to upload. Type in the following file name:
 \begin{verbatim}
-     intro.srec
+   intro.srec
 \end{verbatim}
 
 After the file name has been entered a series of dots should appear on the 
-screen indicating that the file is being
-uploaded, followed by a message which tells you that is has completed. You 
-should then press the enter key to
+screen indicating that the file is being uploaded, followed by a message which
+tells you that is has completed. You should then press the enter key to
 leave the upload mode of \src{remote} at which stage the \WRAMPmon\ prompt 
 should reappear.
 
+If any characters which are not dots appear, it means that \WRAMPmon\ did not
+correctly receive the program data. \program{remote} will try again until it
+reaches ten failures. If this happens, you should check the connection between
+the Linux machine and the Basys board, and recompile the S-Record file.
+
 Now that the program has been uploaded, you can run it by typing the command:
 \begin{verbatim}
-     go
+   go
 \end{verbatim}
 
 This will start executing your program from the entry point defined by the 
-\src{main} label. The program will
-prompt you to enter four numbers. You should continue to type a number and 
-hit enter until the program
-outputs the resulting sum. The output of your program should appear on your 
-screen. When the \WRAMPmon\
+\src{main} label. The program will prompt you to enter four numbers. You should continue to type a number and hit enter until the program outputs the resulting
+sum. The output of your program should appear on your screen. When the \WRAMPmon\
 prompt appears again it indicates that your program has finished executing.
 
-
 \subsection{Debugging your Program}
-The program that you have just run on the REX board should have read four 
-numbers from the keyboard and
-output their sum to the terminal. However, when run, only three numbers
-are read before their sum is output.
+The program that you have just run on the Basys board should have read four 
+numbers from the keyboard and output their sum to the terminal. However, when
+run, only three numbers are read before their sum is output.
 
 In this section of the exercise you are going to use the debugging 
-features of \WRAMPmon\ to locate the bug that
-causes this problem.
+features of \WRAMPmon\ to locate the bug that causes this problem.
 
 The debugging commands within \WRAMPmon\ allow you to trace the execution 
-of a program (i.e. follow the path
-of execution) by inserting breakpoints.
+of a program (i.e. follow the path of execution) by inserting breakpoints.
 
 If a breakpoint is set at a certain instruction, then when the program
 is running, and that instruction is about to be executed, control will
 be returned to the monitor. From here, you can view register and
 memory contents, and maybe resume execution, or step through the
-program one instruction at a time to try and identify bugs.  The
+program one instruction at a time to try and identify bugs. The
 commands for setting, removing and viewing breakpoints are \src{sb},
-\src{rb}, and \src{vb} respectively. The help facilty in \WRAMPmon\
-fully describes the operation of these commands. For example to find
+\src{rb}, and \src{vb} respectively. The help functions in \WRAMPmon\
+fully describe the operation of these commands. For example, to find
 out more about the set breakpoint command type
 \begin{verbatim}
-     sb ?
+   sb ?
 \end{verbatim}
 
 Insert a breakpoint at the beginning of the loop in the above program 
-(ie. at memory location \src{0x00004}), and
-execute the program using the \src{go} command.
+(ie. at memory location \src{0x00004}), and execute the program using
+the \src{go} command.
 When a break does occur, use the view registers command to find out the 
 contents of the registers. You should also notice that the breakpoint 
-register dump contains identical information
-to the \src{vr} command.
+register dump contains identical information to the \src{vr} command.
 
 To continue execution type:
 \begin{verbatim}
-     cont
+   cont
 \end{verbatim}
 This will cause the program to continue execution until either the
-breakpoint is encountered again or the program completes
-execution. Remember that the program will now wait for you to enter a
-number before it will break again.
+breakpoint is encountered again or the program completes execution.
+Remember that the program will now wait for you to enter a number
+before it will break again.
 
-Another feature of the monitor that can be used to help debug you programs 
-is the single-step command \src{s}.
-This command causes only the immediately next instruction 
-to be executed and then returns back to
+Another feature of the monitor that can be used to help debug your programs
+is the single-step command \src{s}. This command causes only the
+immediately next instruction to be executed, then returns back to
 \WRAMPmon.
 
-To demonstrate the use of the single step command you are to reload
-the program.  Create a new breakpoint at memory location
+To demonstrate the use of the single step command, you should reset the
+board and reload the program. Create a new breakpoint at memory location
 \src{0x00005}. Once this is done run the program using the \src{go}
 command.
 
-Once you have encountered the breakpoint try single stepping through
+Once you have encountered the breakpoint, try single stepping through
 the program using the \verb|s| command. Pay careful attention to the
 loop counter in \reg{5} and the instructions that increment and test
-it. As we are only interested in the loop counter at this stage we
-will skip the \src{readnum} subroutine.  We do this using the `step
-over' \src{so} command.  When you reach the instruction \src{jal
-readnum} instead of typing `\src{s}' type `\src{so}'.
+that register. As we are only interested in the loop counter at this
+stage we will skip the \src{readnum} subroutine. We can do this using
+the `step over' \src{so} command. When you reach the instruction \src{jal
+readnum} type `\src{so}' instead of `\src{s}'.
 
 At some point you may wish to remove the breakpoint using the
 \src{rb} command and then use \src{cont} to make the program run to
 completion.
 
-As you may have realised the program is designed with a bug.  Although
-it is intended to add 4 numbers it will only add 3.  You should now use
-the debugging methods we have just covered to determine the
-bug.  Then correct it and assemble, link and load the program to confirm
-it operates correctly.
+As you may have noticed, the program is designed with a bug. Although
+it is intended to add 4 numbers, it will only add 3. You should now use
+the debugging methods we have just covered to determine the cause of the
+bug. Correct it then and assemble, link, and load the program to confirm
+it now operates correctly.
