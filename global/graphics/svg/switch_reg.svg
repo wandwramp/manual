@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Creator: fig2dev Version 3.2 Patchlevel 5e -->
+
+<!-- CreationDate: Wed Dec 19 10:59:01 2018 -->
+
+<!-- Magnification: 1.050 -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="6.3in"
+   height="1.5in"
+   viewBox="1877 3149 7584 1858"
+   id="svg3355"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="switch_reg.svg">
+  <metadata
+     id="metadata3443">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3441" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1680"
+     inkscape:window-height="986"
+     id="namedview3439"
+     showgrid="false"
+     inkscape:zoom="2"
+     inkscape:cx="287.09234"
+     inkscape:cy="86.268855"
+     inkscape:window-x="0"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g3357" />
+  <g
+     style="stroke-width:.025in; fill:none"
+     id="g3357">
+    <!-- Line: box -->
+    <rect
+       x="1889"
+       y="3307"
+       width="7559"
+       height="472"
+       rx="0"
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="rect3359" />
+    <!-- Line -->
+    <polyline
+       points="7559,3307 7559,3779 "
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="polyline3361" />
+    <!-- Line -->
+    <polyline
+       points="9212,3307 9212,3779 "
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="polyline3363" />
+    <!-- Line -->
+    <polyline
+       points="8976,3307 8976,3779 "
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="polyline3365" />
+    <!-- Line -->
+    <polyline
+       points="8740,3307 8740,3779 "
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="polyline3367" />
+    <!-- Line -->
+    <polyline
+       points="8503,3307 8503,3779 "
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="polyline3369" />
+    <!-- Line -->
+    <polyline
+       points="8267,3307 8267,3779 "
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="polyline3371" />
+    <!-- Line -->
+    <polyline
+       points="8031,3307 8031,3779 "
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="polyline3373" />
+    <!-- Line -->
+    <polyline
+       points="7795,3307 7795,3779 "
+       style="stroke:#000000;stroke-width:8; stroke-linejoin:miter; stroke-linecap:butt; "
+       id="polyline3375" />
+    <!-- Line -->
+    <path
+       style="stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       d="m 7700,3844 0,171 0,349.7852 -2272.0756,0"
+       id="polyline3377"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <!-- Arrowhead on XXXpoint 7700 4015 - 7700 3811-->
+    <polyline
+       points="7732 3954 7700 3828 7669 3954 "
+       style="stroke:#000000;stroke-width:8;stroke-miterlimit:8; "
+       id="polyline3379" />
+    <!-- Line -->
+    <!-- Arrowhead on XXXpoint 7937 4299 - 7937 3811-->
+    <!-- Line -->
+    <path
+       style="stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       d="m 9118,3844 0,880 -3690.0756,0"
+       id="polyline3385"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <!-- Arrowhead on XXXpoint 9118 4724 - 9118 3811-->
+    <polyline
+       points="9149 3954 9118 3828 9086 3954 "
+       style="stroke:#000000;stroke-width:8;stroke-miterlimit:8; "
+       id="polyline3387" />
+    <!-- Line -->
+    <path
+       style="stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       d="m 9354,3844 0,1069 -3926.0756,0"
+       id="polyline3389"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="ccc" />
+    <!-- Arrowhead on XXXpoint 9354 4913 - 9354 3811-->
+    <polyline
+       points="9385 3954 9354 3828 9322 3954 "
+       style="stroke:#000000;stroke-width:8;stroke-miterlimit:8; "
+       id="polyline3391" />
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="4508.9214"
+       y="4054.9482"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text3393"
+       style="font-style:normal;font-weight:bold;font-size:152px;font-family:Courier;text-anchor:start;fill:#000000">Switch 15</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="4508.9214"
+       y="4412.5776"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text3395"
+       style="font-style:normal;font-weight:bold;font-size:152px;font-family:Courier;text-anchor:start;fill:#000000">Switch 7</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="4508.9214"
+       y="4551"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text3397"
+       style="font-style:normal;font-weight:bold;font-size:152px;font-family:Courier;text-anchor:start;fill:#000000">  ...</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="4508.9214"
+       y="4771"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text3399"
+       style="font-style:normal;font-weight:bold;font-size:152px;font-family:Courier;text-anchor:start;fill:#000000">Switch 1</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="4508.9214"
+       y="4992"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text3401"
+       style="font-style:normal;font-weight:bold;font-size:152px;font-family:Courier;text-anchor:start;fill:#000000">Switch 0</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="9354"
+       y="3259"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3403"
+       text-anchor="middle"
+       font-family="Courier"
+       fill="#000000">0</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="2031"
+       y="3259"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3405"
+       text-anchor="middle"
+       font-family="Courier"
+       fill="#000000">31</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="3678.0166"
+       y="3590"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text3407"
+       style="font-style:normal;font-weight:bold;font-size:152px;font-family:Courier;text-anchor:middle;fill:#000000">0 (zero)</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="5733.6802"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3409"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">15</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="5969.3047"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3411"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">14</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="6202.2378"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3413"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">13</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="6438.9868"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3415"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">12</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="6677.0054"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3417"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">11</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="6910.3638"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3419"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">10</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="7186.334"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3421"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">9</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="7407.2583"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3423"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">8</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="7653"
+       y="3260.1943"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3425"
+       style="font-style:normal;font-weight:bold;font-size:101px;font-family:Courier;text-anchor:start;fill:#000000">7</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="7889"
+       y="3259"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3427"
+       text-anchor="start"
+       font-family="Courier"
+       fill="#000000">6</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="8125"
+       y="3259"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3429"
+       text-anchor="start"
+       font-family="Courier"
+       fill="#000000">5</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="8362"
+       y="3259"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3431"
+       text-anchor="start"
+       font-family="Courier"
+       fill="#000000">4</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="8598"
+       y="3259"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3433"
+       text-anchor="start"
+       font-family="Courier"
+       fill="#000000">3</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="8834"
+       y="3259"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3435"
+       text-anchor="start"
+       font-family="Courier"
+       fill="#000000">2</text>
+    <!-- Text -->
+    <text
+       xml:space="preserve"
+       x="9070"
+       y="3259"
+       font-style="normal"
+       font-weight="bold"
+       font-size="101"
+       id="text3437"
+       text-anchor="start"
+       font-family="Courier"
+       fill="#000000">1</text>
+    <polyline
+       transform="translate(-235.89307,0)"
+       points="7559,3307 7559,3779 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="polyline3361-3" />
+    <polyline
+       transform="translate(-471.9308,0.26880788)"
+       points="7559,3307 7559,3779 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="polyline3361-7" />
+    <polyline
+       transform="translate(-707.8391,0.72162508)"
+       points="7559,3307 7559,3779 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="polyline3361-3-2" />
+    <polyline
+       transform="translate(-943.80857,-2.3091532)"
+       points="7559,3307 7559,3779 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="polyline3361-2" />
+    <polyline
+       transform="translate(-1179.7605,-1.7555525)"
+       points="7559,3307 7559,3779 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="polyline3361-0" />
+    <polyline
+       transform="translate(-1415.6671,-1.755538)"
+       points="7559,3307 7559,3779 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="polyline3361-36" />
+    <polyline
+       transform="translate(-1651.5734,-1.3792088)"
+       points="7559,3307 7559,3779 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="polyline3361-6" />
+    <polyline
+       transform="translate(-1887.4665,-2.239393)"
+       points="7559,3307 7559,3779 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       id="polyline3361-3-26" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-linecap:butt;stroke-linejoin:miter"
+       d="m 5788.5312,3826.6092 0,91.4635 0,92.3938 -360.6068,0"
+       id="polyline3377-1"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cccc" />
+    <polyline
+       transform="translate(-1911.5953,0)"
+       points="7732 3954 7700 3828 7669 3954 "
+       style="fill:none;stroke:#000000;stroke-width:8;stroke-miterlimit:8"
+       id="polyline3379-8" />
+    <text
+       xml:space="preserve"
+       x="4508.9214"
+       y="4188.27"
+       font-style="normal"
+       font-weight="bold"
+       font-size="152"
+       id="text3397-7"
+       style="font-style:normal;font-weight:bold;font-size:152px;font-family:Courier;text-anchor:start;fill:#000000;stroke-width:0.025in">  ...</text>
+  </g>
+</svg>
