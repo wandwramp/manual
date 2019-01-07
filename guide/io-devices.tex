@@ -1,11 +1,11 @@
 \section{Introduction}
 
-The REX board provides a number of I/O devices. This document
+The Basys board provides a number of I/O devices. This document
 describes the devices and the way in which WRAMP code can interact
 with them. There are three major I/O devices, a dual serial port, a
 parallel port and a programmable timer.
 
-All REX I/O devices are memory mapped. This means that to access a
+All Basys I/O devices are memory mapped. This means that to access a
 device, WRAMP code simply reads or writes to special memory locations
 using the standard load word (\src{lw}), and store word
 (\src{sw}) instructions.
@@ -36,14 +36,15 @@ Parallel Port & \LOCPARABASE \\
 
 \section{Serial Devices}
 
-The REX board provides two independent RS232 serial interfaces.
+The Basys board provides two independent RS232 serial interfaces.
 
 For the Computer Systems course each of these ports are attached to
 separate display devices. The first serial port is attached to the
-Linux machine. This port is used by the monitor software on the REX
+Linux machine from the micro-USB on the top left of the board. 
+This port is used by the monitor software on the Basys
 board to communicate with the user and to allow software to be
-uploaded to the REX board. The second serial port is attached to a
-Digital VT320 dumb serial terminal.
+uploaded to the Basys board. The second serial port is attached to a
+Digital VT320 dumb serial terminal via the Pmod peripherals mirco-USB.
 
 The programmers view of a serial interface consists of five registers.
 The names of these registers and their addresses, expressed as offsets
@@ -74,7 +75,7 @@ Serial Interrupt Acknowledge Register & 4 \\
 \end{center}
 \end{table}
 
-The serial ports provided on the REX board can operate in either
+The serial ports provided on the Basys board can operate in either
 polled or interrupt driven I/O modes. Interrupt I/O will be disabled
 by default.
 
@@ -178,7 +179,7 @@ should be written to the appropriate location. If an interrupt has
 occurred it must be acknowledged by writing into the serial interrupt
 acknowledge register.
 
-The REX board monitor will initialise the serial port so that no
+The Basys board monitor will initialise the serial port so that no
 interrupts are enabled
 
 The control register is a read/write register. Writes to this register
@@ -213,7 +214,7 @@ placing another character into the transmit data register. This bit
 will automatically be cleared if the transmit data register becomes
 full.
 
-Similarly the Receive Data Ready bit will be set to `\src{1}' as soon
+Similarly, the Receive Data Ready bit will be set to `\src{1}' as soon
 as there is new valid data in the receive data register. A read from
 the receive data register automatically clears this bit.
 
@@ -261,17 +262,20 @@ outstanding serial port interrupts would be acknowledged.
 
 \section{Parallel Interface}
 
-The parallel interface on the REX board provides an input interface
-from a bank of 8 on-off switches and two momentary push-buttons, as
-well as an output interface to two LED Seven Segment Displays (SSDs).
+The parallel interface on the Basys board provides an input interface
+from a bank of 16 on-off switches and three momentary push-buttons, as
+well as an output interface to four LED Seven Segment Displays (SSDs),
+and 16 LEDs.
 Parallel interrupts, if enabled, will be generated on any switch or
 push-button state change.
 
-The programmers view of the parallel interface consists of six
+The programmers view of the parallel interface consists of 10
 registers.  The names of these registers and their addresses,
 expressed as offsets from the base address, are provided in
 Table~\ref{table:parallel_offsets}. The base address for the parallel
-port is \src{\LOCPARABASE}.
+port is \src{\LOCPARABASE}. Please note that due to the inclusion of
+two more SSDs, the original two SSDs can be addressed from two locations
+to allow for both backwards compatibility and having all 4 SSDs in sequential addresses.
 
 \begin{table}[h]
 \begin{center}
@@ -283,13 +287,23 @@ Parallel Switch Register & 0 \\
 \hline
 Parallel Push Button Register & 1 \\
 \hline
-Parallel Left SSD Register & 2 \\
+Parallel Lower Left SSD Register & 2 \\
 \hline
-Parallel Right SSD Register & 3 \\
+Parallel Lower Right SSD Register & 3 \\
 \hline
 Parallel Control Register & 4 \\
 \hline
 Parallel Interrupt Acknowledge Register & 5 \\
+\hline
+Parallel Upper Left SSD Register & 6 \\
+\hline
+Parallel Upper Right SSD Register & 7 \\
+\hline
+Parallel Lower Left SSD Register & 8 \\
+\hline
+Parallel Lower Right SSD Register & 9 \\
+\hline
+Parallel LED Register & 10 \\
 \hline
 \end{tabular}
 \caption{Parallel Port Register Offsets}
@@ -307,7 +321,7 @@ are on.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{switch_reg.eps}
+\includegraphics[width=0.8\textwidth]{switch_reg.eps} %%TODO update image to represent 16 switches
 \caption{The Switch Register}
 \label{switch_reg_pic}
 \end{center}
@@ -317,20 +331,20 @@ are on.
 \subsection{Parallel Push Button Register}
 
 The push button register is a read-only register. A read from this
-register returns a bit pattern in the low order 2 bits corresponding
+register returns a bit pattern in the low order 3 bits corresponding
 to the push buttons that are currently being depressed.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{button_reg.eps}
+\includegraphics[width=0.8\textwidth]{button_reg.eps} %%TODO update image to represent 3 buttons
 \caption{The Push Button Register}
 \label{button_reg_pic}
 \end{center}
 \end{figure}
 
-\subsection{Parallel Left and Right SSD Registers}
+\subsection{Parallel Left, Right, Upper and Lower SSD Registers}
 
-The Left and Right SSD Registers are read/write registers. These
+The four SSD Registers are read/write registers. These
 registers contain the value to be displayed on their respective Seven
 Segment Display. 
 
@@ -388,12 +402,17 @@ would be written to the parallel interrupt acknowledge register.
 
 \section{Programmable Timer}
 
-The Programmable Timer on the REX board provides for generation of
+The Programmable Timer on the Basys board provides for generation of
 interrupts at time intervals from about 1ms to 30s, with a resolution
 of around 0.5ms.
 
-The timer has an internal 16 bit register. This register is
-decremented at a constant rate of 2400Hz. Once this register reaches
+The timer has an internal 16-bit register. This register is
+decremented at a constant rate of 2400Hz.
+(Due to the new hardware, a rate of exactly 2400Hz was not attainable.
+Instead of picking another whole number we approximated
+to maintain backwards compatibility, internally a register counts down from 1302 
+at a rate of 6.25MHz, the period of this count yields an approximate 2400.153609831Hz).
+Once this register reaches
 \src{0x0000} an interrupt is triggered. The starting value for the
 timer is controlled by altering the value in the timer load register.
 
@@ -451,18 +470,18 @@ be triggered and the timer will be disabled.
 
 The Timer Load Register is a read/write register. This register allows
 the user to specify the starting count value. The starting count value
-is a 16 bit value with the upper 16 bits being ignored.
+is a 16-bit value with the upper 16 bits being ignored.
 
 \subsection{Timer Count Register}
 
 The Timer Count Register is a read-only register. Reading from this
-register returns the current value in the 16 bit internal count
+register returns the current value in the 16-bit internal count
 register.
 
 \subsection{Timer Interrupt Acknowledge Register}
 
 The Interrupt Acknowledge Register is a read/write register. This
-register allows a program to detect a timer overrun as as well as
+register allows a program to detect a timer overrun as well as
 acknowledge interrupts that have been dealt with.
 
 The overrun detected bit will be set if the timer is set to automatic

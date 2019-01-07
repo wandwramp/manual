@@ -38,7 +38,7 @@ is encountered)
 WRAMP provides eight external interrupts. The external interrupts are 
 simply wires coming into the processor, and so can be connected to any 
 devices.  These are called IRQ0 (for Interrupt ReQuest) to IRQ7. On the 
-REX board these are connected as follows:
+Basys board these are connected as follows:
 
 \begin{center}
 \begin{tabular}{|c|l|c|l|}
@@ -86,7 +86,7 @@ with exceptions are:
 \item \reg{ers} - Exception Register Save
 \end{itemize}
 
-These special purpose registers cannot be operated on directly like
+All special purpose registers cannot be operated on directly like
 the general purpose registers. Rather, two instructions are provided
 to allow register contents to be copied from a general purpose
 register to a special purpose register, or vice-versa. These
@@ -167,7 +167,7 @@ which deal with the special register file (\src{movsg, movgs, rfe})
 and may not be able to access all memory locations. If a program
 running in user mode attempts to use one of these instructions, or to
 access protected memory the CPU will cause a General Protection Fault
-exception.
+exception. %TODO see section on the MPU
 
 The CPU will automatically set the KU bit to `\src{1}' whenever an
 exception of any type occurs. This allows the exception handler to
@@ -381,9 +381,9 @@ program.
 
 \section{User Interrupt Button}
 
-The REX board provides a simple method for creating an
-interrupt. There is a button located on the front of the case, next to
-the reset button labeled ``INTR''. When this button is pressed IRQ1,
+The Basys board provides a simple method for creating an
+interrupt. There is a set of five buttons located on the bottom right.
+The interrupt button is the bottom one. When this button is pressed IRQ1,
 the ``User Interrupt Button'', interrupt will be triggered. If this
 interrupt is unmasked and the global interrupt enable is turned on in
 \src{\$cctrl} an exception will occur.
@@ -392,10 +392,10 @@ This button provides a simple way to test an exception handler as it
 avoids problems that could be caused by mis-configuration of the I/O
 device that is being used to provide the exception.
 
-Like all other REX interrupt sources the user interrupt button needs
+Like all other WRAMP interrupt sources the user interrupt button needs
 to be acknowledged each time an exception occurs. To acknowledge a
 ``User Interrupt'' you store zero to the address
-\src{0x7f000}. Unlike the other I/O devices on the REX board you do
+\src{0x7f000}. Unlike the other I/O devices on the Basys board you do
 not need to enable or disable the user interrupt button. If IRQ1 is
 unmasked in \src{\$cctrl} and interrupts are enabled the button
 will cause an exception when pressed.
@@ -539,3 +539,42 @@ In addition any new exception routine that is installed must:
 
 An exception routine that meets all these requirements is termed {\em compliant}
 with the WRAMP conventions.
+
+\section{Other Special Registers}
+
+Although there are 16 special registers, the assembler requires they are called by name of which only 9 are named.
+The five exception related registers mentioned at the start of this chapter and four more disscussed here.  
+These four registers are not needed for normal use.
+These are:
+
+\begin{itemize}
+\item \reg{icount} - CPU Instruction count Register
+\item \reg{ccount} - CPU Clock Cycle count Register
+\item \reg{ptable} - Protection Table Register
+\item \reg{rbase} - User Base Register
+\end{itemize}
+
+Like the previous special registers, these cannot be operated on directly and can only be accessed with the \src{movsg} and \src{movgs} instructions.
+
+\subsection{\reg{icount} - CPU Instruction count Register}
+The \reg{icount} register keeps a running tally of the number of instructions executed since the last restart.
+
+\subsection{\reg{ccount} - CPU Clock Cycle count Register}
+The \reg{ccount} keeps count of how many clock cycles have elapsed since the last restart.
+The clock rate is \src{6.25MHz}, or \src{0.00000016s} per cycle (\src{160ns}).
+Please note that not all instructions take the same number of clock cycles to execute, and that kernel/user mode can also change the number of cycles per instruction.
+
+\subsection{\reg{ptable} - Protection Table Register}
+The \reg{ptable} register specifies the location of the protected memory table, which is 32 words in size.
+Each word represents \src{32,768} (\src{0x8000}) memory locations, and each bit represents \src{1,024} (\src{0x400}) memory locations.
+If the bit is zero then the associated memory location is protected and cannot be accessed in user mode.
+A GPF will be thrown if this is attempted.
+During the setup stage of WRAMPmon, the protection table will be initialized to the top of RAM and set so that all memory is accessible.
+
+For example, if \reg{ptable} is set to \src{0x200} and the data at location \src{0x200} was equal to \src{0xA0000000} then any memory accesses in the range \src{0x0}-\src{0x3FF} and \src{0x800}-\src{0xBFF} would be valid, but others would cause a GPF if accessed in user mode.
+
+\subsection{\reg{rbase} - User Base Register}
+The \reg{rbase} register was intended to be used to create virtual memory functionality.
+However this was never fully implemented, its value is simply added to the address of any memory access.
+WRAMPmon and many instructions do not account for this.
+Thus modifying the \reg{rbase} register will break any instruction involving memory (including fetching new instructions to execute) and it is highly advised that this register is not touched.
