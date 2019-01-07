@@ -1,11 +1,11 @@
 \section{Introduction}
 
-The WRAMPsys board provides a number of I/O devices. This document
+The Basys board provides a number of I/O devices. This document
 describes the devices and the way in which WRAMP code can interact
 with them. There are three major I/O devices, a dual serial port, a
 parallel port and a programmable timer.
 
-All WRAMPsys I/O devices are memory mapped. This means that to access a
+All Basys I/O devices are memory mapped. This means that to access a
 device, WRAMP code simply reads or writes to special memory locations
 using the standard load word (\src{lw}), and store word
 (\src{sw}) instructions.
@@ -36,14 +36,14 @@ Parallel Port & \LOCPARABASE \\
 
 \section{Serial Devices}
 
-The WRAMPsys board provides two independent RS232 serial interfaces.
+The Basys board provides two independent RS232 serial interfaces.
 
 For the Computer Systems course each of these ports are attached to
 separate display devices. The first serial port is attached to the
 Linux machine from the micro-USB on the top left of the board. 
-This port is used by the monitor software on the WRAMPsys
+This port is used by the monitor software on the Basys
 board to communicate with the user and to allow software to be
-uploaded to the WRAMPsys board. The second serial port is attached to a
+uploaded to the Basys board. The second serial port is attached to a
 Digital VT320 dumb serial terminal via the Pmod peripherals mirco-USB.
 
 The programmers view of a serial interface consists of five registers.
@@ -75,7 +75,7 @@ Serial Interrupt Acknowledge Register & 4 \\
 \end{center}
 \end{table}
 
-The serial ports provided on the WRAMPsys board can operate in either
+The serial ports provided on the Basys board can operate in either
 polled or interrupt driven I/O modes. Interrupt I/O will be disabled
 by default.
 
@@ -179,7 +179,7 @@ should be written to the appropriate location. If an interrupt has
 occurred it must be acknowledged by writing into the serial interrupt
 acknowledge register.
 
-The WRAMPsys board monitor will initialise the serial port so that no
+The Basys board monitor will initialise the serial port so that no
 interrupts are enabled
 
 The control register is a read/write register. Writes to this register
@@ -262,7 +262,7 @@ outstanding serial port interrupts would be acknowledged.
 
 \section{Parallel Interface}
 
-The parallel interface on the WRAMPsys board provides an input interface
+The parallel interface on the Basys board provides an input interface
 from a bank of 16 on-off switches and three momentary push-buttons, as
 well as an output interface to four LED Seven Segment Displays (SSDs),
 and 16 LEDs.
@@ -402,7 +402,7 @@ would be written to the parallel interrupt acknowledge register.
 
 \section{Programmable Timer}
 
-The Programmable Timer on the WRAMPsys board provides for generation of
+The Programmable Timer on the Basys board provides for generation of
 interrupts at time intervals from about 1ms to 30s, with a resolution
 of around 0.5ms.
 
