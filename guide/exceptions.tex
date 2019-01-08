@@ -554,27 +554,51 @@ These are:
 \item \reg{rbase} - User Base Register
 \end{itemize}
 
-Like the previous special registers, these cannot be operated on directly and can only be accessed with the \src{movsg} and \src{movgs} instructions.
+Like the previous special registers, these cannot be operated on directly 
+and can only be accessed with the \src{movsg} and \src{movgs} instructions.
 
 \subsection{\reg{icount} - CPU Instruction count Register}
-The \reg{icount} register keeps a running tally of the number of instructions executed since the last restart.
+
+The \reg{icount} register keeps a running tally of the number of instructions 
+executed since the last restart.
 
 \subsection{\reg{ccount} - CPU Clock Cycle count Register}
-The \reg{ccount} keeps count of how many clock cycles have elapsed since the last restart.
+
+The \reg{ccount} keeps count of how many clock cycles have elapsed since the 
+last restart.
 The clock rate is \src{6.25MHz}, or \src{0.00000016s} per cycle (\src{160ns}).
-Please note that not all instructions take the same number of clock cycles to execute, and that kernel/user mode can also change the number of cycles per instruction.
+Please note that not all instructions take the same number of clock cycles to 
+execute, and that kernel/user mode can also change the number of cycles per instruction.
 
 \subsection{\reg{ptable} - Protection Table Register}
-The \reg{ptable} register specifies the location of the protected memory table, which is 32 words in size.
-Each word represents \src{32,768} (\src{0x8000}) memory locations, and each bit represents \src{1,024} (\src{0x400}) memory locations.
-If the bit is zero then the associated memory location is protected and cannot be accessed in user mode.
-A GPF will be thrown if this is attempted.
-During the setup stage of WRAMPmon, the protection table will be initialized to the top of RAM and set so that all memory is accessible.
 
-For example, if \reg{ptable} is set to \src{0x200} and the data at location \src{0x200} was equal to \src{0xA0000000} then any memory accesses in the range \src{0x0}-\src{0x3FF} and \src{0x800}-\src{0xBFF} would be valid, but others would cause a GPF if accessed in user mode.
+The \reg{ptable} register specifies the location of the protected memory table, 
+which is 32 words in size.Each word represents \src{32,768} (\src{0x8000}) memory
+locations, and each bit represents \src{1,024} (\src{0x400}) memory locations.
+If the bit is zero then the associated memory location is protected and cannot 
+be accessed in user mode.A GPF will be thrown if this is attempted.
+During the setup stage of WRAMPmon, the protection table will be initialized 
+above the stack and set so that all memory is accessible.
+
+For example, if \reg{ptable} is set to \src{0x200} and the data at location 
+\src{0x200} was equal to \src{0xA0000000} then any memory accesses in the range 
+\src{0x0}-\src{0x3FF} and \src{0x800}-\src{0xBFF} would be valid, but others 
+would cause a GPF if accessed in user mode.
 
 \subsection{\reg{rbase} - User Base Register}
-The \reg{rbase} register was intended to be used to create virtual memory functionality.
-However this was never fully implemented, its value is simply added to the address of any memory access.
-WRAMPmon and many instructions do not account for this.
-Thus modifying the \reg{rbase} register will break any instruction involving memory (including fetching new instructions to execute) and it is highly advised that this register is not touched.
+
+The \reg{rbase} register was intended to be used to create virtual memory 
+functionality.
+However this was never fully implemented, its value is simply added to the 
+address of any memory access. WRAMPmon and many instructions do not account 
+for this. Thus modifying the \reg{rbase} register will break any instruction 
+involving memory (including fetching new instructions to execute) and it is 
+highly advised that this register is not touched.
+
+
+
+
+
+
+
+

@@ -43,7 +43,7 @@ The Basys board includes the following components:
 \item[CPU] The WRAMP processor is the brain of the Basys board.
 %
 \item[RAM] Capable of storing 16K words, the RAM resides at addresses 0x00000
-to 0x03FFF. The last \todo{Check: Is this still 2K words? That's a lot!} 2K words are reserved for use by the monitor program. The rest 
+to 0x03FFF. The last 2K words are reserved for use by the monitor program. The rest 
 of the RAM is used to store and execute your programs, which, by default, are 
 loaded starting from address 0x00000.
 %
@@ -438,7 +438,8 @@ structure:
 \\*
 
 \src{la \regd, label} \\*
-Load the address that \src{label} refers to into register \regd. 
+Load the address that \src{label} refers to into register \regd.
+This instruction also allows loading of a 20 bit immediate to a register.
 
 \subsubsection{Test Instructions}
 These instructions are used to compare either two registers, or a
@@ -591,9 +592,9 @@ directly to the board, and displays any text received from WRAMP.
 
 To execute the terminal program type \src{remote} from a console.
 Once you have \src{remote} running you will need to reset the
-board by pressing the red \src{RESET} button. You should see
-\todo{Which button is reset?}
-something like Figure \ref{wrampmon}.
+board by pressing the \src{RESET} button, the \src{RESET} button 
+is the top button in the group of 5. 
+You should see something like Figure \ref{wrampmon}.
 
 \begin{figure}[h]
 \begin{center}
