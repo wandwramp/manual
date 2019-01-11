@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    INSTRUCTION SET FORMATTING RELATED
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ProvidesPackage{insnWramp}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%Instruction set Formatting for full descriptions
+%-------------------------------------------------
+
+% Predefined Registers
+\newcommand\regs{R\subscr{s}} %Rs
+\newcommand\regd{R\subscr{d}} %Rd
+\newcommand\regt{R\subscr{t}} %Rt
+
+\newcommand{\signextend}{\int}
+
+\newcommand\jtypeinsn[4]{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{40ex}}{}\\ 
+	\hline
+	\texttt{#1} & \texttt{#2} & \texttt{#3} & \texttt{#4}\\
+	\hline
+	\multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 20}\\
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\jtypeinsnformat{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{40ex}}{}\\ 
+	\multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{20 bits}\\
+	\hline
+	\texttt{OPcode} & \texttt{\regd} & \texttt{\regs} & \texttt{Address / Offset}\\
+	\hline
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\rtypeinsn[5]{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{24ex}}{} & \multicolumn{1}{@{}p{8ex}}{}\\ 
+	\hline
+	\texttt{#1} & \texttt{#2} & \texttt{#3} & \texttt{#4} & \texttt{0000 0000 0000} & \texttt{#5}\\
+	\hline
+	\multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 12} & \multicolumn{1}{c}{\small 4}\\
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\rtypeinsnformat{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{24ex}}{} & \multicolumn{1}{@{}p{8ex}}{}\\ 
+	\multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{12 bits} & \multicolumn{1}{c}{4 bits}\\
+	\hline
+	\texttt{OPcode} & \texttt{\regd} & \texttt{\regs} & \texttt{Func} & \texttt{0000 0000 0000} & \texttt{\regt}\\
+	\hline
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\itypeinsn[5]{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{32ex}}{}\\ 
+	\hline
+	\texttt{#1} & \texttt{#2} & \texttt{#3} & \texttt{#4} & \texttt{#5}\\
+	\hline
+	\multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 4} & \multicolumn{1}{c}{\small 4}
+	& \multicolumn{1}{c}{\small 16}\\
+	\end{tabular}
+	\end{center}
+	}
+
+\newcommand\itypeinsnformat{
+	\vspace{-4ex}
+	\begin{center}
+	\begin{tabular}{|c|c|c|c|c|}
+	\multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{8ex}}{} & \multicolumn{1}{@{}p{8ex}}{}
+	& \multicolumn{1}{@{}p{32ex}}{}\\ 
+
+	\multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{4 bits} & \multicolumn{1}{c}{4 bits}
+	& \multicolumn{1}{c}{16 bits}\\
+
+	\hline
+	\texttt{OPcode} & \texttt{\regd} & \texttt{\regs} & \texttt{Func} & \texttt{Immediate}\\
+	\hline
+	\end{tabular}
+	\end{center}
+	}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+%Instruction set Formatting for small descriptions
+%-------------------------------------------------
+
+% Register definitions with small font size
+\newcommand{\subscrsm}[1]{\raisebox{-0.5ex}{\tiny #1}}
+\newcommand{\regdsm}{R\subscrsm{d}}
+\newcommand{\regssm}{R\subscrsm{s}}
+\newcommand{\regtsm}{R\subscrsm{t}}
+
+% Instruction types
+\newcommand{\rtype}[2]
+	   { \scriptsize{\texttt{#1 dddd ssss #2 0000 0000 0000 tttt}} } 
+\newcommand{\itype}[2]
+	   { \scriptsize{\texttt{#1 dddd ssss #2 iiii iiii iiii iiii} } }
+\newcommand{\jtype}[3]
+	   { \scriptsize{\texttt{#1 #2 #3 aaaa aaaa aaaa aaaa aaaa} } }
+
+%Instructions
+\newcommand{\arithmeticinsn}[1]
+	   { \scriptsize{$ \regdsm \leftarrow \regssm #1 \regtsm $ } }
+\newcommand{\arithmeticinsni}[1]
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 \signextend(immed) $ }
+	   }
+\newcommand{\arithmeticinsnu}[1]
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 \regtsm $ } }
+\newcommand{\arithmeticinsnui}[1]
+           { \scriptsize{$ \regdsm \leftarrow \regssm #1 immed $ } }
+\newcommand{\lhiinsn}
+           { \scriptsize{$ \regdsm \leftarrow immed \ll 16 $} }
+\newcommand{\lainsn}
+           { \scriptsize{$ \regdsm \leftarrow address $} }
+\newcommand{\srainsn}
+           { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ \regtsm\ ) $ } }
+\newcommand{\srainsnimm}
+           { \scriptsize{$ \regdsm \leftarrow \signextend( \regssm\ \gg\ immed\ ) $ } }
+\newcommand{\jumpinsn}[1]
+           { \scriptsize{$ PC \leftarrow #1 $} }
+\newcommand{\jalinsn}[1]
+           { \scriptsize{$ \texttt{\$ra} \leftarrow PC,\ PC \leftarrow #1 $} } 
+\newcommand{\specialinsn}[1]
+           { \scriptsize{ $ #1 $ } }
+\newcommand{\branchinsn}[1]
+           { \scriptsize{ $ if(\regssm\ #1\ 0)\ PC\ \leftarrow\ PC + offset $}}
+\newcommand{\lwinsn}
+           { \scriptsize{ $ \regdsm\ \leftarrow\ MEM[\regssm + offset] $}}
+\newcommand{\swinsn}
+           { \scriptsize{ $ MEM[\regssm + offset]\ \leftarrow\ \regdsm $}}
