@@ -1,3 +1,9 @@
+% pdfLaTeX doesn't seem to support fonts in SVG images, so it won't pick up that
+% our diagrams have text in them at a particular size in the Courier typeface.
+% Let's declare a neat custom command to enforce the font settings we want
+% when including SVG files.
+\newcommand{\includediagram}[2]{{\fontfamily{pcr}\selectfont\scriptsize \includesvg[width=#1]{#2}}}
+
 \section{Introduction}
 
 The Basys board provides a number of I/O devices. This document
@@ -311,8 +317,6 @@ Parallel LED Register & 10 \\
 \end{center}
 \end{table}
 
-
-
 \subsection{Parallel Switch Register}
 
 The switch register is a read-only register. A read from this register
@@ -321,7 +325,7 @@ are on.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{switch_reg.eps} %%TODO update image to represent 16 switches
+\includediagram{0.8\textwidth}{switch_reg}
 \caption{The Switch Register}
 \label{switch_reg_pic}
 \end{center}
@@ -410,7 +414,7 @@ sitting above the switches.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{LED.eps}
+%\missingfigure[width=0.8\textwidth]{LED.eps}
 \caption{The LED Register}
 \label{LED_pic}
 \end{center}
@@ -570,3 +574,5 @@ Figure~\ref{code:timer_init}.
 \label{code:timer_init}
 \end{figure}
 
+% Undefine our neat custom command so it doesn't mess up anything unexpected in future
+\let\includediagram\undefined
