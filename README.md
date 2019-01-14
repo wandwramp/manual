@@ -1,15 +1,17 @@
 # WRAMP Manual
 
-This project contains documentation on the WRAMP architecture.
-It produces output in both .ps and .pdf formats, and is written in LaTeX.
+This project contains documentation on the WRAMP architecture, specifically
+the Basys implementation.
+It produces output as .pdf documents, and is written in LaTeX.
 
 With an appropriate LaTeX distribution installed, it should be possible to
 simply run `make`. This will build every document available, and place them in
-the output/ folder.  
-Documents can be built individually with `make standalone`, `make instr`, and
-`make book`. `make exercise` creates assignments for COMP201 in 2006.
+the output/ folder. `latexmk` is used to rerun `pdflatex` and other required
+commands enough times, so if your distribution includes it, the build should
+go without a hitch.
+
+Documents can be built individually with `make book` and `make insn`.
+`insn` creates a small handout detailing the WRAMP instruction-set.
+`book` creates the entire reference manual, which includes all other handouts.
 
 `make clean` will remove any intermediate and output files.
-
-See [MAKE-README](MAKE-README) for extra details on Makefile targets, but be
-aware that only the ALL, OUTPUT, and CLEAN sections are supported.
