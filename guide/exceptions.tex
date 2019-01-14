@@ -167,12 +167,22 @@ which deal with the special register file (\src{movsg, movgs, rfe})
 and may not be able to access all memory locations. If a program
 running in user mode attempts to use one of these instructions, or to
 access protected memory the CPU will cause a General Protection Fault
-exception. %TODO see section on the MPU
+exception. See section~\ref{sec:MPU}.
 
 The CPU will automatically set the KU bit to `\src{1}' whenever an
 exception of any type occurs. This allows the exception handler to
 operate in kernel mode, allowing it full access to all instructions
 and memory locations.
+
+\subsubsection{Old IE and Old KU}
+
+During an exception, the CPU will transfer the current values of IE and KU
+to OIE and OKU respectively. This allows the CPU to remember what they were
+set to before the interrupt occurred. It is possible to set/unset these values
+manually, however you can force WRAMP to get stuck in an exception loop if not
+careful. Disabling OIE will turn off interrupts after an exception, disabling
+OKU will mean you won't stay in kernel mode after an exception. Monitor will also
+have some unexpected behaviour with OKU unset.
 
 \subsection{\$estat - Exception Status Register}
 
@@ -571,6 +581,7 @@ Please note that not all instructions take the same number of clock cycles to
 execute, and that kernel/user mode can also change the number of cycles per instruction.
 
 \subsection{\reg{ptable} - Protection Table Register}
+\label{sec:MPU}
 
 The \reg{ptable} register specifies the location of the protected memory table, 
 which is 32 words in size.Each word represents \src{32,768} (\src{0x8000}) memory
