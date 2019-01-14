@@ -1,9 +1,3 @@
-% pdfLaTeX doesn't seem to support fonts in SVG images, so it won't pick up that
-% our diagrams have text in them at a particular size in the Courier typeface.
-% Let's declare a neat custom command to enforce the font settings we want
-% when including SVG files.
-\newcommand{\includediagram}[2]{{\fontfamily{pcr}\selectfont\scriptsize \includesvg[width=#1]{#2}}}
-
 \section{Introduction}
 
 The Basys board provides a number of I/O devices. This document
@@ -193,7 +187,7 @@ have an immediate effect on the line settings.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{serial_cr.eps}
+\includegraphics[width=0.8\textwidth]{serial_cr.pdf}
 \caption{The Serial Control Register}
 \label{serial_cr_pic}
 \end{center}
@@ -226,7 +220,7 @@ the receive data register automatically clears this bit.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{serial_sr.eps}
+\includegraphics[width=0.8\textwidth]{serial_sr.pdf}
 \caption{The Serial Status Register}
 \label{serial_sr_pic}
 \end{center}
@@ -253,7 +247,7 @@ the interrupt acknowledge register.
 
 \begin{figure}[h]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{serial_iack.eps}
+\includegraphics[width=0.8\textwidth]{serial_iack.pdf}
 \caption{The Serial Interrupt Acknowledge Register}
 \label{serial_iack_pic}
 \end{center}
@@ -325,7 +319,7 @@ are on.
 
 \begin{figure}[h]
 \begin{center}
-\includediagram{0.8\textwidth}{switch_reg}
+\includegraphics[width=0.8\textwidth]{switch_reg.pdf}
 \caption{The Switch Register}
 \label{switch_reg_pic}
 \end{center}
@@ -573,6 +567,3 @@ Figure~\ref{code:timer_init}.
 \caption{Simple Timer Initialisation}
 \label{code:timer_init}
 \end{figure}
-
-% Undefine our neat custom command so it doesn't mess up anything unexpected in future
-\let\includediagram\undefined

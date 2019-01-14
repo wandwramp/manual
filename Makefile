@@ -1,5 +1,5 @@
 GRAPHICSPATH=./global/graphics
-GRAPHICSFILES=$(wildcard $(GRAPHICSPATH)/*.eps) $(wildcard $(GRAPHICSPATH)/svg/*.svg)
+GRAPHICSFILES=$(wildcard $(GRAPHICSPATH)/*.eps) $(wildcard $(GRAPHICSPATH)/pdf/*.pdf)
 STYPATH=./global
 STYFILES=$(wildcard $(STYPATH)/*.sty)
 
