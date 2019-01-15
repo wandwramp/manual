@@ -86,7 +86,6 @@ executing and debugging a simple WRAMP assembly language program.
 Using \program{emacs} (or your preferred text editor) enter the
 program listed in Figure \ref{simple_prog}. Save it as \filename{intro.s}.
 A digital copy is also bundled with this manual, named \filename{intro.s}.
-\todo[color=blue!30]{Bundle intro.s}
 You can simply use this to avoid retyping the program.
 
 %%%
@@ -527,7 +526,6 @@ involves joining all these parts together to create a final program.
 
 The WRAMP \BI{linker} is called \program{wlink}. We will use it to
 link our object file to the library object file bundled with this manual.
-\todo[color=blue!30]{Bundle lib\_manual.o}
 Issue the command:
 \begin{verbatim}
      wlink -o intro.srec intro.o lib_manual.o
