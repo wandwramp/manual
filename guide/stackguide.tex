@@ -6,9 +6,9 @@
 \section{WRAMP Stack Frame}
 
 A stack is a term used to describe a `first in, last out' buffer. New
-items are placed on the top of the stack, and must be removed before
+items are placed on the top of the stack and must be removed before
 older items. Two terms are commonly used to refer to the operations of
-adding to, and removing values from a stack. A push operation puts a
+adding to and removing values from a stack. A push operation puts a
 new value at the very top of the stack, and a pop operation removes the
 item from the top of the stack. These are the only operations allowed to
 be performed on a stack, and there is no way to remove an older item
@@ -19,7 +19,7 @@ reasons a stack is used on the WRAMP architecture, how the stack is
 created, and the conventions surrounding its use.
 
 The WRAMP processor itself does not directly support a stack, but
-it is possible to setup a stack in software. To achieve this, a block
+it is possible to set up a stack in software. To achieve this, a block
 of memory for the stack to reside in must be set aside. On the Basys
 board, \WRAMPmon\ does this for you. The stack starts at the top of
 memory, with new items placed at lower memory addresses. Because of
@@ -134,7 +134,7 @@ pop:
       lw $3, 0($sp)
 
       # Move the stack pointer up
-      # by one to remove item
+      # by one to remove an item
 
       addui $sp, $sp, 1
 
@@ -322,7 +322,7 @@ saved. For reasons discussed in the next section, register 1
 
 \section{Parameter Passing}
 In Chapter \ref{chapter:intro}, parameters were passed to
-subroutines using regsiters. While this works in this simple case
+subroutines using registers. While this works in this simple case
 consider what would happen if a subroutine required a large number of
 parameters or called other subroutines. It is not difficult to see that
 with a large program it would not take long to exhaust the registers
@@ -365,10 +365,10 @@ child:
 \end{figure}
 
 A convention needs to be defined so that a subroutine knows how to
-find the parameters it has been passed, and knows how to pass
+find the parameters it has been passed and knows how to pass
 parameters to subroutines it calls.
 
-On the WRAMP processor the convention is to pass all parameters to a
+On the WRAMP processor, the convention is to pass all parameters to a
 subroutine using the stack. Before a subroutine is called all of the
 parameters that are going to be passed to it must first be pushed onto
 the stack. Parameters appear on the very top of the stack when a
@@ -581,7 +581,7 @@ reduce to a minimum the number of these load and store instructions.
 \section{The Stack Frame}
 
 All of the discussion so far has been treating the uses of the stack as
-separate concepts. In reality all of these are used by C functions to create
+separate concepts. In reality, all of these are used by C functions to create
 a concept called the stack frame. The stack frame is an area on the top of the
 stack that has a standard format. Inside this block is space for local
 variables, register save and parameter passing for the current function. We
@@ -590,7 +590,7 @@ areas. We need space for one item on the stack for every local variable, one
 item for each register we save, and one item for each parameter of the function
 with the largest number of parameters that we call.
 
-For example if we need to setup a stack frame for a function that needs to
+For example, if we need to set up a stack frame for a function that needs to
 store three local variables and save two registers but calls no other function
 we will need a stack frame of size 5.
 
@@ -675,7 +675,7 @@ child:
 
 Figure \ref{stack_example} shows a non-leaf function that calls two
 subroutines. The function has zero local variables stored on the
-stack, but is a fully compliant function. It sets up a stack frame on
+stack but is a fully compliant function. It sets up a stack frame on
 entry and tears it down on exit. It is strongly suggested that you
 walk through this code and draw a diagram of the stack frame that this
 function creates. Any functions you write that need to be compliant
@@ -683,7 +683,7 @@ should contain very similar entry and exit code to this function.
 
 The function is a successive addition multiplication system. It uses a
 function called \src{add} to add the two numbers. At the end of the
-function it displays the result to the seven segment display using the
+function, it displays the result to the seven segment display using the
 \src{writessd} function.
 
 %%%%

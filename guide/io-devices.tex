@@ -44,7 +44,7 @@ Linux machine from the micro-USB on the top left of the board.
 This port is used by the monitor software on the Basys
 board to communicate with the user and to allow software to be
 uploaded to the Basys board. The second serial port is attached to a
-Digital VT320 dumb serial terminal via the Pmod peripheral mirco-USB.
+Digital VT320 dumb serial terminal via the Pmod peripheral micro-USB.
 
 The programmers view of a serial interface consists of five registers.
 The names of these registers and their addresses, expressed as offsets
@@ -357,7 +357,7 @@ each segment can be individually controlled by a single bit of the
 input. The displays are made up of seven segments and a decimal point.
 The first eight bits of input turn on the segments as shown in
 Figure~\ref{fig:ssd}.
-Hex-decode is enabled by defualt.
+Hex-decode is enabled by default.
 
 \begin{figure}[h]
 \begin{center}
@@ -435,7 +435,7 @@ to maintain backwards compatibility. Internally a register counts down from 1302
 at a rate of 6.25MHz, this count inverts a clock signal to the timer,
 on the posedge of this signal the 16-bit register is decremented.
 The period of this count yields an approximate ((6.25Mhz/1302)/2) = 2400.153609831Hz.
-This has an error of approximatly 5 seconds per 24 hours of timer operation.)
+This has an error of approximately 5 seconds per 24 hours of timer operation.)
 
 The timer can be configured to automatically reload the starting count
 value and continue counting immediately after it expires.

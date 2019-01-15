@@ -8,7 +8,7 @@
 The WRAMP general purpose register file consists of 16 registers, each
 being 32 bits wide. The hardware imposes special uses on only two of
 these.  Certain software register use conventions have been applied to
-some of the remaining registers, but in essence they remain true
+some of the remaining registers, but in essence, they remain true
 general purpose registers, as the hardware does not restrict their
 use.
 \end{small}
@@ -47,7 +47,7 @@ software.
 
 The fifteenth register is denoted \texttt{\$ra}. It is defined to be
 the subroutine return address register.  When a jump and link
-instruction is executed this register is loaded with the address of
+instruction has executed this register is loaded with the address of
 the next instruction after the jump and link. A return from subroutine
 is performed by executing a jump to register \texttt{\$ra},
 ie. \texttt{jr \$ra}.
