@@ -1,14 +1,12 @@
-
 \setcounter{secnumdepth}{0}
-%\pagenumbering{roman}
 
 \section{WRAMP General Purpose Registers}
 
 \begin{small}
 The WRAMP general purpose register file consists of 16 registers, each
 being 32 bits wide. The hardware imposes special uses on only two of
-these.  Certain software register use conventions have been applied to
-some of the remaining registers, but in essence they remain true
+these. Certain software register use conventions have been applied to
+some of the remaining registers, but in essence, they remain true
 general purpose registers, as the hardware does not restrict their
 use.
 \end{small}
@@ -18,7 +16,7 @@ use.
 \begin{center}
 \begin{tabular}{|l|l|}
 \multicolumn{1}{@{}p{4ex}}{}
-& \multicolumn{1}{@{}p{50ex}}{}\\ 
+& \multicolumn{1}{@{}p{50ex}}{}\\
 \hline
 Register &Description\\
 \hline
@@ -46,7 +44,7 @@ convention may affect the ability of code to interoperate with other
 software.
 
 The fifteenth register is denoted \texttt{\$ra}. It is defined to be
-the subroutine return address register.  When a jump and link
+the subroutine return address register. When a jump and link
 instruction is executed this register is loaded with the address of
 the next instruction after the jump and link. A return from subroutine
 is performed by executing a jump to register \texttt{\$ra},
@@ -55,9 +53,9 @@ ie. \texttt{jr \$ra}.
 
 \section{WRAMP Instruction Set Architecture}
 \begin{small}
-This section contains the details of the WRAMP instruction set.  All
+This section contains the details of the WRAMP instruction set. All
 machine instructions are listed, with their encoding and a brief
-description of their function.  The instructions are grouped into
+description of their function. The instructions are grouped into
 arithmetic instructions, bitwise instructions, test instructions,
 branch instructions, memory instructions, and special instructions.
 

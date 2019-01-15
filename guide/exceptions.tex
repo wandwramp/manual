@@ -4,11 +4,11 @@ Modern processors can execute millions of instructions each
 second. This means that when a processor is polling an I/O device for
 data or status information which may only change very infrequently, it
 is wasting a lot of time where it could be doing some worthwhile
-processing.  It would be more efficient for a device to signal the CPU
+processing. It would be more efficient for a device to signal the CPU
 when something happens (eg. a character is received at the serial
 port, the user flicks a switch, or a certain time has elapsed).
 
-Also consider what should happen if something goes wrong when a
+Also, consider what should happen if something goes wrong when a
 program is executing. What should happen if an attempt is made to
 divide by zero? What should happen if you add two numbers and the
 result will not fit in 32 bits?
@@ -20,7 +20,7 @@ with that condition, and then return to what it was doing initially.
 
 The terms `exception' and `interrupt' are often used
 interchangeably. There are varying opinions on the exact definitions of
-these terms, however the term `interrupt' generally refers only to the
+these terms, however, the term `interrupt' generally refers only to the
 exceptions which are caused by something outside the processor
 (eg. the serial port, or the timer).
 
@@ -35,9 +35,9 @@ executed)
 is encountered)
 \end{itemize}
 
-WRAMP provides eight external interrupts. The external interrupts are 
-simply wires coming into the processor, and so can be connected to any 
-devices.  These are called IRQ0 (for Interrupt ReQuest) to IRQ7. On the 
+WRAMP provides eight external interrupts. The external interrupts are
+simply wires coming into the processor, and so can be connected to any
+devices. These are called IRQ0 (for Interrupt ReQuest) to IRQ7. On the
 Basys board these are connected as follows:
 
 \begin{center}
@@ -58,9 +58,9 @@ Basys board these are connected as follows:
 \end{center}
 
 Exceptions can be thought of as similar to subroutine calls. The
-processor is executing a block of code, when an exception occurs,
+processor is executing a block of code when an exception occurs,
 causing the processor to jump to a location called the `exception
-vector'.  The processor then executes the code at this location (known
+vector'. The processor then executes the code at this location (known
 as the `exception handler' or `exception routine'), and returns to the
 point at which it was executing when the exception occurred.
 
@@ -69,7 +69,7 @@ like the exception vector (the address of the exception handler), and
 the address of the instruction to return to after the exception has
 been handled. The general purpose registers are not suitable for this,
 because a program may be using them, and if an exception occurs, then
-there may be unpredictable results. For this reason the WRAMP
+there may be unpredictable results. For this reason, the WRAMP
 processor provides a special set of registers that are used for
 advanced processor features like exceptions.
 
@@ -165,7 +165,7 @@ allow access to all areas of memory. If the CPU is running in user
 mode programs are not allowed to use any of the three instructions
 which deal with the special register file (\src{movsg, movgs, rfe})
 and may not be able to access all memory locations. If a program
-running in user mode attempts to use one of these instructions, or to
+running in user mode attempts to use one of these instructions or to
 access protected memory the CPU will cause a General Protection Fault
 exception. See section~\ref{sec:MPU}.
 
@@ -201,7 +201,7 @@ line. Bit 4 of the status register corresponds to IRQ0, bit 5 to IRQ 1
 and so on. These locations are exactly the same as the locations of
 the interrupt mask fields in the CPU control register as described in
 Section~\ref{sec:imask}. In addition to the eight external interrupt
-sources the status register also provides the status for the four CPU
+sources, the status register also provides the status for the four CPU
 internal exception sources. 
 
 The full list of all exception sources and their related status
@@ -263,20 +263,20 @@ Arithmetic Exception & 15 \\
         # Get the status register
         movsg   $13, $estat
 
-        # Inspect only the bits we are interested in. We want 
-        # to check that no bits from the sw exceptions or 
-        # hardware exceptions, other than the one we were 
+        # Inspect only the bits we are interested in. We want
+        # to check that no bits from the sw exceptions or
+        # hardware exceptions, other than the one we were
         # expecting, are enabled.
         #
         # This code is looking for an IRQ4 interrupt.
         andi    $13, $13, 0xfef0
          
-        # If the result of this is zero then no other 
+        # If the result of this is zero then no other
         # exceptions are enabled so it must be our interrupt
         # that caused us to be called.
         beqz    $13, handle_interrupt 
 
-        # Otherwise there was another exception that has 
+        # Otherwise there was another exception that has
         # occurred, so call the old handler
         lw      $13, old_vector($0)
         jr      $13
@@ -299,7 +299,7 @@ Arithmetic Exception & 15 \\
 \label{sec:evec}
 
 When an exception occurs the CPU needs to jump to the exception
-handler. The CPU must therefore know what address the exception
+handler. The CPU must, therefore, know what address the exception
 handler starts at.
 
 The address of the exception handler is stored in the exception vector
@@ -333,7 +333,7 @@ exception vector is given in Figure~\ref{code:evec}.
         movgs   $evec, $4
 
             . . .
-	
+    
    handler:
         # The exception handler goes here
 
@@ -356,8 +356,8 @@ exception vector is given in Figure~\ref{code:evec}.
 \subsection{\$ear - Exception Address Register}
 
 An exception routine must be able to return to the point in program code at
-which the exception occurred.  To allow this, when an exception occurs the
-WRAMP pocessor automatically saves the address of the next instruction
+which the exception occurred. To allow this, when an exception occurs the
+WRAMP processor automatically saves the address of the next instruction
 that would have been executed into \reg{ear} - the Exception Address
 Register.
 
@@ -365,8 +365,8 @@ When the exception routine has completed its processing, it executes a
 Return From Exception, or \src{rfe} instruction. Amongst other things, this
 instruction causes a jump to the address contained in \reg{ear}.
 
-In some circumstances an exception routine may wish to know the address at
-which the exception was invoked, or may wish to alter the address to which
+In some circumstances, an exception routine may wish to know the address at
+which the exception was invoked or may wish to alter the address to which
 the \src{rfe} will return. This can be achieved by inspecting and/or modifying
 the contents of the \reg{ear}.
 
@@ -384,9 +384,9 @@ Register (\reg{ers}) when an exception occurs. The opposite of this happens
 when an \src{rfe} instruction is executed - \reg{ers} is copied into
 \reg{13}.
 
-This means that exception handler code must only change \reg{13}.  If
+This means that the exception handler code must only change \reg{13}. If
 it needs other registers it must save their contents before using
-them.  They must then be restored before returning to the main
+them. They must then be restored before returning to the main
 program.
 
 \section{User Interrupt Button}
@@ -399,7 +399,7 @@ interrupt is unmasked and the global interrupt enable is turned on in
 \src{\$cctrl} an exception will occur.
 
 This button provides a simple way to test an exception handler as it
-avoids problems that could be caused by mis-configuration of the I/O
+avoids problems that could be caused by misconfiguration of the I/O
 device that is being used to provide the exception.
 
 Like all other WRAMP interrupt sources the user interrupt button needs
@@ -421,17 +421,17 @@ The first thing that you will need when writing your first handler is a
 simple program that will run as the main loop of your code. You use this to
 ensure that the exception routine is returning to your original code
 correctly. A program which reads the value on the switches and writes this
-to the seven segment display is ideal. Obviously you should do this in a
+to the seven segment display is ideal. Obviously, you should do this in a
 polled fashion.
 
-Next you should write a very simple piece of code that will constitute
+Next, you should write a very simple piece of code that will constitute
 your exception handler. A suggested program is one which writes a
 single character to a serial port. As this code will eventually be run
 from inside your exception handler it must transmit this character
 using polled I/O.
 
 Test that both of these pieces of code work in a normal environment with no
-exceptions. Also ensure that the code which will act as your exception
+exceptions. Also, ensure that the code which will act as your exception
 handler makes use only of \reg{13}.
 
 The next step is to actually enable an interrupt and get the handler
@@ -453,7 +453,7 @@ takes a number of smaller steps:
 \item Disable all interrupts.
 \item Enable the interrupt you wish to use (IRQ1) and set the global
 interrupt enable to `\src{1}'. Be careful that you do not alter any
-other locations in this register besides the ones specified.
+other locations in this register except for the ones specified.
 \item Store this value back into \src{\$cctrl}.
 \end{itemize}
 \end{itemize}
@@ -468,9 +468,9 @@ code so that it checks for the correct interrupt. If you are using the
 user interrupt button you should make sure the code checks that only
 IRQ1 is high.
 
-Next you must remember to acknowledge the interrupt. If you do not
+Next, you must remember to acknowledge the interrupt. If you do not
 acknowledge the interrupt then as soon as your exception routine exits
-it will be instantly called again. This means you code will be stuck
+it will be instantly called again. This means your code will be stuck
 in an infinite loop, probably printing character after character to
 the serial port.
 
@@ -504,7 +504,7 @@ simple. The CPU does the following:
 \item Set the program counter to the contents of \reg{evec}
 \end{itemize}
 
-At this point the next instruction is fetched. This instruction is the
+At this point, the next instruction is fetched. This instruction is the
 first instruction of the exception handler and therefore the handler
 is now running.
 
@@ -525,10 +525,10 @@ normally be restored to the value they had when the exception occurred.
 
 \section{Compliant Exception Routine}
 
-The exception proceedure above provides a mechanism whereby an exception routine
+The exception procedure above provides a mechanism whereby an exception routine
 can run when an exception occurs and restore control to the main program without
-affecting its operation.  In this way an exception routine can be general
-purpose to be used during the operation of any program.  Such a routine should:
+affecting its operation. In this way, an exception routine can be general
+purpose to be used during the operation of any program. Such a routine should:
 
 \begin{itemize}
 \item Only use\reg{13} freely
@@ -536,10 +536,10 @@ purpose to be used during the operation of any program.  Such a routine should:
 \item Restore the saved contents of any other register before finishing
 \item Ensure that the contents of the OIE bit, the OKU bit, \reg{ers} and
 \reg{ear} are not modified
-\item Finish with an \src{rfe}  instruction.
+\item Finish with an \src{rfe} instruction.
 \end{itemize}
 
-In addition any new exception routine that is installed must:
+In addition, any new exception routine that is installed must:
 
 \begin{itemize}
 \item Save the address of the system exception handler
@@ -552,10 +552,11 @@ with the WRAMP conventions.
 
 \section{Other Special Registers}
 
-Although there are 16 special registers, the assembler requires they are called by name of which only 9 are named.
-The five exception related registers mentioned at the start of this chapter and four more disscussed here.  
-These four registers are not needed for normal use.
-These are:
+Although there are 16 special registers, the assembler requires they
+are called by name. However, only 9 of them are named, while the rest go unused.
+The five exception related registers have been described in this chapter,
+while the other four are not generally needed for normal use. They are described
+below. These are:
 
 \begin{itemize}
 \item \reg{icount} - CPU Instruction count Register
@@ -587,7 +588,7 @@ The \reg{ptable} register specifies the location of the protected memory table,
 which is 32 words in size.Each word represents \src{32,768} (\src{0x8000}) memory
 locations, and each bit represents \src{1,024} (\src{0x400}) memory locations.
 If the bit is zero then the associated memory location is protected and cannot 
-be accessed in user mode.A GPF will be thrown if this is attempted.
+be accessed in user mode. A GPF will be thrown if this is attempted.
 During the setup stage of WRAMPmon, the protection table will be initialized 
 above the stack and set so that all memory is accessible.
 
@@ -600,16 +601,9 @@ would cause a GPF if accessed in user mode.
 
 The \reg{rbase} register was intended to be used to create virtual memory 
 functionality.
-However this was never fully implemented, its value is simply added to the 
-address of any memory access. WRAMPmon and many instructions do not account 
+However, this was never fully implemented and its value is simply added to the
+address of any memory access. WRAMPmon and many instructions do not account
 for this. Thus modifying the \reg{rbase} register will break any instruction 
 involving memory (including fetching new instructions to execute) and it is 
 highly advised that this register is not touched.
-
-
-
-
-
-
-
 
