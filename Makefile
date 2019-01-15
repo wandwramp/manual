@@ -1,5 +1,5 @@
 GRAPHICSPATH=./global/graphics
-GRAPHICSFILES=$(wildcard $(GRAPHICSPATH)/*.eps) $(wildcard $(GRAPHICSPATH)/pdf/*.pdf)
+GRAPHICSFILES=$(wildcard $(GRAPHICSPATH)/*.pdf)
 STYPATH=./global
 STYFILES=$(wildcard $(STYPATH)/*.sty)
 
@@ -44,8 +44,8 @@ $(BOOKNAME) $(INSNNAME):
 		-pdflatex="pdflatex -interaction=nonstopmode --shell-escape" \
 		$(notdir $<)
 	@echo -- Cleaning up intermediate files....
-	@rm -f $(patsubst %.eps,%-eps-converted-to.pdf,$(addprefix $(BUILDDIR)/,$(notdir $(GRAPHICSFILES))))
-	@rm -f $(BUILDDIR)/*.tex $(BUILDDIR)/*.eps $(BUILDDIR)/*.sty
+	@rm -f $(addprefix $(BUILDDIR)/,$(notdir $(GRAPHICSFILES)))
+	@rm -f $(BUILDDIR)/*.tex $(BUILDDIR)/*.sty
 
 clean:
 	rm -rf $(BUILDDIR)/*
