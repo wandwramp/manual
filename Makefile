@@ -42,19 +42,10 @@ $(BOOKNAME) $(INSNNAME):
 	latexmk \
 		-pdf \
 		-pdflatex="pdflatex -interaction=nonstopmode" \
-		-use-make\
 		$(notdir $<)
 	@echo -- Cleaning up intermediate files....
 	@rm -f $(patsubst %.eps,%-eps-converted-to.pdf,$(addprefix $(BUILDDIR)/,$(notdir $(GRAPHICSFILES))))
 	@rm -f $(BUILDDIR)/*.tex $(BUILDDIR)/*.eps $(BUILDDIR)/*.sty
-
-.PHONY : eps
-eps :	$(EPS)	
-
-global/graphics/%.eps : global/graphics/src/%.fig
-	fig2dev -L eps $< $@
-
-
 
 clean:
 	rm -rf $(BUILDDIR)/*

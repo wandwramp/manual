@@ -16,7 +16,7 @@ The \BI{Central Processing Unit} (\BI{CPU}) is responsible for carrying out
 instructions.
 CPUs have developed at an astounding rate. From the humble Z80 to the 386, and
 beyond the GHz barrier. But as the speed increases, so does
-the complexity. Due to this complexity, it is difficult learning to program
+the complexity. Due to this complexity, it is difficult to learn to program
 at a low level. 
 
 The WRAMP CPU was designed to solve this problem. It is much easier to 
@@ -166,7 +166,8 @@ As you read through the source file look for the following:
 the same way as \src{//} comments in C and are ignored by the assembler.
 %
 \item[labels] such as \src{main:} are used to refer to a location in the
-memory. This may be used to move execution to a different area of code or to refer to data in the memory.
+memory. This may be used to move execution to a different area of code or
+to refer to data in the memory.
 %
 \item[directives] are commands beginning with a period (\src{.}). They
 pass information to the assembler.
@@ -267,7 +268,8 @@ However, we do not want to expose all the labels in a file.
 Only labels declared as global (using the \Global directive) are
 accessible outside the current file.
 
-In the example program, we have declared the `entry point' \src{main} as global. To do this we used the following directive:
+In the example program, we have declared the `entry point' \src{main}
+as global. To do this we used the following directive:
 \begin{verbatim}
    .global main
 \end{verbatim}
@@ -464,7 +466,9 @@ There are four different varieties:
 Jumps to the specified label.
 
 \src{jal label} - Jump and link\\*
-Stores the address of the next instruction into the return address register \reg{ra}. It then jumps to the specified label. This is used when calling subroutines.
+Stores the address of the next instruction into the return address register
+\reg{ra}. It then jumps to the specified label. This is used when calling
+subroutines.
 
 \src{jr \regs} - Jump Register\\*
 Jumps to the location specified by the contents of the register \regs.
@@ -488,25 +492,10 @@ For example the `branch if not equal to zero' command
 \src{bnez \reg{1}, loop} will branch to label \src{loop} if
 \reg{1} is non-zero.
 
-\begin{comment}
-\subsection{I/O Routines}
-
-In the example program you will see we have used the routines
-\src{putstr}, \src{readnum} and \src{writenum} to perfrom input
-and output. These routines are in the file \LIBEXTWO, which we will 
-\BI{link} to. Here is an overview of the routines:
-\begin{description}
-\item[\src{putstr}] is used to write a string to the Linux machine. Put the
-address of the string into register \reg{2}.
-\item[\src{readnum}] reads a number from the Linux machine, leaving it in
-register \reg{1}.
-\item[\src{writenum}] will write the number in register \reg{2} to the 
-Linux machine.
-\end{description}
-\end{comment}
-
 \subsection{Assembling and Linking}
-Before we can execute our program on the Basys board we need to translate it into machine code, so that the WRAMP CPU can understand it. This is a two-step process.
+Before we can execute our program on the Basys board we need to
+translate it into machine code, so that the WRAMP CPU can understand it.
+This is a two-step process.
 
 \subsubsection{Assembly}
 First, we have to \BI{assemble} the source code using a program
@@ -588,12 +577,12 @@ directly to the board, and displays any text received from WRAMP.
 
 To execute the terminal program type \src{remote} from a console.
 Once you have \src{remote} running you will need to reset the
-board by pressing the \src{RESET} button, the \src{RESET} button is the top button in the group of 5. 
+board by pressing the \src{RESET} button, the \src{RESET} button is the
+top button in the group of 5. 
 You should see something like Figure \ref{wrampmon}.
 
 \begin{figure}[h]
 \begin{center}
-%\begin{footnotesize}
 \begin{tabular}{|p{15cm}|}
 \hline
 \begin{verbatim}
@@ -647,7 +636,8 @@ into load mode, type the following command (then press enter) at the
    load
 \end{verbatim}
 
-After hitting return there should be a reminder response from the board indicating how to send an executable file. To send the executable type:
+After hitting return there should be a reminder response from the board
+indicating how to send an executable file. To send the executable type:
 
 \verb|   <ctrl>-a| and then \verb|s|
 
@@ -678,12 +668,15 @@ Now that the program has been uploaded, you can run it by typing the command:
 \end{verbatim}
 
 This will start executing your program from the entry point defined by the 
-\src{main} label. The program will prompt you to enter four numbers. You should continue to type a number and hit enter until the program outputs the resulting
-sum. The output of your program should appear on your screen. When the \WRAMPmon\
-prompt appears again it indicates that your program has finished executing.
+\src{main} label. The program will prompt you to enter four numbers. You
+should continue to type a number and hit enter until the program outputs the
+resulting sum. The output of your program should appear on your screen. When
+the \WRAMPmon\ prompt appears again it indicates that your program has finished
+executing.
 
 \subsection{Debugging your Program}
-The program that you have just run on the Basys board should have read four numbers from the keyboard and output their sum to the terminal. However, when
+The program that you have just run on the Basys board should have read four
+numbers from the keyboard and output their sum to the terminal. However, when
 run, only three numbers are read before their sum is output.
 
 In this section of the exercise, you are going to use the debugging 

@@ -4,7 +4,7 @@ Modern processors can execute millions of instructions each
 second. This means that when a processor is polling an I/O device for
 data or status information which may only change very infrequently, it
 is wasting a lot of time where it could be doing some worthwhile
-processing.  It would be more efficient for a device to signal the CPU
+processing. It would be more efficient for a device to signal the CPU
 when something happens (eg. a character is received at the serial
 port, the user flicks a switch, or a certain time has elapsed).
 
@@ -35,9 +35,9 @@ executed)
 is encountered)
 \end{itemize}
 
-WRAMP provides eight external interrupts. The external interrupts are 
-simply wires coming into the processor, and so can be connected to any 
-devices.  These are called IRQ0 (for Interrupt ReQuest) to IRQ7. On the 
+WRAMP provides eight external interrupts. The external interrupts are
+simply wires coming into the processor, and so can be connected to any
+devices. These are called IRQ0 (for Interrupt ReQuest) to IRQ7. On the
 Basys board these are connected as follows:
 
 \begin{center}
@@ -57,9 +57,10 @@ Basys board these are connected as follows:
 \end{tabular}
 \end{center}
 
-Exceptions can be thought of as similar to subroutine calls. The processor is executing a block of code when an exception occurs,
+Exceptions can be thought of as similar to subroutine calls. The
+processor is executing a block of code when an exception occurs,
 causing the processor to jump to a location called the `exception
-vector'.  The processor then executes the code at this location (known
+vector'. The processor then executes the code at this location (known
 as the `exception handler' or `exception routine'), and returns to the
 point at which it was executing when the exception occurred.
 
@@ -262,20 +263,20 @@ Arithmetic Exception & 15 \\
         # Get the status register
         movsg   $13, $estat
 
-        # Inspect only the bits we are interested in. We want 
-        # to check that no bits from the sw exceptions or 
-        # hardware exceptions, other than the one we were 
+        # Inspect only the bits we are interested in. We want
+        # to check that no bits from the sw exceptions or
+        # hardware exceptions, other than the one we were
         # expecting, are enabled.
         #
         # This code is looking for an IRQ4 interrupt.
         andi    $13, $13, 0xfef0
          
-        # If the result of this is zero then no other 
+        # If the result of this is zero then no other
         # exceptions are enabled so it must be our interrupt
         # that caused us to be called.
         beqz    $13, handle_interrupt 
 
-        # Otherwise there was another exception that has 
+        # Otherwise there was another exception that has
         # occurred, so call the old handler
         lw      $13, old_vector($0)
         jr      $13
@@ -355,7 +356,7 @@ exception vector is given in Figure~\ref{code:evec}.
 \subsection{\$ear - Exception Address Register}
 
 An exception routine must be able to return to the point in program code at
-which the exception occurred.  To allow this, when an exception occurs the
+which the exception occurred. To allow this, when an exception occurs the
 WRAMP processor automatically saves the address of the next instruction
 that would have been executed into \reg{ear} - the Exception Address
 Register.
@@ -383,9 +384,9 @@ Register (\reg{ers}) when an exception occurs. The opposite of this happens
 when an \src{rfe} instruction is executed - \reg{ers} is copied into
 \reg{13}.
 
-This means that the exception handler code must only change \reg{13}.  If
+This means that the exception handler code must only change \reg{13}. If
 it needs other registers it must save their contents before using
-them.  They must then be restored before returning to the main
+them. They must then be restored before returning to the main
 program.
 
 \section{User Interrupt Button}
@@ -452,7 +453,7 @@ takes a number of smaller steps:
 \item Disable all interrupts.
 \item Enable the interrupt you wish to use (IRQ1) and set the global
 interrupt enable to `\src{1}'. Be careful that you do not alter any
-other locations in this register beside the ones specified.
+other locations in this register except for the ones specified.
 \item Store this value back into \src{\$cctrl}.
 \end{itemize}
 \end{itemize}
@@ -526,8 +527,8 @@ normally be restored to the value they had when the exception occurred.
 
 The exception procedure above provides a mechanism whereby an exception routine
 can run when an exception occurs and restore control to the main program without
-affecting its operation.  In this way, an exception routine can be general
-purpose to be used during the operation of any program.  Such a routine should:
+affecting its operation. In this way, an exception routine can be general
+purpose to be used during the operation of any program. Such a routine should:
 
 \begin{itemize}
 \item Only use\reg{13} freely
@@ -535,7 +536,7 @@ purpose to be used during the operation of any program.  Such a routine should:
 \item Restore the saved contents of any other register before finishing
 \item Ensure that the contents of the OIE bit, the OKU bit, \reg{ers} and
 \reg{ear} are not modified
-\item Finish with an \src{rfe}  instruction.
+\item Finish with an \src{rfe} instruction.
 \end{itemize}
 
 In addition, any new exception routine that is installed must:
@@ -551,10 +552,11 @@ with the WRAMP conventions.
 
 \section{Other Special Registers}
 
-Although there are 16 special registers, the assembler requires they are called by name of which only 9 are named.
-The five exception related registers mentioned at the start of this chapter and four more discussed here.  
-These four registers are not needed for normal use.
-These are:
+Although there are 16 special registers, the assembler requires they
+are called by name. However, only 9 of them are named, while the rest go unused.
+The five exception related registers have been described in this chapter,
+while the other four are not generally needed for normal use. They are described
+below. These are:
 
 \begin{itemize}
 \item \reg{icount} - CPU Instruction count Register
@@ -599,16 +601,9 @@ would cause a GPF if accessed in user mode.
 
 The \reg{rbase} register was intended to be used to create virtual memory 
 functionality.
-However this was never fully implemented, its value is simply added to the
+However, this was never fully implemented and its value is simply added to the
 address of any memory access. WRAMPmon and many instructions do not account
 for this. Thus modifying the \reg{rbase} register will break any instruction 
 involving memory (including fetching new instructions to execute) and it is 
 highly advised that this register is not touched.
-
-
-
-
-
-
-
 
