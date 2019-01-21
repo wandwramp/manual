@@ -1,0 +1,162 @@
+\setcounter{secnumdepth}{0}
+
+\section{\wasm\ and \wlink}
+
+\wasm\ and \wlink\ are the \BI{assembler} and \BI{linker} for WRAMP code,
+respectively. \wasm\ receives a file containing WRAMP assembly code and
+outputs an object file, while \wlink\ receives a set of object files
+and outputs a linked program, in the Motorola S-record file format which
+\WRAMPmon\ can receive.
+
+An additional program, named \trim, can be used to convert an S-record
+into a \filename{.mem} file, which can be used in the Xilinx Vivado Design
+Suite when developing \WRAMPmon\ itself. \trim\ does not need to be
+used for general WRAMP development, but is documented here for completeness.
+
+This section details the usage and capabilities of these programs, as well as
+some information on the file formats themselves.
+
+\subsection{Command Line Usage}
+
+The basic usage of each tool is quite simple. With the programs accessible by
+a command line, their help notes can be seen by simply running them with no
+arguments, such as in the following examples.
+
+\begin{verbatim}
+     $ wasm
+     USAGE: wasm [-o output] file
+     $ wlink
+     USAGE: wlink [-Ttext address] [-Tdata address] [-[T|E]bss address] [-v] 
+            [-o output] file1 file2 ...
+\end{verbatim}
+
+It can be seen that \wasm\ takes a single filename for a file containing
+WRAMP assembly as a command-line argument, and will optionally accept a
+\src{-o output} parameter, which allows you to specify an output file. By 
+efault, the output file will be created in the same directory as the input
+file and given the same name, but with the file extension replaced with
+\filename{.o}. The convention is for WRAMP assembly files to be given the
+\filename{.s} or \filename{.S} extension.
+
+\wlink\ can accept more complicated arguments, but the basic usage is
+the same as for \wasm. The optional \src{-o output} parameter will set
+the output file in the same fashion as \wasm, but the file extension will
+become \filename{.srec}. The rest of the arguments are considered input files,
+which should all be object files as created by \wasm.
+
+If \wlink\ is given a \src{-Ttext}, \src{-Tdata}, or \src{-[T|E]bss} argument, 
+it will place the \BI{top} of the given segment at the address specified. For
+example, if \src{-Ttext 0x10} is given, the first instruction in the
+\src{.text} segment will be at address 0x10. The same applies for the
+\src{.data} segment, and the \src{.bss} segment if \src{-Tbss} is given. If
+\src{-Ebss} is given instead, the \src{.bss} segment will \BI{end} at the
+address specified.
+
+Finally, \wlink\ supports a \src{-v}, or \BI{verbose} option. Including this
+option makes \wlink\ output additional information about the resulting
+\filename{.srec} file. An example of a simple program that sets the values
+of the LEDs and seven-segment displays to the state of the switches is shown
+in Figure \ref{wlink-output}.
+
+\wlink\ first prints a disassembly of the \src{.text} segment of the entire
+program, after reordering the \src{.text} segments from each input file in the
+order they were given on the command line. Each file has a separate header
+specifying what address that segment begins at in the final program. The
+disassembly is given, making it more easy to see which instruction ended up
+where. This is useful when combined with \WRAMPmon's debugging commands,
+detailed in Section \ref{intro:debugging}.
+
+A display of the \src{.data} segments follows. This is a simple list of any
+information placed in that section of each file, in the form it will appear
+in memory. The example above shows the string \src{Hello!}. Finally, the
+size of each file's \src{.bss} segment is displayed, followed by a summary
+of each segment.
+
+\begin{figure}[btp]
+\begin{center}
+\begin{tabular}{|p{15cm}|}
+\hline
+\begin{verbatim}
+     $ wlink -v -o four-sevensegs.srec four-sevensegs.o
+     file `four-sevensegs.o', starting : 0x00000, .text
+     0x00000 : 81073000    lw	$1,0x73000($0)
+     0x00001 : 9107300a    sw	$1,0x7300a($0)
+     0x00002 : 121bf000    andi	$2,$1,0xf000
+     0x00003 : 122c000c    srli	$2,$2,0x000c
+     0x00004 : 131b0f00    andi	$3,$1,0x0f00
+     0x00005 : 133c0008    srli	$3,$3,0x0008
+     0x00006 : 141b00f0    andi	$4,$1,0x00f0
+     0x00007 : 144c0004    srli	$4,$4,0x0004
+     0x00008 : 151b000f    andi	$5,$1,0x000f
+     0x00009 : 1a000001    addi	$10,$0,0x0001
+     0x0000a : 9a073004    sw	$10,0x73004($0)
+     0x0000b : 92073006    sw	$2,0x73006($0)
+     0x0000c : 93073007    sw	$3,0x73007($0)
+     0x0000d : 94073008    sw	$4,0x73008($0)
+     0x0000e : 95073009    sw	$5,0x73009($0)
+     0x0000f : 40000000    j	0x00000
+     
+     file `four-sevensegs.o', starting : 0x00010, .data
+     0x00010 : 00000048    
+     0x00011 : 00000065    
+     0x00012 : 0000006c    
+     0x00013 : 0000006c    
+     0x00014 : 0000006f    
+     0x00015 : 00000021    
+     0x00016 : 00000000    
+
+     file `four-sevensegs.o', starting : 0x00010, .bss : 0 words.
+
+     entry point : 0x00000
+     .text segment size = 0x00000010
+     .data segment size = 0x00000007
+     .bss segment size = 0x00000000
+\end{verbatim}
+\\
+\hline
+\end{tabular}
+\end{center}
+\caption{Example \wlink\ output for a simple program}
+\label{wlink-output}
+\end{figure}
+
+\trim\ takes the same arguments as \wasm, but the input should be an
+\src{.srec} file such as one generated by \wlink, and the output will default
+to the \src{.mem} file extension.
+
+\section{WRAMP File Formats}
+
+There are three file formats which are used for all development of WRAMP
+programs: \filename{.s}, \filename{.o}, and \filename{.srec}.
+A \filename{.s} file contains WRAMP assembly source code, and is assembled into
+a \filename{.o} \BI{object file}. One or several object files can be linked by
+\wlink\ into an \filename{.srec} file, ready to be loaded into \WRAMPmon.
+
+For projects containing mixed C and assembly code, it may be useful to follow
+a slightly different convention. One such convention (used in the \WRAMPmon\ 
+source code) is that assembly and object files which are not generated by a
+tool, but are instead written or hand-picked by the user have a capitalised
+file extension (\filename{.S} or \filename{.O}). This makes it clear which
+files can be safely deleted, such as in a Makefile's \src{make clean} target.
+
+\subsection{\wobj\ and \wdis}
+
+Two tools exist which are able to inspect object and S-Record files: \wobj\
+and \wdis. They should each be provided a single file of the correct format as
+a command line argument.
+
+\wobj\ will provide some details about object files, presented in a readable
+format. The first section shows the \BI{symbol table}, which is a listing of
+all global or undefined labels found in the source file. This could, for
+example, be used to discover what functions a pre-assembled library offers.
+
+The second section is the \BI{relocation table}, which shows where certain
+parts of instructions will be replaced with other properties, such as the
+address of a label. This will not show any unresolved labels.
+
+Finally, a disassembly of the \src{.text} segment is displayed, in a similar
+fashion to the disassemblies offered by \wlink\ and \WRAMPmon.
+
+\wdis\ is able to disassemble an \filename{.srec} file. Its output is also
+comparable to that of \wlink\ and \WRAMPmon.
+

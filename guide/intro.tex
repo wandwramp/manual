@@ -79,7 +79,7 @@ section \ref{intro:wrampmon}.
 %
 % SECTION - Assembly
 %
-\section{Introduction to the WRAMP Assembly Language}
+\section{The WRAMP Assembly Language}
 %
 To help you get started we will begin by analysing, assembling,
 executing and debugging a simple WRAMP assembly language program.
@@ -196,6 +196,13 @@ The example code in figure \ref{simple_prog} has labels \src{main},
 \src{loop}, \src{welcome\_msg}, \src{output\_msg}. The labels
 \src{main} and \src{loop} refer to locations within the code. The
 labels \src{welcome\_msg} and \src{output\_msg} refer to data.
+
+In addition to any labels declared by the user, three special labels
+can be used: \src{text\_size}, \src{data\_size}, and \src{bss\_size}.
+These labels will resolve to the size of each section of the program:
+for example, \src{text\_size} will usually be the number of instructions
+in the \src{.text} section, and will also point to the start of the
+\src{.data} section. These sections are discussed below.
 
 \subsection{Directives}
 Directives (commands preceded by a \src{.}) do not become part of the
@@ -391,11 +398,20 @@ then stores it back into the memory.
 \src{lw \regd, base(\regs)}\\*
 Used to get the contents of the specified memory location and place it 
 in the register \regd.
-\\
 
 \src{sw \regd, base(\regs)}\\*
 Will place the contents of \regd\ into the specified memory location.
-\\
+
+As well as the \src{base}, a constant offset can also be provided to
+\src{lw} and \src{sw} instructions:
+
+\src{lw \regd, base+1(\regs)}\\*
+This will load from the address directly after the one pointed to by
+\src{base}. A negative offset can also be provided, such as \src{base-1}.
+This allows a user to do things like indexing directly to a constant
+offset in an array. Care must be taken to not provide an offset that
+points to an unexpected memory location, especially when using negative
+offsets.
 
 \begin{figure}[btp]
 \begin{center}
@@ -434,7 +450,6 @@ counter:
 Sometimes you will need to know the address of a variable. The 
 instruction `load address' ( \src{la} ) is used for this. It has the 
 structure:
-\\*
 
 \src{la \regd, label} \\*
 Load the address that \src{label} refers to into register \regd.
@@ -495,6 +510,9 @@ For example the `branch if not equal to zero' command
 Before we can execute our program on the Basys board we need to
 translate it into machine code, so that the WRAMP CPU can understand it.
 This is a two-step process.
+
+Please see Appendix \ref{appendix:wasm-wlink} for additional details
+on the usage of these tools, as well as some supplementary tools.
 
 \subsubsection{Assembly}
 First, we have to \BI{assemble} the source code using a program
@@ -673,6 +691,7 @@ the \WRAMPmon\ prompt appears again it indicates that your program has finished
 executing.
 
 \subsection{Debugging your Program}
+\label{intro:debugging}
 The program that you have just run on the Basys board should have read four
 numbers from the keyboard and output their sum to the terminal. However, when
 run, only three numbers are read before their sum is output.
