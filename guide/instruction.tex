@@ -2,14 +2,12 @@
 
 \section{WRAMP General Purpose Registers}
 
-\begin{small}
 The WRAMP general purpose register file consists of 16 registers, each
 being 32 bits wide. The hardware imposes special uses on only two of
 these. Certain software register use conventions have been applied to
 some of the remaining registers, but in essence, they remain true
 general purpose registers, as the hardware does not restrict their
 use.
-\end{small}
 
 \vspace{-4ex}
 \begin{figure}[h]
@@ -18,12 +16,12 @@ use.
 \multicolumn{1}{@{}p{4ex}}{}
 & \multicolumn{1}{@{}p{50ex}}{}\\
 \hline
-Register &Description\\
+Register                        & Description\\
 \hline
-\texttt{\$0} & Hardwired zero\\
-\texttt{\$1} - \texttt{\$13} & General purpose registers\\
-\texttt{\$sp} & Stack pointer\\
-\texttt{\$ra} & Return address register\\
+\texttt{\$0}                    & Hardwired zero\\
+\texttt{\$1} - \texttt{\$13}    & General purpose registers\\
+\texttt{\$sp}                   & Stack pointer\\
+\texttt{\$ra}                   & Return address register\\
 \hline
 \end{tabular}
 \end{center}
@@ -31,7 +29,6 @@ Register &Description\\
 \label{wramp_regs}
 \end{figure}
 
-\begin{small}
 Register zero (denoted \texttt{\$0}) always contains the value
 zero. Any writes to this register have the value discarded. This
 provides a constant source of zero that can be used for comparing and
@@ -49,10 +46,8 @@ instruction is executed this register is loaded with the address of
 the next instruction after the jump and link. A return from subroutine
 is performed by executing a jump to register \texttt{\$ra},
 ie. \texttt{jr \$ra}.
-\end{small}
 
 \section{WRAMP Instruction Set Architecture}
-\begin{small}
 This section contains the details of the WRAMP instruction set. All
 machine instructions are listed, with their encoding and a brief
 description of their function. The instructions are grouped into
@@ -60,9 +55,8 @@ arithmetic instructions, bitwise instructions, test instructions,
 branch instructions, memory instructions, and special instructions.
 
 Each CPU instruction is a word (32 bits) in length. An instruction is
-encoded in one of the three formats shown in figure
+encoded in one of the three formats shown in Figure
 \ref{insn_encoding_formats}.
-\end{small}
 
 \newpage
 % This is the table with the three instruction encoding formats
@@ -78,8 +72,8 @@ encoded in one of the three formats shown in figure
 xxxx\=field name xxxxxxxx\=description \kill
 \>\texttt{OPCode}\>4 bit operation code\\
 \>\texttt{\regd{}}\>4 bit destination register specifier\\
-\>\texttt{\regs{}}\>4 bit source register specifier\\
-\>\texttt{\regt{}}\>4 bit source register specifier\\
+\>\texttt{\regs{}}\>4 bit source register specifier (first source register)\\
+\>\texttt{\regt{}}\>4 bit source register specifier (second source register)\\
 \>\texttt{Func}\>4 bit function specifier\\
 \>\texttt{Immediate}\>16 bit immediate field\\
 \>\texttt{Address / Offset}\>20 bit absolute or relative address field

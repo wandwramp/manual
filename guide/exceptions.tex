@@ -585,7 +585,7 @@ execute, and that kernel/user mode can also change the number of cycles per inst
 \label{sec:MPU}
 
 The \reg{ptable} register specifies the location of the protected memory table, 
-which is 32 words in size.Each word represents \src{32,768} (\src{0x8000}) memory
+which is 32 words in size. Each word represents \src{32,768} (\src{0x8000}) memory
 locations, and each bit represents \src{1,024} (\src{0x400}) memory locations.
 If the bit is zero then the associated memory location is protected and cannot 
 be accessed in user mode. A GPF will be thrown if this is attempted.

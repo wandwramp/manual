@@ -190,7 +190,8 @@ code. They can then be used as a destination for branch and jump
 instructions.
 
 A label declaration consists of a name (containing no spaces) followed
-by a colon (\src{:}).
+by a colon (\src{:}). A label name can include alphanumeric characters,
+underscores (\src{\_}), and periods (\src{.}).
 
 The example code in figure \ref{simple_prog} has labels \src{main},
 \src{loop}, \src{welcome\_msg}, \src{output\_msg}. The labels
@@ -264,9 +265,68 @@ the ASCII string \src{"str"} without NULL terminating.
 of size \src{n} in the \bss section.
 
 \end{description}
+
 The \ascii and \asciiz directives cannot be used in the \bss section
 as they initialise the space they reserve. The \word directive may be
 used as long as it is not provided with an argument.
+
+Any string or character literal can include some special characters which
+are otherwise difficult to type. The following is a list of the valid
+escape sequences and their uses.
+
+\begin{description}
+
+\item[\src{\textbackslash r}] is the `carriage return' character, which moves
+the cursor back to the start of the current row.
+
+\item[\src{\textbackslash n}] represents the `newline' character, which moves the
+cursor down one row. If combined with a carriage return, like
+\src{"\textbackslash r\textbackslash n"}, the cursor moves to the beginning of the next line.
+
+\item[\src{\textbackslash t}] is a tab character. When this is printed directly to
+the serial port, the cursor will move to the next point in the current
+row whose index is a multiple of 8. This is similar to setting the
+tab width to 8 in any common text editor.
+
+\item[\src{\textbackslash a}] is the bell character. Printing this character
+will cause your terminal's bell to ring, which may be audible or visual
+depending on your settings.
+
+\item [\src{\textbackslash\textbackslash}, \src{\textbackslash'},] and
+\src{\textbackslash"} will produce a literal \src{\textbackslash},
+\src{\char13}, and \src{"} respectively.
+
+\item[\src{\textbackslash 0}] allows you to enter arbitrary escape sequences.
+Any numeric characters immediately following this are read as an octal value,
+and the ASCII character code they represent is placed in the string. Note that
+the result will be truncated to 8 bits, and that any 8s or 9s in the sequence
+may produce unexpected behaviour. Many ASCII reference tables, such as
+\src{man 7 ascii}, show octal representations to make writing these easier.
+
+A particularly useful escape sequence is \src{\textbackslash 033}. Printing
+the control sequence \src{"\textbackslash 033[yy;xxH"} will cause the cursor
+to move to the location referenced by \src{yy} and \src{xx} (yy being row
+count, and xx being column count). These numbers are 1-indexed and decimal.
+For example, the following text is printed at the top-left corner of the
+screen:
+
+\begin{verbatim}
+   Hello world!
+\end{verbatim}
+
+To change this to \src{Hello WRAMP!} without reprinting the parts of the string
+which do not need changing, the following sequence could be printed:
+
+\begin{verbatim}
+   \033[01;07HWRAMP
+\end{verbatim}
+
+A selection of other standard VT100 terminal control codes are supported by
+\program{remote}. There is no full list of which of these control codes
+\program{remote} supports, but the list of standard control codes can be found
+online.
+
+\end{description}
 
 \subsubsection{The \Global Directive}
 When linking multiple files, we need to share functions and data.

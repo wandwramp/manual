@@ -35,8 +35,10 @@ WRAMP assembly as a command-line argument, and will optionally accept a
 \src{-o output} parameter, which allows you to specify an output file. By 
 efault, the output file will be created in the same directory as the input
 file and given the same name, but with the file extension replaced with
-\filename{.o}. The convention is for WRAMP assembly files to be given the
-\filename{.s} or \filename{.S} extension.
+\filename{.o} if the name ends with \filename{.s} or \filename{.S}. If it
+ends with something else, \filename{.o} will be appended. As such, the
+convention is for WRAMP assembly files to be given the \filename{.s} or
+\filename{.S} extension.
 
 \wlink\ can accept more complicated arguments, but the basic usage is
 the same as for \wasm. The optional \src{-o output} parameter will set
@@ -154,8 +156,9 @@ The second section is the \BI{relocation table}, which shows where certain
 parts of instructions will be replaced with other properties, such as the
 address of a label. This will not show any unresolved labels.
 
-Finally, a disassembly of the \src{.text} segment is displayed, in a similar
-fashion to the disassemblies offered by \wlink\ and \WRAMPmon.
+Finally, a disassembly of the \src{.text} and \src{.data} segments is
+displayed, in a similar fashion to the disassemblies offered by \wlink\ and
+\WRAMPmon.
 
 \wdis\ is able to disassemble an \filename{.srec} file. Its output is also
 comparable to that of \wlink\ and \WRAMPmon.
