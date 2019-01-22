@@ -42,9 +42,10 @@ convention is for WRAMP assembly files to be given the \filename{.s} or
 
 \wlink\ can accept more complicated arguments, but the basic usage is
 the same as for \wasm. The optional \src{-o output} parameter will set
-the output file in the same fashion as \wasm, but the file extension will
-become \filename{.srec}. The rest of the arguments are considered input files,
-which should all be object files as created by \wasm.
+the output file in the same fashion as \wasm. If omitted, the output file
+will default to being named \filename{link.out} in the current working
+directory. The rest of the arguments are considered input files, which should
+all be object files as created by \wasm.
 
 If \wlink\ is given a \src{-Ttext}, \src{-Tdata}, or \src{-[T|E]bss} argument, 
 it will place the \BI{top} of the given segment at the address specified. For
