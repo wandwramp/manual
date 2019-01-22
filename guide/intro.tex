@@ -270,6 +270,8 @@ The \ascii and \asciiz directives cannot be used in the \bss section
 as they initialise the space they reserve. The \word directive may be
 used as long as it is not provided with an argument.
 
+\subsubsection{Escape Characters}
+
 Any string or character literal can include some special characters which
 are otherwise difficult to type. The following is a list of the valid
 escape sequences and their uses.
@@ -299,9 +301,10 @@ depending on your settings.
 \item[\src{\textbackslash 0}] allows you to enter arbitrary escape sequences.
 Any numeric characters immediately following this are read as an octal value,
 and the ASCII character code they represent is placed in the string. Note that
-the result will be truncated to 8 bits, and that any 8s or 9s in the sequence
-may produce unexpected behaviour. Many ASCII reference tables, such as
-\src{man 7 ascii}, show octal representations to make writing these easier.
+the result will be truncated to the least significant 8 bits, and that any 8s
+or 9s in the sequence may produce unexpected behaviour. Many ASCII reference
+tables, such as \src{man 7 ascii}, show octal representations to make writing
+these easier.
 
 A particularly useful escape sequence is \src{\textbackslash 033}. Printing
 the control sequence \src{"\textbackslash 033[yy;xxH"} will cause the cursor
