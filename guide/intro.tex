@@ -201,9 +201,8 @@ labels \src{welcome\_msg} and \src{output\_msg} refer to data.
 In addition to any labels declared by the user, three special labels
 can be used: \src{text\_size}, \src{data\_size}, and \src{bss\_size}.
 These labels will resolve to the size of each section of the program:
-for example, \src{text\_size} will usually be the number of instructions
-in the \src{.text} section, and will also point to the start of the
-\src{.data} section. These sections are discussed below.
+for example, \src{text\_size} will be the number of instructions
+in the \src{.text} section. These sections are discussed below.
 
 \subsection{Directives}
 Directives (commands preceded by a \src{.}) do not become part of the
@@ -423,6 +422,8 @@ The argument \src{Immediate} is a constant. Thus the specified
 operation is performed on \regs\ and \src{Immediate}, and the result
 placed in \regd. For example \mbox{\src{addi \reg{1}, \reg{2}, 4}} will add
 \src{4}\ to the contents of \reg{2}\ and place the result in \reg{1}.
+Keep in mind that \src{Immediate} is a sign extended 16-bit twos compliment integer,
+meaning the range of numbers is \src{-32,768} to \src{32,767}.
 \\
 
 \src{addu \regd, \regs, \regd} \\* 
@@ -517,6 +518,8 @@ structure:
 \src{la \regd, label} \\*
 Load the address that \src{label} refers to into register \regd.
 This instruction also allows loading of a 20 bit immediate to a register.
+This instruction is also the method used to use the special labels 
+\src{text_size}, \src{bss_size} and \src{data_size}.
 
 \subsubsection{Test Instructions}
 These instructions are used to compare either two registers, or a
