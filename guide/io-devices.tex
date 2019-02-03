@@ -185,7 +185,7 @@ should be written to the appropriate location. If an interrupt has
 occurred it must be acknowledged by writing into the serial interrupt
 acknowledge register.
 
-The \WRAMPmon will initialise the serial port so that no
+The \WRAMPmon\ will initialise the serial port so that no
 interrupts are enabled.
 
 The control register is a read/write register. Writes to this register
@@ -281,7 +281,7 @@ Table~\ref{table:parallel_offsets}. The base address for the parallel
 port is \src{\LOCPARABASE}. Please note that due to the inclusion of
 two more SSDs in the Basys implementation, the original two SSDs can
 be addressed from two locations to allow for both backwards compatibility
-and having all 4 SSDs in sequential addresses.
+and to have all 4 SSDs in sequential addresses.
 
 \begin{table}[h]
 \begin{center}
@@ -426,7 +426,7 @@ sitting above the switches.
 
 \section{Programmable Timer}
 
-The Programmable Timer on the Basys board provides for generation of
+The Programmable Timer on the Basys board allows for the generation of
 interrupts at time intervals from about 1ms to 30s, with a resolution
 of around 0.5ms.
 
