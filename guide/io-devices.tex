@@ -223,6 +223,12 @@ Similarly, the Receive Data Ready bit will be set to `\src{1}' as soon
 as there is new valid data in the receive data register. A read from
 the receive data register automatically clears this bit.
 
+Note that while reading from the receive data register and writing to the
+transmit data register will clear the corresponding bits in the status
+register, they will not acknowledge any interrupts generated. The
+relevant bits in the interrupt acknowledge register must still be
+set to zero.
+
 \begin{figure}[h]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{serial_sr.pdf}
