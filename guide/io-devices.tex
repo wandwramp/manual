@@ -359,14 +359,15 @@ registers contain the value to be displayed on their respective Seven
 Segment Display. 
 
 If the hexadecimal to seven-segment decode bit is enabled in the
-parallel control register, the first four bits of input will be decoded
-into a single hexadecimal digit and displayed on the seven-segment display.
+parallel control register, the least significant four bits of input
+will be decoded into a single hexadecimal digit and displayed on the
+seven-segment display.
 
 If the hexadecimal to seven-segment decode bit is turned off, then
 each segment can be individually controlled by a single bit of the
 input. The displays are made up of seven segments and a decimal point.
-The first eight bits of input turn on the segments as shown in
-Figure~\ref{fig:ssd}.
+The least significant eight bits of input turn on the segments as
+shown in Figure~\ref{fig:ssd}.
 Hex-decode is enabled by default.
 
 \begin{figure}[h]
