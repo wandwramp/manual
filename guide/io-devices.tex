@@ -171,8 +171,8 @@ This register allows line parameters such as serial bit rate to be
 set. The serial ports are configured appropriately by the monitor for
 the setup distributed with \filename{remote} by default. Unless you know
 that you specifically need to change something in this register you
-should leave it as default. Keep in mind that the second serial port
-is configured at 38400 baud, so any terminal emulators used to interact
+should leave it as default. Keep in mind that both serial ports
+are configured at 38400 baud, so any terminal emulators used to interact
 with it should be set as such.
 
 The control register also controls when the serial port will cause an
@@ -185,7 +185,7 @@ should be written to the appropriate location. If an interrupt has
 occurred it must be acknowledged by writing into the serial interrupt
 acknowledge register.
 
-The \WRAMPmon\ will initialise the serial port so that no
+\WRAMPmon\ will initialise the serial port so that no
 interrupts are enabled.
 
 The control register is a read/write register. Writes to this register
@@ -201,9 +201,9 @@ have an immediate effect on the line settings.
 
 \noindent
 eg. To configure a serial interface to operate with no interrupts
-enabled, at 9600 bits per second, with 8 data bits, no parity and 1
-stop bit, the value `\src{00011000101}' would be written to the
-control register.
+enabled, at 38400 bits per second, with 8 data bits, no parity and 1
+stop bit, the value `\src{00011000111}' or `\src{0xC7}' would be
+written to the control register.
 
 \subsection{Serial Status Register}
 
