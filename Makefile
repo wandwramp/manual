@@ -23,6 +23,10 @@ INSNNAME=$(BUILDDIR)/insn.pdf
 INSNFILES=./standalone/insn.tex \
 		  ./guide/instr-small.tex \
 		  ./guide/instruction.tex \
+		  
+CHEATNAME=$(BUILDDIR)/cheatSheet.pdf
+CHEATFILES=./standalone/quick.tex \
+		   ./guide/instr-small.tex \
 
 .PHONY: all clean book insn
 
@@ -30,11 +34,14 @@ all: book insn
 
 book: $(BOOKNAME)
 insn: $(INSNNAME)
+cheat: $(CHEATNAME)
 
 $(BOOKNAME): $(BOOKFILES) $(GRAPHICSFILES) $(STYFILES)
 $(INSNNAME): $(INSNFILES) $(STYFILES)
+$(CHEATNAME): $(CHEATFILES) $(STYFILES)
 
-$(BOOKNAME) $(INSNNAME):
+
+$(BOOKNAME) $(INSNNAME) $(CHEATNAME):
 	@echo -- Copying all source files to build/ folder....
 	@mkdir -p $(BUILDDIR)
 	@cp $^ $(BUILDDIR)
