@@ -45,31 +45,31 @@ INSNNAME=$(BUILDDIR)/insn.pdf
 INSNFILES=./standalone/insn.tex \
 		  ./guide/instr-small.tex \
 		  ./guide/instruction.tex \
-		  
-CHEATNAME=$(BUILDDIR)/cheatSheet.pdf
-CHEATFILES=./standalone/quick.tex \
-		   ./guide/instr-small.tex \
+
+INSNSMALLNAME=$(BUILDDIR)/insn-small.pdf
+INSNSMALLFILES=./standalone/insn-small.tex \
+		  ./guide/instr-small.tex \
 
 
 
 #                   ==== TARGETS AND EXTRA DEPENDENCIES ====
 
 ## Step 3 - Phony target and all dependency
-.PHONY: all clean book insn
+.PHONY: all clean book insn insn-small
 
-all: book insn
+all: book insn insn-small
 
 ## Step 4 - Phony target tie to output filename and graphics/sty dependencies
 book: $(BOOKNAME)
 insn: $(INSNNAME)
-cheat: $(CHEATNAME)
+insn-small: $(INSNSMALLNAME)
 
 $(BOOKNAME): $(BOOKFILES) $(GRAPHICSFILES) $(STYFILES)
 $(INSNNAME): $(INSNFILES) $(STYFILES)
-$(CHEATNAME): $(CHEATFILES) $(STYFILES)
+$(INSNSMALLNAME): $(INSNSMALLFILES) $(STYFILES)
 
 ## Step 5 - How to actually build your output file
-$(BOOKNAME) $(INSNNAME) $(CHEATNAME):
+$(BOOKNAME) $(INSNNAME) $(INSNSMALLNAME):
 	@echo -- Copying all source files to build/ folder....
 	@mkdir -p $(BUILDDIR)
 	@cp $^ $(BUILDDIR)
