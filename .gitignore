@@ -1,3 +1,7 @@
 # Handcrafted for this repo :)
 
 build/
+book/book.log
+book/book.fls
+book/book.fdb_latexmk
+book/book.aux
