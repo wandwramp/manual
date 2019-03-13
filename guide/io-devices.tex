@@ -289,6 +289,10 @@ two more SSDs in the Basys implementation, the original two SSDs can
 be addressed from two locations to allow for both backwards compatibility
 and to have all 4 SSDs in sequential addresses.
 
+Note that while the offset for the Parallel LED Register is 10, addresses
+are usually written in hexadecimal, so its address is usually referred to
+as \src{0x7300A}.
+
 \begin{table}[h]
 \begin{center}
 \begin{tabular}{|l|c|}
@@ -315,7 +319,7 @@ Parallel Lower Left SSD Register & 8 \\
 \hline
 Parallel Lower Right SSD Register & 9 \\
 \hline
-Parallel LED Register & 10 \\
+Parallel LED Register & 10 (0xA) \\
 \hline
 \end{tabular}
 \caption{Parallel Port Register Offsets}
