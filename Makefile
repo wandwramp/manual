@@ -39,7 +39,7 @@ BOOKFILES=./book/book.tex \
 		  ./guide/io-devices.tex \
 		  ./guide/stackguide.tex \
 		  ./guide/wrampmon.tex \
-		  ./guide/wasm-wlink.tex \
+		  ./guide/toolchain.tex \
 
 INSNNAME=$(BUILDDIR)/insn.pdf
 INSNFILES=./standalone/insn.tex \
