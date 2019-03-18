@@ -40,6 +40,7 @@ BOOKFILES=./book/book.tex \
 		  ./guide/stackguide.tex \
 		  ./guide/wrampmon.tex \
 		  ./guide/toolchain.tex \
+		  ./guide/memory-map.tex \
 
 INSNNAME=$(BUILDDIR)/insn.pdf
 INSNFILES=./standalone/insn.tex \
@@ -50,26 +51,32 @@ INSNSMALLNAME=$(BUILDDIR)/insn-small.pdf
 INSNSMALLFILES=./standalone/insn-small.tex \
 		  ./guide/instr-small.tex \
 
+MEMMAPNAME=$(BUILDDIR)/memory-map.pdf
+MEMMAPFILES=./standalone/mem-map.tex \
+		  ./guide/memory-map.tex \
+
 
 
 #                   ==== TARGETS AND EXTRA DEPENDENCIES ====
 
 ## Step 3 - Phony target and all dependency
-.PHONY: all clean book insn insn-small
+.PHONY: all clean book insn insn-small memmap
 
-all: book insn insn-small
+all: book insn insn-small memmap
 
 ## Step 4 - Phony target tie to output filename and graphics/sty dependencies
 book: $(BOOKNAME)
 insn: $(INSNNAME)
 insn-small: $(INSNSMALLNAME)
+memmap: $(MEMMAPNAME)
 
 $(BOOKNAME): $(BOOKFILES) $(GRAPHICSFILES) $(STYFILES)
 $(INSNNAME): $(INSNFILES) $(STYFILES)
 $(INSNSMALLNAME): $(INSNSMALLFILES) $(STYFILES)
+$(MEMMAPNAME): $(MEMMAPFILES) $(STYFILES)
 
 ## Step 5 - How to actually build your output file
-$(BOOKNAME) $(INSNNAME) $(INSNSMALLNAME):
+$(BOOKNAME) $(INSNNAME) $(INSNSMALLNAME) $(MEMMAPNAME):
 	@echo -- Copying all source files to build/ folder....
 	@mkdir -p $(BUILDDIR)
 	@cp $^ $(BUILDDIR)
