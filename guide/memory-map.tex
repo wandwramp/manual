@@ -1,0 +1,79 @@
+Table~\ref{table:serial_offsets_absolute} gives addresses for each of the
+registers used to interact with the first serial port. To use the second
+serial port instead, use 0x71000 and onwards instead.
+
+\begin{table}[h]
+    \begin{center}
+    \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Register name} & \textbf{Address} \\
+    \hline
+    Serial Transmit Data Register & 0x70000 \\
+    \hline
+    Serial Receive Data Register & 0x70001 \\
+    \hline
+    Serial Control Register & 0x70002 \\
+    \hline
+    Serial Status Register & 0x70003 \\
+    \hline
+    Serial Interrupt Acknowledge Register & 0x70004 \\
+    \hline
+    \end{tabular}
+    \caption{Serial Port Register Addresses}
+    \label{table:serial_offsets_absolute}
+    \end{center}
+\end{table}
+
+\begin{table}[h]
+    \begin{center}
+    \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Register name} & \textbf{Address} \\
+    \hline
+    Timer Control Register & 0x72000 \\
+    \hline
+    Timer Load Register & 0x72001 \\
+    \hline
+    Timer Count Register & 0x72002 \\
+    \hline
+    Timer Interrupt Acknowledge Register & 0x72003 \\
+    \hline
+    \end{tabular}
+    \caption{Timer Register Addresses}
+    \label{table:timer_offsets_absolute}
+    \end{center}
+    \end{table}
+
+\begin{table}[h]
+    \begin{center}
+    \begin{tabular}{|l|c|}
+    \hline
+    \textbf{Register name} & \textbf{Address} \\
+    \hline
+    Parallel Switch Register & 0x73000 \\
+    \hline
+    Parallel Push Button Register & 0x73001 \\
+    \hline
+    Parallel Lower Left SSD Register & 0x73002 \\
+    \hline
+    Parallel Lower Right SSD Register & 0x73003 \\
+    \hline
+    Parallel Control Register & 0x73004 \\
+    \hline
+    Parallel Interrupt Acknowledge Register & 0x73005 \\
+    \hline
+    Parallel Upper Left SSD Register & 0x73006 \\
+    \hline
+    Parallel Upper Right SSD Register & 0x73007 \\
+    \hline
+    Parallel Lower Left SSD Register & 0x73008 \\
+    \hline
+    Parallel Lower Right SSD Register & 0x73009 \\
+    \hline
+    Parallel LED Register & 0x7300A \\
+    \hline
+    \end{tabular}
+    \caption{Parallel Port Register Addresses}
+    \label{table:parallel_offsets_absolute}
+    \end{center}
+    \end{table}
