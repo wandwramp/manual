@@ -41,7 +41,7 @@ BOOKFILES=./book/book.tex \
 		  ./guide/wrampmon.tex \
 		  ./guide/toolchain.tex \
 		  ./guide/memory-map.tex \
-		  ./LICENCE.tex \
+		  ./LICENSE.tex \
 
 INSNNAME=$(BUILDDIR)/insn.pdf
 INSNFILES=./standalone/insn.tex \
